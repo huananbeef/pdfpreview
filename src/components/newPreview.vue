@@ -1,22 +1,80 @@
 <template>
     <div>
-        预览的PDF内容丫
+        <div class="contract-modal" id="contractDetail">
+            <div id="mycanvas" ref="mycanvas"></div>
+        </div>
     </div>
 </template>
 <script>
+import pdf from '../../static/newPdf/pdf.js';
 export default {
-    
+    name: 'pdfpreview',
+    data(){
+        return {
+            visible: false
+        }
+    },
+    mounted(){
+            this.visible = true;
+            this.getPdf()
+    },
+    methods: {
+        getPdf(){
+        // 此中方式接受流形式返回
+            this.$refs.mycanvas.scrollTop =0
+        //    let accessToken = cache.get('TOKEN').Authorization
+        //    let url = `${config.baseUrls}/api/fund/v1/contractReports/previewContractContent?access_token=${accessToken}&id=${contractData.id}&contractUrl=${contractData.contractUrl}&.pdf`
+            // let url = 'http://image.cache.timepack.cn/nodejs.pdf'
+            let url = '/static/newPdf/111.pdf'
+            let pdfjsLib = pdf
+            console.log('---pdf---', pdf.PDFJS)
+            pdfjsLib.PDFJS.workerSrc = '/static/newPdf/pdf.worker.js'
+            // pdfjsLib.GlobalWorkerOptions.workerSrc = '/static/newPdf/pdf.worker.js'
+            let loadingTask = pdfjsLib.getDocument(url)
+            loadingTask.promise.then((pdf) =>{
+                let numPages = pdf.numPages
+                let container = document.getElementById('mycanvas')
+                let pageNumber = 1
+                this.getPage(pdf,pageNumber,container,numPages)
+            }, function (reason) {
+                alert(reason)
+            });
+        },
+        getPage (pdf,pageNumber,container,numPages) { //获取pdf
+            let pageRendering = true;
+            let _this = this;
+            pdf.getPage(pageNumber).then((page) => {
+            let scale = (container.offsetWidth/page.view[2])
+            let viewport = page.getViewport(scale)
+            let canvas = document.createElement("canvas")
+            canvas.width= viewport.width
+            canvas.height= viewport.height
+            container.appendChild(canvas)
+            let ctx = canvas.getContext('2d');
+            var renderContext = {
+                canvasContext: ctx,
+                transform: [1, 0, 0, 1, 0, 0],
+                viewport: viewport,
+                intent: 'print'
+            };
+            page.render(renderContext).then(() => {
+                pageNumber +=1
+                if(pageNumber<=numPages) {
+                    _this.getPage(pdf,pageNumber,container,numPages)
+                }
+            })
+        })
+     }
+    }
 }
 </script>
 <style scoped>
     .contract-modal {
         position: absolute;
-        right: 15%;
-        width: 1000px;
-        height: 500px;
+        right: 0;
+        width: 100vw;
+        height: 100vh;
         overflow: scroll;
-        background: rgba(139, 148, 171, 0.7);
-        padding: 20px 0 0;
         z-index: 900;
     }
     .contract-modal .contract-detail {

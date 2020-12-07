@@ -114,6 +114,7 @@
                         viewport: viewport,
                         intent: 'print'
                     };
+                    console.log('---newPage---', page);
                     page.render(renderContext).then(() => {
                         pageNumber +=1
                         if(pageNumber<=numPages) {
@@ -128,7 +129,8 @@
 //                let accessToken = cache.get('TOKEN').Authorization
 //                let url = `${config.baseUrls}/api/fund/v1/contractReports/previewContractContent?access_token=${accessToken}&id=${contractData.id}&contractUrl=${contractData.contractUrl}&.pdf`
                 let url = 'http://image.cache.timepack.cn/nodejs.pdf'
-                let pdfjsLib = pdf
+                let pdfjsLib = pdf;
+                console.log('---pdf---', pdf)
                 pdfjsLib.PDFJS.workerSrc = '/static/pdf/build/pdf.worker.js'
                 let loadingTask = pdfjsLib.getDocument(url)
                 loadingTask.promise.then((pdf) =>{
