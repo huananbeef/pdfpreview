@@ -30,18 +30,21 @@
                      @handleModal="close">
         </md-contract> -->
         <pdfPreview></pdfPreview>
+        <!-- <pdfPreview2></pdfPreview2> -->
     </div>
 </template>
 
 <script>
     import mdContract from './contract.md.vue';
-    import pdfPreview from './newPreview.vue'
+    import pdfPreview from './newPreview.vue';
+    import pdfPreview2 from './newPdfPreview.vue';
 
     export default {
         name: 'page-one',
         components: {
             mdContract,
-            pdfPreview
+            pdfPreview,
+            pdfPreview2
         },
         data() {
             return {
