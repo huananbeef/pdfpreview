@@ -12,10 +12,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+/*
+* 目前默认使用canvas构建
+* 为了精简大小，删掉了原有的SVG构建方式
+*
+*/
 (function webpackUniversalModuleDefinition(root, factory) {
+  // module.exports 类似export default { xxx }
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
+    module.exports = factory();
+    // define -AMD规范;
 	else if(typeof define === 'function' && define.amd)
 		define("pdfjs-dist/build/pdf", [], factory);
 	else if(typeof exports === 'object')
@@ -101,7 +107,8 @@ return /******/ (function(modules) { // webpackBootstrap
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.unreachable = exports.warn = exports.utf8StringToString = exports.stringToUTF8String = exports.stringToPDFString = exports.stringToBytes = exports.string32 = exports.shadow = exports.setVerbosityLevel = exports.ReadableStream = exports.removeNullCharacters = exports.readUint32 = exports.readUint16 = exports.readInt8 = exports.log2 = exports.loadJpegStream = exports.isEvalSupported = exports.isLittleEndian = exports.createValidAbsoluteUrl = exports.isSameOrigin = exports.isNodeJS = exports.isSpace = exports.isString = exports.isNum = exports.isInt = exports.isEmptyObj = exports.isBool = exports.isArrayBuffer = exports.isArray = exports.info = exports.globalScope = exports.getVerbosityLevel = exports.getLookupTableFactory = exports.deprecated = exports.createObjectURL = exports.createPromiseCapability = exports.createBlob = exports.bytesToString = exports.assert = exports.arraysToBytes = exports.arrayByteLength = exports.FormatError = exports.XRefParseException = exports.Util = exports.UnknownErrorException = exports.UnexpectedResponseException = exports.TextRenderingMode = exports.StreamType = exports.StatTimer = exports.PasswordResponses = exports.PasswordException = exports.PageViewport = exports.NotImplementedException = exports.NativeImageDecoding = exports.MissingPDFException = exports.MissingDataException = exports.MessageHandler = exports.InvalidPDFException = exports.AbortException = exports.CMapCompressionType = exports.ImageKind = exports.FontType = exports.AnnotationType = exports.AnnotationFlag = exports.AnnotationFieldFlag = exports.AnnotationBorderStyleType = exports.UNSUPPORTED_FEATURES = exports.VERBOSITY_LEVELS = exports.OPS = exports.IDENTITY_MATRIX = exports.FONT_IDENTITY_MATRIX = undefined;
+// 报错提示 - 初始化
+exports.unreachable = exports.warn = exports.utf8StringToString = exports.stringToUTF8String = exports.stringToPDFString = exports.stringToBytes = exports.string32 = exports.shadow = exports.setVerbosityLevel = exports.ReadableStream = exports.removeNullCharacters = exports.readUint32 = exports.readUint16 = exports.readInt8 = exports.log2 = exports.loadJpegStream = exports.isEvalSupported = exports.isLittleEndian = exports.createValidAbsoluteUrl = exports.isSameOrigin = exports.isNodeJS = exports.isSpace = exports.isString = exports.isNum = exports.isInt = exports.isEmptyObj = exports.isBool = exports.isArrayBuffer = exports.isArray = exports.info = exports.globalScope = exports.getVerbosityLevel = exports.getLookupTableFactory = exports.deprecated = exports.createObjectURL = exports.createPromiseCapability = exports.createBlob = exports.bytesToString = exports.assert = exports.arraysToBytes = exports.arrayByteLength = exports.FormatError = exports.XRefParseException = exports.Util = exports.UnknownErrorException = exports.UnexpectedResponseException = exports.TextRenderingMode = exports.StreamType = exports.StatTimer = exports.PasswordResponses = exports.PasswordException = exports.PageViewport = exports.NotImplementedException = exports.NativeImageDecoding = exports.MissingPDFException = exports.MissingDataException = exports.MessageHandler = exports.InvalidPDFException = exports.AbortException = exports.CMapCompressionType = exports.ImageKind = exports.FontType = exports.AnnotationType = exports.AnnotationFlag = exports.AnnotationFieldFlag = exports.AnnotationBorderStyleType = exports.VERBOSITY_LEVELS = exports.OPS = exports.IDENTITY_MATRIX = exports.FONT_IDENTITY_MATRIX = undefined;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -357,6 +364,7 @@ function assert(cond, msg) {
     unreachable(msg);
   }
 }
+// 不支持的功能--看情况删除
 var UNSUPPORTED_FEATURES = {
   unknown: 'unknown',
   forms: 'forms',
@@ -377,6 +385,7 @@ function isSameOrigin(baseUrl, otherUrl) {
   var other = new URL(otherUrl, base);
   return base.origin === other.origin;
 }
+// 是否为有效协议
 function isValidProtocol(url) {
   if (!url) {
     return false;
@@ -392,6 +401,7 @@ function isValidProtocol(url) {
       return false;
   }
 }
+// 创建有效的绝对地址
 function createValidAbsoluteUrl(url, baseUrl) {
   if (!url) {
     return null;
@@ -404,6 +414,7 @@ function createValidAbsoluteUrl(url, baseUrl) {
   } catch (ex) {}
   return null;
 }
+// 阴影
 function shadow(obj, prop, value) {
   Object.defineProperty(obj, prop, {
     value: value,
@@ -413,6 +424,7 @@ function shadow(obj, prop, value) {
   });
   return value;
 }
+// 获取查表-工厂
 function getLookupTableFactory(initializer) {
   var lookup;
   return function () {
@@ -448,6 +460,7 @@ var UnknownErrorException = function UnknownErrorExceptionClosure() {
   UnknownErrorException.constructor = UnknownErrorException;
   return UnknownErrorException;
 }();
+// 无效PDF 异常
 var InvalidPDFException = function InvalidPDFExceptionClosure() {
   function InvalidPDFException(msg) {
     this.name = 'InvalidPDFException';
@@ -457,6 +470,7 @@ var InvalidPDFException = function InvalidPDFExceptionClosure() {
   InvalidPDFException.constructor = InvalidPDFException;
   return InvalidPDFException;
 }();
+// 缺少PDF异常
 var MissingPDFException = function MissingPDFExceptionClosure() {
   function MissingPDFException(msg) {
     this.name = 'MissingPDFException';
@@ -466,6 +480,7 @@ var MissingPDFException = function MissingPDFExceptionClosure() {
   MissingPDFException.constructor = MissingPDFException;
   return MissingPDFException;
 }();
+// 
 var UnexpectedResponseException = function UnexpectedResponseExceptionClosure() {
   function UnexpectedResponseException(msg, status) {
     this.name = 'UnexpectedResponseException';
@@ -523,7 +538,12 @@ var AbortException = function AbortExceptionClosure() {
   AbortException.constructor = AbortException;
   return AbortException;
 }();
+/* 以上皆为错误提示
+*/
+
+// 
 var NullCharactersRegExp = /\x00/g;
+// 删除空字符串
 function removeNullCharacters(str) {
   if (typeof str !== 'string') {
     warn('The argument for removeNullCharacters must be a string.');
@@ -531,6 +551,7 @@ function removeNullCharacters(str) {
   }
   return str.replace(NullCharactersRegExp, '');
 }
+// 字节转字符串
 function bytesToString(bytes) {
   assert(bytes !== null && (typeof bytes === 'undefined' ? 'undefined' : _typeof(bytes)) === 'object' && bytes.length !== undefined, 'Invalid argument for bytesToString');
   var length = bytes.length;
@@ -546,6 +567,7 @@ function bytesToString(bytes) {
   }
   return strBuf.join('');
 }
+// 字符串转字节
 function stringToBytes(str) {
   assert(typeof str === 'string', 'Invalid argument for stringToBytes');
   var length = str.length;
@@ -777,6 +799,10 @@ var Util = function UtilClosure() {
   };
   return Util;
 }();
+/**
+ * 以上为码值模块END
+ */
+// 页面查看端口
 var PageViewport = function PageViewportClosure() {
   function PageViewport(viewBox, scale, rotation, offsetX, offsetY, dontFlip) {
     this.viewBox = viewBox;
@@ -919,6 +945,9 @@ function createPromiseCapability() {
   });
   return capability;
 }
+/*
+* 以上为字符串格式类型转换
+*/
 var StatTimer = function StatTimerClosure() {
   function rpad(str, pad, length) {
     while (str.length < length) {
@@ -976,12 +1005,14 @@ var StatTimer = function StatTimerClosure() {
   };
   return StatTimer;
 }();
+// 创建字节流
 var createBlob = function createBlob(data, contentType) {
   if (typeof Blob !== 'undefined') {
     return new Blob([data], { type: contentType });
   }
   throw new Error('The "Blob" constructor is not supported.');
 };
+// 获取集合地址
 var createObjectURL = function createObjectURLClosure() {
   var digits = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
   return function createObjectURL(data, contentType) {
@@ -1040,6 +1071,7 @@ function resolveOrReject(capability, success, reason) {
 function finalize(promise) {
   return Promise.resolve(promise).catch(function () {});
 }
+// 消息处理程序
 function MessageHandler(sourceName, targetName, comObj) {
   var _this = this;
 
@@ -1403,6 +1435,7 @@ MessageHandler.prototype = {
     this.comObj.removeEventListener('message', this._onComObjOnMessage);
   }
 };
+// 载入图片流
 function loadJpegStream(id, imageUrl, objs) {
   var img = new Image();
   img.onload = function loadJpegStream_onloadClosure() {
@@ -3209,6 +3242,7 @@ var RenderTask = function RenderTaskClosure() {
   };
   return RenderTask;
 }();
+// 内部渲染任务
 var InternalRenderTask = function InternalRenderTaskClosure() {
   var canvasInRendering = new WeakMap();
   function InternalRenderTask(callback, params, objs, commonObjs, operatorList, pageNumber, canvasFactory) {
@@ -3371,52 +3405,52 @@ exports.AnnotationLayer = undefined;
 var _dom_utils = __w_pdfjs_require__(1);
 
 var _util = __w_pdfjs_require__(0);
-
-function AnnotationElementFactory() {}
-AnnotationElementFactory.prototype = {
-  create: function AnnotationElementFactory_create(parameters) {
-    var subtype = parameters.data.annotationType;
-    switch (subtype) {
-      case _util.AnnotationType.LINK:
-        return new LinkAnnotationElement(parameters);
-      case _util.AnnotationType.TEXT:
-        return new TextAnnotationElement(parameters);
-      case _util.AnnotationType.WIDGET:
-        var fieldType = parameters.data.fieldType;
-        switch (fieldType) {
-          case 'Tx':
-            return new TextWidgetAnnotationElement(parameters);
-          case 'Btn':
-            if (parameters.data.radioButton) {
-              return new RadioButtonWidgetAnnotationElement(parameters);
-            } else if (parameters.data.checkBox) {
-              return new CheckboxWidgetAnnotationElement(parameters);
-            }
-            (0, _util.warn)('Unimplemented button widget annotation: pushbutton');
-            break;
-          case 'Ch':
-            return new ChoiceWidgetAnnotationElement(parameters);
-        }
-        return new WidgetAnnotationElement(parameters);
-      case _util.AnnotationType.POPUP:
-        return new PopupAnnotationElement(parameters);
-      case _util.AnnotationType.LINE:
-        return new LineAnnotationElement(parameters);
-      case _util.AnnotationType.HIGHLIGHT:
-        return new HighlightAnnotationElement(parameters);
-      case _util.AnnotationType.UNDERLINE:
-        return new UnderlineAnnotationElement(parameters);
-      case _util.AnnotationType.SQUIGGLY:
-        return new SquigglyAnnotationElement(parameters);
-      case _util.AnnotationType.STRIKEOUT:
-        return new StrikeOutAnnotationElement(parameters);
-      case _util.AnnotationType.FILEATTACHMENT:
-        return new FileAttachmentAnnotationElement(parameters);
-      default:
-        return new AnnotationElement(parameters);
-    }
-  }
-};
+// 注释元素工厂
+// function AnnotationElementFactory() {}
+// AnnotationElementFactory.prototype = {
+//   create: function AnnotationElementFactory_create(parameters) {
+//     var subtype = parameters.data.annotationType;
+//     switch (subtype) {
+//       case _util.AnnotationType.LINK:
+//         return new LinkAnnotationElement(parameters);
+//       case _util.AnnotationType.TEXT:
+//         return new TextAnnotationElement(parameters);
+//       case _util.AnnotationType.WIDGET:
+//         var fieldType = parameters.data.fieldType;
+//         switch (fieldType) {
+//           case 'Tx':
+//             return new TextWidgetAnnotationElement(parameters);
+//           case 'Btn':
+//             if (parameters.data.radioButton) {
+//               return new RadioButtonWidgetAnnotationElement(parameters);
+//             } else if (parameters.data.checkBox) {
+//               return new CheckboxWidgetAnnotationElement(parameters);
+//             }
+//             (0, _util.warn)('Unimplemented button widget annotation: pushbutton');
+//             break;
+//           case 'Ch':
+//             return new ChoiceWidgetAnnotationElement(parameters);
+//         }
+//         return new WidgetAnnotationElement(parameters);
+//       case _util.AnnotationType.POPUP:
+//         return new PopupAnnotationElement(parameters);
+//       case _util.AnnotationType.LINE:
+//         return new LineAnnotationElement(parameters);
+//       case _util.AnnotationType.HIGHLIGHT:
+//         return new HighlightAnnotationElement(parameters);
+//       case _util.AnnotationType.UNDERLINE:
+//         return new UnderlineAnnotationElement(parameters);
+//       case _util.AnnotationType.SQUIGGLY:
+//         return new SquigglyAnnotationElement(parameters);
+//       case _util.AnnotationType.STRIKEOUT:
+//         return new StrikeOutAnnotationElement(parameters);
+//       case _util.AnnotationType.FILEATTACHMENT:
+//         return new FileAttachmentAnnotationElement(parameters);
+//       default:
+//         return new AnnotationElement(parameters);
+//     }
+//   }
+// };
 var AnnotationElement = function AnnotationElementClosure() {
   function AnnotationElement(parameters, isRenderable, ignoreBorder) {
     this.isRenderable = isRenderable || false;
@@ -3561,30 +3595,30 @@ var LinkAnnotationElement = function LinkAnnotationElementClosure() {
   });
   return LinkAnnotationElement;
 }();
-var TextAnnotationElement = function TextAnnotationElementClosure() {
-  function TextAnnotationElement(parameters) {
-    var isRenderable = !!(parameters.data.hasPopup || parameters.data.title || parameters.data.contents);
-    AnnotationElement.call(this, parameters, isRenderable);
-  }
-  _util.Util.inherit(TextAnnotationElement, AnnotationElement, {
-    render: function TextAnnotationElement_render() {
-      this.container.className = 'textAnnotation';
-      var image = document.createElement('img');
-      image.style.height = this.container.style.height;
-      image.style.width = this.container.style.width;
-      image.src = this.imageResourcesPath + 'annotation-' + this.data.name.toLowerCase() + '.svg';
-      image.alt = '[{{type}} Annotation]';
-      image.dataset.l10nId = 'text_annotation_type';
-      image.dataset.l10nArgs = JSON.stringify({ type: this.data.name });
-      if (!this.data.hasPopup) {
-        this._createPopup(this.container, image, this.data);
-      }
-      this.container.appendChild(image);
-      return this.container;
-    }
-  });
-  return TextAnnotationElement;
-}();
+// var TextAnnotationElement = function TextAnnotationElementClosure() {
+//   function TextAnnotationElement(parameters) {
+//     var isRenderable = !!(parameters.data.hasPopup || parameters.data.title || parameters.data.contents);
+//     AnnotationElement.call(this, parameters, isRenderable);
+//   }
+//   _util.Util.inherit(TextAnnotationElement, AnnotationElement, {
+//     render: function TextAnnotationElement_render() {
+//       this.container.className = 'textAnnotation';
+//       var image = document.createElement('img');
+//       image.style.height = this.container.style.height;
+//       image.style.width = this.container.style.width;
+//       image.src = this.imageResourcesPath + 'annotation-' + this.data.name.toLowerCase() + '.svg';
+//       image.alt = '[{{type}} Annotation]';
+//       image.dataset.l10nId = 'text_annotation_type';
+//       image.dataset.l10nArgs = JSON.stringify({ type: this.data.name });
+//       if (!this.data.hasPopup) {
+//         this._createPopup(this.container, image, this.data);
+//       }
+//       this.container.appendChild(image);
+//       return this.container;
+//     }
+//   });
+//   return TextAnnotationElement;
+// }();
 var WidgetAnnotationElement = function WidgetAnnotationElementClosure() {
   function WidgetAnnotationElement(parameters, isRenderable) {
     AnnotationElement.call(this, parameters, isRenderable);
@@ -3596,68 +3630,69 @@ var WidgetAnnotationElement = function WidgetAnnotationElementClosure() {
   });
   return WidgetAnnotationElement;
 }();
-var TextWidgetAnnotationElement = function TextWidgetAnnotationElementClosure() {
-  var TEXT_ALIGNMENT = ['left', 'center', 'right'];
-  function TextWidgetAnnotationElement(parameters) {
-    var isRenderable = parameters.renderInteractiveForms || !parameters.data.hasAppearance && !!parameters.data.fieldValue;
-    WidgetAnnotationElement.call(this, parameters, isRenderable);
-  }
-  _util.Util.inherit(TextWidgetAnnotationElement, WidgetAnnotationElement, {
-    render: function TextWidgetAnnotationElement_render() {
-      this.container.className = 'textWidgetAnnotation';
-      var element = null;
-      if (this.renderInteractiveForms) {
-        if (this.data.multiLine) {
-          element = document.createElement('textarea');
-          element.textContent = this.data.fieldValue;
-        } else {
-          element = document.createElement('input');
-          element.type = 'text';
-          element.setAttribute('value', this.data.fieldValue);
-        }
-        element.disabled = this.data.readOnly;
-        if (this.data.maxLen !== null) {
-          element.maxLength = this.data.maxLen;
-        }
-        if (this.data.comb) {
-          var fieldWidth = this.data.rect[2] - this.data.rect[0];
-          var combWidth = fieldWidth / this.data.maxLen;
-          element.classList.add('comb');
-          element.style.letterSpacing = 'calc(' + combWidth + 'px - 1ch)';
-        }
-      } else {
-        element = document.createElement('div');
-        element.textContent = this.data.fieldValue;
-        element.style.verticalAlign = 'middle';
-        element.style.display = 'table-cell';
-        var font = null;
-        if (this.data.fontRefName) {
-          font = this.page.commonObjs.getData(this.data.fontRefName);
-        }
-        this._setTextStyle(element, font);
-      }
-      if (this.data.textAlignment !== null) {
-        element.style.textAlign = TEXT_ALIGNMENT[this.data.textAlignment];
-      }
-      this.container.appendChild(element);
-      return this.container;
-    },
-    _setTextStyle: function TextWidgetAnnotationElement_setTextStyle(element, font) {
-      var style = element.style;
-      style.fontSize = this.data.fontSize + 'px';
-      style.direction = this.data.fontDirection < 0 ? 'rtl' : 'ltr';
-      if (!font) {
-        return;
-      }
-      style.fontWeight = font.black ? font.bold ? '900' : 'bold' : font.bold ? 'bold' : 'normal';
-      style.fontStyle = font.italic ? 'italic' : 'normal';
-      var fontFamily = font.loadedName ? '"' + font.loadedName + '", ' : '';
-      var fallbackName = font.fallbackName || 'Helvetica, sans-serif';
-      style.fontFamily = fontFamily + fallbackName;
-    }
-  });
-  return TextWidgetAnnotationElement;
-}();
+// 文本小部件注释元素
+// var TextWidgetAnnotationElement = function TextWidgetAnnotationElementClosure() {
+//   var TEXT_ALIGNMENT = ['left', 'center', 'right'];
+//   function TextWidgetAnnotationElement(parameters) {
+//     var isRenderable = parameters.renderInteractiveForms || !parameters.data.hasAppearance && !!parameters.data.fieldValue;
+//     WidgetAnnotationElement.call(this, parameters, isRenderable);
+//   }
+//   _util.Util.inherit(TextWidgetAnnotationElement, WidgetAnnotationElement, {
+//     render: function TextWidgetAnnotationElement_render() {
+//       this.container.className = 'textWidgetAnnotation';
+//       var element = null;
+//       if (this.renderInteractiveForms) {
+//         if (this.data.multiLine) {
+//           element = document.createElement('textarea');
+//           element.textContent = this.data.fieldValue;
+//         } else {
+//           element = document.createElement('input');
+//           element.type = 'text';
+//           element.setAttribute('value', this.data.fieldValue);
+//         }
+//         element.disabled = this.data.readOnly;
+//         if (this.data.maxLen !== null) {
+//           element.maxLength = this.data.maxLen;
+//         }
+//         if (this.data.comb) {
+//           var fieldWidth = this.data.rect[2] - this.data.rect[0];
+//           var combWidth = fieldWidth / this.data.maxLen;
+//           element.classList.add('comb');
+//           element.style.letterSpacing = 'calc(' + combWidth + 'px - 1ch)';
+//         }
+//       } else {
+//         element = document.createElement('div');
+//         element.textContent = this.data.fieldValue;
+//         element.style.verticalAlign = 'middle';
+//         element.style.display = 'table-cell';
+//         var font = null;
+//         if (this.data.fontRefName) {
+//           font = this.page.commonObjs.getData(this.data.fontRefName);
+//         }
+//         this._setTextStyle(element, font);
+//       }
+//       if (this.data.textAlignment !== null) {
+//         element.style.textAlign = TEXT_ALIGNMENT[this.data.textAlignment];
+//       }
+//       this.container.appendChild(element);
+//       return this.container;
+//     },
+//     _setTextStyle: function TextWidgetAnnotationElement_setTextStyle(element, font) {
+//       var style = element.style;
+//       style.fontSize = this.data.fontSize + 'px';
+//       style.direction = this.data.fontDirection < 0 ? 'rtl' : 'ltr';
+//       if (!font) {
+//         return;
+//       }
+//       style.fontWeight = font.black ? font.bold ? '900' : 'bold' : font.bold ? 'bold' : 'normal';
+//       style.fontStyle = font.italic ? 'italic' : 'normal';
+//       var fontFamily = font.loadedName ? '"' + font.loadedName + '", ' : '';
+//       var fallbackName = font.fallbackName || 'Helvetica, sans-serif';
+//       style.fontFamily = fontFamily + fallbackName;
+//     }
+//   });
+//   return TextWidgetAnnotationElement;
+// }();
 var CheckboxWidgetAnnotationElement = function CheckboxWidgetAnnotationElementClosure() {
   function CheckboxWidgetAnnotationElement(parameters) {
     WidgetAnnotationElement.call(this, parameters, parameters.renderInteractiveForms);
@@ -3840,175 +3875,176 @@ var PopupElement = function PopupElementClosure() {
   };
   return PopupElement;
 }();
-var LineAnnotationElement = function LineAnnotationElementClosure() {
-  var SVG_NS = 'http://www.w3.org/2000/svg';
-  function LineAnnotationElement(parameters) {
-    var isRenderable = !!(parameters.data.hasPopup || parameters.data.title || parameters.data.contents);
-    AnnotationElement.call(this, parameters, isRenderable, true);
-  }
-  _util.Util.inherit(LineAnnotationElement, AnnotationElement, {
-    render: function LineAnnotationElement_render() {
-      this.container.className = 'lineAnnotation';
-      var data = this.data;
-      var width = data.rect[2] - data.rect[0];
-      var height = data.rect[3] - data.rect[1];
-      var svg = document.createElementNS(SVG_NS, 'svg:svg');
-      svg.setAttributeNS(null, 'version', '1.1');
-      svg.setAttributeNS(null, 'width', width + 'px');
-      svg.setAttributeNS(null, 'height', height + 'px');
-      svg.setAttributeNS(null, 'preserveAspectRatio', 'none');
-      svg.setAttributeNS(null, 'viewBox', '0 0 ' + width + ' ' + height);
-      var line = document.createElementNS(SVG_NS, 'svg:line');
-      line.setAttributeNS(null, 'x1', data.rect[2] - data.lineCoordinates[0]);
-      line.setAttributeNS(null, 'y1', data.rect[3] - data.lineCoordinates[1]);
-      line.setAttributeNS(null, 'x2', data.rect[2] - data.lineCoordinates[2]);
-      line.setAttributeNS(null, 'y2', data.rect[3] - data.lineCoordinates[3]);
-      line.setAttributeNS(null, 'stroke-width', data.borderStyle.width);
-      line.setAttributeNS(null, 'stroke', 'transparent');
-      svg.appendChild(line);
-      this.container.append(svg);
-      this._createPopup(this.container, line, this.data);
-      return this.container;
-    }
-  });
-  return LineAnnotationElement;
-}();
-var HighlightAnnotationElement = function HighlightAnnotationElementClosure() {
-  function HighlightAnnotationElement(parameters) {
-    var isRenderable = !!(parameters.data.hasPopup || parameters.data.title || parameters.data.contents);
-    AnnotationElement.call(this, parameters, isRenderable, true);
-  }
-  _util.Util.inherit(HighlightAnnotationElement, AnnotationElement, {
-    render: function HighlightAnnotationElement_render() {
-      this.container.className = 'highlightAnnotation';
-      if (!this.data.hasPopup) {
-        this._createPopup(this.container, null, this.data);
-      }
-      return this.container;
-    }
-  });
-  return HighlightAnnotationElement;
-}();
-var UnderlineAnnotationElement = function UnderlineAnnotationElementClosure() {
-  function UnderlineAnnotationElement(parameters) {
-    var isRenderable = !!(parameters.data.hasPopup || parameters.data.title || parameters.data.contents);
-    AnnotationElement.call(this, parameters, isRenderable, true);
-  }
-  _util.Util.inherit(UnderlineAnnotationElement, AnnotationElement, {
-    render: function UnderlineAnnotationElement_render() {
-      this.container.className = 'underlineAnnotation';
-      if (!this.data.hasPopup) {
-        this._createPopup(this.container, null, this.data);
-      }
-      return this.container;
-    }
-  });
-  return UnderlineAnnotationElement;
-}();
-var SquigglyAnnotationElement = function SquigglyAnnotationElementClosure() {
-  function SquigglyAnnotationElement(parameters) {
-    var isRenderable = !!(parameters.data.hasPopup || parameters.data.title || parameters.data.contents);
-    AnnotationElement.call(this, parameters, isRenderable, true);
-  }
-  _util.Util.inherit(SquigglyAnnotationElement, AnnotationElement, {
-    render: function SquigglyAnnotationElement_render() {
-      this.container.className = 'squigglyAnnotation';
-      if (!this.data.hasPopup) {
-        this._createPopup(this.container, null, this.data);
-      }
-      return this.container;
-    }
-  });
-  return SquigglyAnnotationElement;
-}();
-var StrikeOutAnnotationElement = function StrikeOutAnnotationElementClosure() {
-  function StrikeOutAnnotationElement(parameters) {
-    var isRenderable = !!(parameters.data.hasPopup || parameters.data.title || parameters.data.contents);
-    AnnotationElement.call(this, parameters, isRenderable, true);
-  }
-  _util.Util.inherit(StrikeOutAnnotationElement, AnnotationElement, {
-    render: function StrikeOutAnnotationElement_render() {
-      this.container.className = 'strikeoutAnnotation';
-      if (!this.data.hasPopup) {
-        this._createPopup(this.container, null, this.data);
-      }
-      return this.container;
-    }
-  });
-  return StrikeOutAnnotationElement;
-}();
-var FileAttachmentAnnotationElement = function FileAttachmentAnnotationElementClosure() {
-  function FileAttachmentAnnotationElement(parameters) {
-    AnnotationElement.call(this, parameters, true);
-    var file = this.data.file;
-    this.filename = (0, _dom_utils.getFilenameFromUrl)(file.filename);
-    this.content = file.content;
-    this.linkService.onFileAttachmentAnnotation({
-      id: (0, _util.stringToPDFString)(file.filename),
-      filename: file.filename,
-      content: file.content
-    });
-  }
-  _util.Util.inherit(FileAttachmentAnnotationElement, AnnotationElement, {
-    render: function FileAttachmentAnnotationElement_render() {
-      this.container.className = 'fileAttachmentAnnotation';
-      var trigger = document.createElement('div');
-      trigger.style.height = this.container.style.height;
-      trigger.style.width = this.container.style.width;
-      trigger.addEventListener('dblclick', this._download.bind(this));
-      if (!this.data.hasPopup && (this.data.title || this.data.contents)) {
-        this._createPopup(this.container, trigger, this.data);
-      }
-      this.container.appendChild(trigger);
-      return this.container;
-    },
-    _download: function FileAttachmentAnnotationElement_download() {
-      if (!this.downloadManager) {
-        (0, _util.warn)('Download cannot be started due to unavailable download manager');
-        return;
-      }
-      this.downloadManager.downloadData(this.content, this.filename, '');
-    }
-  });
-  return FileAttachmentAnnotationElement;
-}();
-var AnnotationLayer = function AnnotationLayerClosure() {
-  return {
-    render: function AnnotationLayer_render(parameters) {
-      var annotationElementFactory = new AnnotationElementFactory();
-      for (var i = 0, ii = parameters.annotations.length; i < ii; i++) {
-        var data = parameters.annotations[i];
-        if (!data) {
-          continue;
-        }
-        var element = annotationElementFactory.create({
-          data: data,
-          layer: parameters.div,
-          page: parameters.page,
-          viewport: parameters.viewport,
-          linkService: parameters.linkService,
-          downloadManager: parameters.downloadManager,
-          imageResourcesPath: parameters.imageResourcesPath || (0, _dom_utils.getDefaultSetting)('imageResourcesPath'),
-          renderInteractiveForms: parameters.renderInteractiveForms || false
-        });
-        if (element.isRenderable) {
-          parameters.div.appendChild(element.render());
-        }
-      }
-    },
-    update: function AnnotationLayer_update(parameters) {
-      for (var i = 0, ii = parameters.annotations.length; i < ii; i++) {
-        var data = parameters.annotations[i];
-        var element = parameters.div.querySelector('[data-annotation-id="' + data.id + '"]');
-        if (element) {
-          _dom_utils.CustomStyle.setProp('transform', element, 'matrix(' + parameters.viewport.transform.join(',') + ')');
-        }
-      }
-      parameters.div.removeAttribute('hidden');
-    }
-  };
-}();
-exports.AnnotationLayer = AnnotationLayer;
+// var LineAnnotationElement = function LineAnnotationElementClosure() {
+//   var SVG_NS = 'http://www.w3.org/2000/svg';
+//   function LineAnnotationElement(parameters) {
+//     var isRenderable = !!(parameters.data.hasPopup || parameters.data.title || parameters.data.contents);
+//     AnnotationElement.call(this, parameters, isRenderable, true);
+//   }
+//   _util.Util.inherit(LineAnnotationElement, AnnotationElement, {
+//     render: function LineAnnotationElement_render() {
+//       this.container.className = 'lineAnnotation';
+//       var data = this.data;
+//       var width = data.rect[2] - data.rect[0];
+//       var height = data.rect[3] - data.rect[1];
+//       var svg = document.createElementNS(SVG_NS, 'svg:svg');
+//       svg.setAttributeNS(null, 'version', '1.1');
+//       svg.setAttributeNS(null, 'width', width + 'px');
+//       svg.setAttributeNS(null, 'height', height + 'px');
+//       svg.setAttributeNS(null, 'preserveAspectRatio', 'none');
+//       svg.setAttributeNS(null, 'viewBox', '0 0 ' + width + ' ' + height);
+//       var line = document.createElementNS(SVG_NS, 'svg:line');
+//       line.setAttributeNS(null, 'x1', data.rect[2] - data.lineCoordinates[0]);
+//       line.setAttributeNS(null, 'y1', data.rect[3] - data.lineCoordinates[1]);
+//       line.setAttributeNS(null, 'x2', data.rect[2] - data.lineCoordinates[2]);
+//       line.setAttributeNS(null, 'y2', data.rect[3] - data.lineCoordinates[3]);
+//       line.setAttributeNS(null, 'stroke-width', data.borderStyle.width);
+//       line.setAttributeNS(null, 'stroke', 'transparent');
+//       svg.appendChild(line);
+//       this.container.append(svg);
+//       this._createPopup(this.container, line, this.data);
+//       return this.container;
+//     }
+//   });
+//   return LineAnnotationElement;
+// }();
+// var HighlightAnnotationElement = function HighlightAnnotationElementClosure() {
+//   function HighlightAnnotationElement(parameters) {
+//     var isRenderable = !!(parameters.data.hasPopup || parameters.data.title || parameters.data.contents);
+//     AnnotationElement.call(this, parameters, isRenderable, true);
+//   }
+//   _util.Util.inherit(HighlightAnnotationElement, AnnotationElement, {
+//     render: function HighlightAnnotationElement_render() {
+//       this.container.className = 'highlightAnnotation';
+//       if (!this.data.hasPopup) {
+//         this._createPopup(this.container, null, this.data);
+//       }
+//       return this.container;
+//     }
+//   });
+//   return HighlightAnnotationElement;
+// }();
+// var UnderlineAnnotationElement = function UnderlineAnnotationElementClosure() {
+//   function UnderlineAnnotationElement(parameters) {
+//     var isRenderable = !!(parameters.data.hasPopup || parameters.data.title || parameters.data.contents);
+//     AnnotationElement.call(this, parameters, isRenderable, true);
+//   }
+//   _util.Util.inherit(UnderlineAnnotationElement, AnnotationElement, {
+//     render: function UnderlineAnnotationElement_render() {
+//       this.container.className = 'underlineAnnotation';
+//       if (!this.data.hasPopup) {
+//         this._createPopup(this.container, null, this.data);
+//       }
+//       return this.container;
+//     }
+//   });
+//   return UnderlineAnnotationElement;
+// }();
+// var SquigglyAnnotationElement = function SquigglyAnnotationElementClosure() {
+//   function SquigglyAnnotationElement(parameters) {
+//     var isRenderable = !!(parameters.data.hasPopup || parameters.data.title || parameters.data.contents);
+//     AnnotationElement.call(this, parameters, isRenderable, true);
+//   }
+//   _util.Util.inherit(SquigglyAnnotationElement, AnnotationElement, {
+//     render: function SquigglyAnnotationElement_render() {
+//       this.container.className = 'squigglyAnnotation';
+//       if (!this.data.hasPopup) {
+//         this._createPopup(this.container, null, this.data);
+//       }
+//       return this.container;
+//     }
+//   });
+//   return SquigglyAnnotationElement;
+// }();
+// var StrikeOutAnnotationElement = function StrikeOutAnnotationElementClosure() {
+//   function StrikeOutAnnotationElement(parameters) {
+//     var isRenderable = !!(parameters.data.hasPopup || parameters.data.title || parameters.data.contents);
+//     AnnotationElement.call(this, parameters, isRenderable, true);
+//   }
+//   _util.Util.inherit(StrikeOutAnnotationElement, AnnotationElement, {
+//     render: function StrikeOutAnnotationElement_render() {
+//       this.container.className = 'strikeoutAnnotation';
+//       if (!this.data.hasPopup) {
+//         this._createPopup(this.container, null, this.data);
+//       }
+//       return this.container;
+//     }
+//   });
+//   return StrikeOutAnnotationElement;
+// }();
+// 文件附件批注元素
+// var FileAttachmentAnnotationElement = function FileAttachmentAnnotationElementClosure() {
+//   function FileAttachmentAnnotationElement(parameters) {
+//     AnnotationElement.call(this, parameters, true);
+//     var file = this.data.file;
+//     this.filename = (0, _dom_utils.getFilenameFromUrl)(file.filename);
+//     this.content = file.content;
+//     this.linkService.onFileAttachmentAnnotation({
+//       id: (0, _util.stringToPDFString)(file.filename),
+//       filename: file.filename,
+//       content: file.content
+//     });
+//   }
+//   _util.Util.inherit(FileAttachmentAnnotationElement, AnnotationElement, {
+//     render: function FileAttachmentAnnotationElement_render() {
+//       this.container.className = 'fileAttachmentAnnotation';
+//       var trigger = document.createElement('div');
+//       trigger.style.height = this.container.style.height;
+//       trigger.style.width = this.container.style.width;
+//       trigger.addEventListener('dblclick', this._download.bind(this));
+//       if (!this.data.hasPopup && (this.data.title || this.data.contents)) {
+//         this._createPopup(this.container, trigger, this.data);
+//       }
+//       this.container.appendChild(trigger);
+//       return this.container;
+//     },
+//     _download: function FileAttachmentAnnotationElement_download() {
+//       if (!this.downloadManager) {
+//         (0, _util.warn)('Download cannot be started due to unavailable download manager');
+//         return;
+//       }
+//       this.downloadManager.downloadData(this.content, this.filename, '');
+//     }
+//   });
+//   return FileAttachmentAnnotationElement;
+// }();
+// var AnnotationLayer = function AnnotationLayerClosure() {
+//   return {
+//     render: function AnnotationLayer_render(parameters) {
+//       var annotationElementFactory = new AnnotationElementFactory();
+//       for (var i = 0, ii = parameters.annotations.length; i < ii; i++) {
+//         var data = parameters.annotations[i];
+//         if (!data) {
+//           continue;
+//         }
+//         var element = annotationElementFactory.create({
+//           data: data,
+//           layer: parameters.div,
+//           page: parameters.page,
+//           viewport: parameters.viewport,
+//           linkService: parameters.linkService,
+//           downloadManager: parameters.downloadManager,
+//           imageResourcesPath: parameters.imageResourcesPath || (0, _dom_utils.getDefaultSetting)('imageResourcesPath'),
+//           renderInteractiveForms: parameters.renderInteractiveForms || false
+//         });
+//         if (element.isRenderable) {
+//           parameters.div.appendChild(element.render());
+//         }
+//       }
+//     },
+//     update: function AnnotationLayer_update(parameters) {
+//       for (var i = 0, ii = parameters.annotations.length; i < ii; i++) {
+//         var data = parameters.annotations[i];
+//         var element = parameters.div.querySelector('[data-annotation-id="' + data.id + '"]');
+//         if (element) {
+//           _dom_utils.CustomStyle.setProp('transform', element, 'matrix(' + parameters.viewport.transform.join(',') + ')');
+//         }
+//       }
+//       parameters.div.removeAttribute('hidden');
+//     }
+//   };
+// }();
+// exports.AnnotationLayer = AnnotationLayer;
 
 /***/ }),
 /* 4 */
@@ -4020,1007 +4056,1007 @@ exports.AnnotationLayer = AnnotationLayer;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.SVGGraphics = undefined;
+// exports.SVGGraphics = undefined;
 
 var _util = __w_pdfjs_require__(0);
 
-var SVGGraphics = function SVGGraphics() {
-  throw new Error('Not implemented: SVGGraphics');
-};
-{
-  var SVG_DEFAULTS = {
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    fillColor: '#000000'
-  };
-  var convertImgDataToPng = function convertImgDataToPngClosure() {
-    var PNG_HEADER = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
-    var CHUNK_WRAPPER_SIZE = 12;
-    var crcTable = new Int32Array(256);
-    for (var i = 0; i < 256; i++) {
-      var c = i;
-      for (var h = 0; h < 8; h++) {
-        if (c & 1) {
-          c = 0xedB88320 ^ c >> 1 & 0x7fffffff;
-        } else {
-          c = c >> 1 & 0x7fffffff;
-        }
-      }
-      crcTable[i] = c;
-    }
-    function crc32(data, start, end) {
-      var crc = -1;
-      for (var i = start; i < end; i++) {
-        var a = (crc ^ data[i]) & 0xff;
-        var b = crcTable[a];
-        crc = crc >>> 8 ^ b;
-      }
-      return crc ^ -1;
-    }
-    function writePngChunk(type, body, data, offset) {
-      var p = offset;
-      var len = body.length;
-      data[p] = len >> 24 & 0xff;
-      data[p + 1] = len >> 16 & 0xff;
-      data[p + 2] = len >> 8 & 0xff;
-      data[p + 3] = len & 0xff;
-      p += 4;
-      data[p] = type.charCodeAt(0) & 0xff;
-      data[p + 1] = type.charCodeAt(1) & 0xff;
-      data[p + 2] = type.charCodeAt(2) & 0xff;
-      data[p + 3] = type.charCodeAt(3) & 0xff;
-      p += 4;
-      data.set(body, p);
-      p += body.length;
-      var crc = crc32(data, offset + 4, p);
-      data[p] = crc >> 24 & 0xff;
-      data[p + 1] = crc >> 16 & 0xff;
-      data[p + 2] = crc >> 8 & 0xff;
-      data[p + 3] = crc & 0xff;
-    }
-    function adler32(data, start, end) {
-      var a = 1;
-      var b = 0;
-      for (var i = start; i < end; ++i) {
-        a = (a + (data[i] & 0xff)) % 65521;
-        b = (b + a) % 65521;
-      }
-      return b << 16 | a;
-    }
-    function deflateSync(literals) {
-      if (!(0, _util.isNodeJS)()) {
-        return deflateSyncUncompressed(literals);
-      }
-      try {
-        var input;
-        if (parseInt(process.versions.node) >= 8) {
-          input = literals;
-        } else {
-          input = new Buffer(literals);
-        }
-        var output = require('zlib').deflateSync(input, { level: 9 });
-        return output instanceof Uint8Array ? output : new Uint8Array(output);
-      } catch (e) {
-        (0, _util.warn)('Not compressing PNG because zlib.deflateSync is unavailable: ' + e);
-      }
-      return deflateSyncUncompressed(literals);
-    }
-    function deflateSyncUncompressed(literals) {
-      var len = literals.length;
-      var maxBlockLength = 0xFFFF;
-      var deflateBlocks = Math.ceil(len / maxBlockLength);
-      var idat = new Uint8Array(2 + len + deflateBlocks * 5 + 4);
-      var pi = 0;
-      idat[pi++] = 0x78;
-      idat[pi++] = 0x9c;
-      var pos = 0;
-      while (len > maxBlockLength) {
-        idat[pi++] = 0x00;
-        idat[pi++] = 0xff;
-        idat[pi++] = 0xff;
-        idat[pi++] = 0x00;
-        idat[pi++] = 0x00;
-        idat.set(literals.subarray(pos, pos + maxBlockLength), pi);
-        pi += maxBlockLength;
-        pos += maxBlockLength;
-        len -= maxBlockLength;
-      }
-      idat[pi++] = 0x01;
-      idat[pi++] = len & 0xff;
-      idat[pi++] = len >> 8 & 0xff;
-      idat[pi++] = ~len & 0xffff & 0xff;
-      idat[pi++] = (~len & 0xffff) >> 8 & 0xff;
-      idat.set(literals.subarray(pos), pi);
-      pi += literals.length - pos;
-      var adler = adler32(literals, 0, literals.length);
-      idat[pi++] = adler >> 24 & 0xff;
-      idat[pi++] = adler >> 16 & 0xff;
-      idat[pi++] = adler >> 8 & 0xff;
-      idat[pi++] = adler & 0xff;
-      return idat;
-    }
-    function encode(imgData, kind, forceDataSchema) {
-      var width = imgData.width;
-      var height = imgData.height;
-      var bitDepth, colorType, lineSize;
-      var bytes = imgData.data;
-      switch (kind) {
-        case _util.ImageKind.GRAYSCALE_1BPP:
-          colorType = 0;
-          bitDepth = 1;
-          lineSize = width + 7 >> 3;
-          break;
-        case _util.ImageKind.RGB_24BPP:
-          colorType = 2;
-          bitDepth = 8;
-          lineSize = width * 3;
-          break;
-        case _util.ImageKind.RGBA_32BPP:
-          colorType = 6;
-          bitDepth = 8;
-          lineSize = width * 4;
-          break;
-        default:
-          throw new Error('invalid format');
-      }
-      var literals = new Uint8Array((1 + lineSize) * height);
-      var offsetLiterals = 0,
-          offsetBytes = 0;
-      var y, i;
-      for (y = 0; y < height; ++y) {
-        literals[offsetLiterals++] = 0;
-        literals.set(bytes.subarray(offsetBytes, offsetBytes + lineSize), offsetLiterals);
-        offsetBytes += lineSize;
-        offsetLiterals += lineSize;
-      }
-      if (kind === _util.ImageKind.GRAYSCALE_1BPP) {
-        offsetLiterals = 0;
-        for (y = 0; y < height; y++) {
-          offsetLiterals++;
-          for (i = 0; i < lineSize; i++) {
-            literals[offsetLiterals++] ^= 0xFF;
-          }
-        }
-      }
-      var ihdr = new Uint8Array([width >> 24 & 0xff, width >> 16 & 0xff, width >> 8 & 0xff, width & 0xff, height >> 24 & 0xff, height >> 16 & 0xff, height >> 8 & 0xff, height & 0xff, bitDepth, colorType, 0x00, 0x00, 0x00]);
-      var idat = deflateSync(literals);
-      var pngLength = PNG_HEADER.length + CHUNK_WRAPPER_SIZE * 3 + ihdr.length + idat.length;
-      var data = new Uint8Array(pngLength);
-      var offset = 0;
-      data.set(PNG_HEADER, offset);
-      offset += PNG_HEADER.length;
-      writePngChunk('IHDR', ihdr, data, offset);
-      offset += CHUNK_WRAPPER_SIZE + ihdr.length;
-      writePngChunk('IDATA', idat, data, offset);
-      offset += CHUNK_WRAPPER_SIZE + idat.length;
-      writePngChunk('IEND', new Uint8Array(0), data, offset);
-      return (0, _util.createObjectURL)(data, 'image/png', forceDataSchema);
-    }
-    return function convertImgDataToPng(imgData, forceDataSchema) {
-      var kind = imgData.kind === undefined ? _util.ImageKind.GRAYSCALE_1BPP : imgData.kind;
-      return encode(imgData, kind, forceDataSchema);
-    };
-  }();
-  var SVGExtraState = function SVGExtraStateClosure() {
-    function SVGExtraState() {
-      this.fontSizeScale = 1;
-      this.fontWeight = SVG_DEFAULTS.fontWeight;
-      this.fontSize = 0;
-      this.textMatrix = _util.IDENTITY_MATRIX;
-      this.fontMatrix = _util.FONT_IDENTITY_MATRIX;
-      this.leading = 0;
-      this.x = 0;
-      this.y = 0;
-      this.lineX = 0;
-      this.lineY = 0;
-      this.charSpacing = 0;
-      this.wordSpacing = 0;
-      this.textHScale = 1;
-      this.textRise = 0;
-      this.fillColor = SVG_DEFAULTS.fillColor;
-      this.strokeColor = '#000000';
-      this.fillAlpha = 1;
-      this.strokeAlpha = 1;
-      this.lineWidth = 1;
-      this.lineJoin = '';
-      this.lineCap = '';
-      this.miterLimit = 0;
-      this.dashArray = [];
-      this.dashPhase = 0;
-      this.dependencies = [];
-      this.activeClipUrl = null;
-      this.clipGroup = null;
-      this.maskId = '';
-    }
-    SVGExtraState.prototype = {
-      clone: function SVGExtraState_clone() {
-        return Object.create(this);
-      },
-      setCurrentPoint: function SVGExtraState_setCurrentPoint(x, y) {
-        this.x = x;
-        this.y = y;
-      }
-    };
-    return SVGExtraState;
-  }();
-  exports.SVGGraphics = SVGGraphics = function SVGGraphicsClosure() {
-    function opListToTree(opList) {
-      var opTree = [];
-      var tmp = [];
-      var opListLen = opList.length;
-      for (var x = 0; x < opListLen; x++) {
-        if (opList[x].fn === 'save') {
-          opTree.push({
-            'fnId': 92,
-            'fn': 'group',
-            'items': []
-          });
-          tmp.push(opTree);
-          opTree = opTree[opTree.length - 1].items;
-          continue;
-        }
-        if (opList[x].fn === 'restore') {
-          opTree = tmp.pop();
-        } else {
-          opTree.push(opList[x]);
-        }
-      }
-      return opTree;
-    }
-    function pf(value) {
-      if (value === (value | 0)) {
-        return value.toString();
-      }
-      var s = value.toFixed(10);
-      var i = s.length - 1;
-      if (s[i] !== '0') {
-        return s;
-      }
-      do {
-        i--;
-      } while (s[i] === '0');
-      return s.substr(0, s[i] === '.' ? i : i + 1);
-    }
-    function pm(m) {
-      if (m[4] === 0 && m[5] === 0) {
-        if (m[1] === 0 && m[2] === 0) {
-          if (m[0] === 1 && m[3] === 1) {
-            return '';
-          }
-          return 'scale(' + pf(m[0]) + ' ' + pf(m[3]) + ')';
-        }
-        if (m[0] === m[3] && m[1] === -m[2]) {
-          var a = Math.acos(m[0]) * 180 / Math.PI;
-          return 'rotate(' + pf(a) + ')';
-        }
-      } else {
-        if (m[0] === 1 && m[1] === 0 && m[2] === 0 && m[3] === 1) {
-          return 'translate(' + pf(m[4]) + ' ' + pf(m[5]) + ')';
-        }
-      }
-      return 'matrix(' + pf(m[0]) + ' ' + pf(m[1]) + ' ' + pf(m[2]) + ' ' + pf(m[3]) + ' ' + pf(m[4]) + ' ' + pf(m[5]) + ')';
-    }
-    function SVGGraphics(commonObjs, objs, forceDataSchema) {
-      this.current = new SVGExtraState();
-      this.transformMatrix = _util.IDENTITY_MATRIX;
-      this.transformStack = [];
-      this.extraStack = [];
-      this.commonObjs = commonObjs;
-      this.objs = objs;
-      this.pendingClip = null;
-      this.pendingEOFill = false;
-      this.embedFonts = false;
-      this.embeddedFonts = Object.create(null);
-      this.cssStyle = null;
-      this.forceDataSchema = !!forceDataSchema;
-    }
-    var NS = 'http://www.w3.org/2000/svg';
-    var XML_NS = 'http://www.w3.org/XML/1998/namespace';
-    var XLINK_NS = 'http://www.w3.org/1999/xlink';
-    var LINE_CAP_STYLES = ['butt', 'round', 'square'];
-    var LINE_JOIN_STYLES = ['miter', 'round', 'bevel'];
-    var clipCount = 0;
-    var maskCount = 0;
-    SVGGraphics.prototype = {
-      save: function SVGGraphics_save() {
-        this.transformStack.push(this.transformMatrix);
-        var old = this.current;
-        this.extraStack.push(old);
-        this.current = old.clone();
-      },
-      restore: function SVGGraphics_restore() {
-        this.transformMatrix = this.transformStack.pop();
-        this.current = this.extraStack.pop();
-        this.pendingClip = null;
-        this.tgrp = null;
-      },
-      group: function SVGGraphics_group(items) {
-        this.save();
-        this.executeOpTree(items);
-        this.restore();
-      },
-      loadDependencies: function SVGGraphics_loadDependencies(operatorList) {
-        var _this = this;
+// var SVGGraphics = function SVGGraphics() {
+//   throw new Error('Not implemented: SVGGraphics');
+// };
+// {
+//   var SVG_DEFAULTS = {
+//     fontStyle: 'normal',
+//     fontWeight: 'normal',
+//     fillColor: '#000000'
+//   };
+//   var convertImgDataToPng = function convertImgDataToPngClosure() {
+//     var PNG_HEADER = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+//     var CHUNK_WRAPPER_SIZE = 12;
+//     var crcTable = new Int32Array(256);
+//     for (var i = 0; i < 256; i++) {
+//       var c = i;
+//       for (var h = 0; h < 8; h++) {
+//         if (c & 1) {
+//           c = 0xedB88320 ^ c >> 1 & 0x7fffffff;
+//         } else {
+//           c = c >> 1 & 0x7fffffff;
+//         }
+//       }
+//       crcTable[i] = c;
+//     }
+//     function crc32(data, start, end) {
+//       var crc = -1;
+//       for (var i = start; i < end; i++) {
+//         var a = (crc ^ data[i]) & 0xff;
+//         var b = crcTable[a];
+//         crc = crc >>> 8 ^ b;
+//       }
+//       return crc ^ -1;
+//     }
+//     function writePngChunk(type, body, data, offset) {
+//       var p = offset;
+//       var len = body.length;
+//       data[p] = len >> 24 & 0xff;
+//       data[p + 1] = len >> 16 & 0xff;
+//       data[p + 2] = len >> 8 & 0xff;
+//       data[p + 3] = len & 0xff;
+//       p += 4;
+//       data[p] = type.charCodeAt(0) & 0xff;
+//       data[p + 1] = type.charCodeAt(1) & 0xff;
+//       data[p + 2] = type.charCodeAt(2) & 0xff;
+//       data[p + 3] = type.charCodeAt(3) & 0xff;
+//       p += 4;
+//       data.set(body, p);
+//       p += body.length;
+//       var crc = crc32(data, offset + 4, p);
+//       data[p] = crc >> 24 & 0xff;
+//       data[p + 1] = crc >> 16 & 0xff;
+//       data[p + 2] = crc >> 8 & 0xff;
+//       data[p + 3] = crc & 0xff;
+//     }
+//     function adler32(data, start, end) {
+//       var a = 1;
+//       var b = 0;
+//       for (var i = start; i < end; ++i) {
+//         a = (a + (data[i] & 0xff)) % 65521;
+//         b = (b + a) % 65521;
+//       }
+//       return b << 16 | a;
+//     }
+//     function deflateSync(literals) {
+//       if (!(0, _util.isNodeJS)()) {
+//         return deflateSyncUncompressed(literals);
+//       }
+//       try {
+//         var input;
+//         if (parseInt(process.versions.node) >= 8) {
+//           input = literals;
+//         } else {
+//           input = new Buffer(literals);
+//         }
+//         var output = require('zlib').deflateSync(input, { level: 9 });
+//         return output instanceof Uint8Array ? output : new Uint8Array(output);
+//       } catch (e) {
+//         (0, _util.warn)('Not compressing PNG because zlib.deflateSync is unavailable: ' + e);
+//       }
+//       return deflateSyncUncompressed(literals);
+//     }
+//     function deflateSyncUncompressed(literals) {
+//       var len = literals.length;
+//       var maxBlockLength = 0xFFFF;
+//       var deflateBlocks = Math.ceil(len / maxBlockLength);
+//       var idat = new Uint8Array(2 + len + deflateBlocks * 5 + 4);
+//       var pi = 0;
+//       idat[pi++] = 0x78;
+//       idat[pi++] = 0x9c;
+//       var pos = 0;
+//       while (len > maxBlockLength) {
+//         idat[pi++] = 0x00;
+//         idat[pi++] = 0xff;
+//         idat[pi++] = 0xff;
+//         idat[pi++] = 0x00;
+//         idat[pi++] = 0x00;
+//         idat.set(literals.subarray(pos, pos + maxBlockLength), pi);
+//         pi += maxBlockLength;
+//         pos += maxBlockLength;
+//         len -= maxBlockLength;
+//       }
+//       idat[pi++] = 0x01;
+//       idat[pi++] = len & 0xff;
+//       idat[pi++] = len >> 8 & 0xff;
+//       idat[pi++] = ~len & 0xffff & 0xff;
+//       idat[pi++] = (~len & 0xffff) >> 8 & 0xff;
+//       idat.set(literals.subarray(pos), pi);
+//       pi += literals.length - pos;
+//       var adler = adler32(literals, 0, literals.length);
+//       idat[pi++] = adler >> 24 & 0xff;
+//       idat[pi++] = adler >> 16 & 0xff;
+//       idat[pi++] = adler >> 8 & 0xff;
+//       idat[pi++] = adler & 0xff;
+//       return idat;
+//     }
+//     function encode(imgData, kind, forceDataSchema) {
+//       var width = imgData.width;
+//       var height = imgData.height;
+//       var bitDepth, colorType, lineSize;
+//       var bytes = imgData.data;
+//       switch (kind) {
+//         case _util.ImageKind.GRAYSCALE_1BPP:
+//           colorType = 0;
+//           bitDepth = 1;
+//           lineSize = width + 7 >> 3;
+//           break;
+//         case _util.ImageKind.RGB_24BPP:
+//           colorType = 2;
+//           bitDepth = 8;
+//           lineSize = width * 3;
+//           break;
+//         case _util.ImageKind.RGBA_32BPP:
+//           colorType = 6;
+//           bitDepth = 8;
+//           lineSize = width * 4;
+//           break;
+//         default:
+//           throw new Error('invalid format');
+//       }
+//       var literals = new Uint8Array((1 + lineSize) * height);
+//       var offsetLiterals = 0,
+//           offsetBytes = 0;
+//       var y, i;
+//       for (y = 0; y < height; ++y) {
+//         literals[offsetLiterals++] = 0;
+//         literals.set(bytes.subarray(offsetBytes, offsetBytes + lineSize), offsetLiterals);
+//         offsetBytes += lineSize;
+//         offsetLiterals += lineSize;
+//       }
+//       if (kind === _util.ImageKind.GRAYSCALE_1BPP) {
+//         offsetLiterals = 0;
+//         for (y = 0; y < height; y++) {
+//           offsetLiterals++;
+//           for (i = 0; i < lineSize; i++) {
+//             literals[offsetLiterals++] ^= 0xFF;
+//           }
+//         }
+//       }
+//       var ihdr = new Uint8Array([width >> 24 & 0xff, width >> 16 & 0xff, width >> 8 & 0xff, width & 0xff, height >> 24 & 0xff, height >> 16 & 0xff, height >> 8 & 0xff, height & 0xff, bitDepth, colorType, 0x00, 0x00, 0x00]);
+//       var idat = deflateSync(literals);
+//       var pngLength = PNG_HEADER.length + CHUNK_WRAPPER_SIZE * 3 + ihdr.length + idat.length;
+//       var data = new Uint8Array(pngLength);
+//       var offset = 0;
+//       data.set(PNG_HEADER, offset);
+//       offset += PNG_HEADER.length;
+//       writePngChunk('IHDR', ihdr, data, offset);
+//       offset += CHUNK_WRAPPER_SIZE + ihdr.length;
+//       writePngChunk('IDATA', idat, data, offset);
+//       offset += CHUNK_WRAPPER_SIZE + idat.length;
+//       writePngChunk('IEND', new Uint8Array(0), data, offset);
+//       return (0, _util.createObjectURL)(data, 'image/png', forceDataSchema);
+//     }
+//     return function convertImgDataToPng(imgData, forceDataSchema) {
+//       var kind = imgData.kind === undefined ? _util.ImageKind.GRAYSCALE_1BPP : imgData.kind;
+//       return encode(imgData, kind, forceDataSchema);
+//     };
+//   }();
+//   var SVGExtraState = function SVGExtraStateClosure() {
+//     function SVGExtraState() {
+//       this.fontSizeScale = 1;
+//       this.fontWeight = SVG_DEFAULTS.fontWeight;
+//       this.fontSize = 0;
+//       this.textMatrix = _util.IDENTITY_MATRIX;
+//       this.fontMatrix = _util.FONT_IDENTITY_MATRIX;
+//       this.leading = 0;
+//       this.x = 0;
+//       this.y = 0;
+//       this.lineX = 0;
+//       this.lineY = 0;
+//       this.charSpacing = 0;
+//       this.wordSpacing = 0;
+//       this.textHScale = 1;
+//       this.textRise = 0;
+//       this.fillColor = SVG_DEFAULTS.fillColor;
+//       this.strokeColor = '#000000';
+//       this.fillAlpha = 1;
+//       this.strokeAlpha = 1;
+//       this.lineWidth = 1;
+//       this.lineJoin = '';
+//       this.lineCap = '';
+//       this.miterLimit = 0;
+//       this.dashArray = [];
+//       this.dashPhase = 0;
+//       this.dependencies = [];
+//       this.activeClipUrl = null;
+//       this.clipGroup = null;
+//       this.maskId = '';
+//     }
+//     SVGExtraState.prototype = {
+//       clone: function SVGExtraState_clone() {
+//         return Object.create(this);
+//       },
+//       setCurrentPoint: function SVGExtraState_setCurrentPoint(x, y) {
+//         this.x = x;
+//         this.y = y;
+//       }
+//     };
+//     return SVGExtraState;
+//   }();
+//   exports.SVGGraphics = SVGGraphics = function SVGGraphicsClosure() {
+//     function opListToTree(opList) {
+//       var opTree = [];
+//       var tmp = [];
+//       var opListLen = opList.length;
+//       for (var x = 0; x < opListLen; x++) {
+//         if (opList[x].fn === 'save') {
+//           opTree.push({
+//             'fnId': 92,
+//             'fn': 'group',
+//             'items': []
+//           });
+//           tmp.push(opTree);
+//           opTree = opTree[opTree.length - 1].items;
+//           continue;
+//         }
+//         if (opList[x].fn === 'restore') {
+//           opTree = tmp.pop();
+//         } else {
+//           opTree.push(opList[x]);
+//         }
+//       }
+//       return opTree;
+//     }
+//     function pf(value) {
+//       if (value === (value | 0)) {
+//         return value.toString();
+//       }
+//       var s = value.toFixed(10);
+//       var i = s.length - 1;
+//       if (s[i] !== '0') {
+//         return s;
+//       }
+//       do {
+//         i--;
+//       } while (s[i] === '0');
+//       return s.substr(0, s[i] === '.' ? i : i + 1);
+//     }
+//     function pm(m) {
+//       if (m[4] === 0 && m[5] === 0) {
+//         if (m[1] === 0 && m[2] === 0) {
+//           if (m[0] === 1 && m[3] === 1) {
+//             return '';
+//           }
+//           return 'scale(' + pf(m[0]) + ' ' + pf(m[3]) + ')';
+//         }
+//         if (m[0] === m[3] && m[1] === -m[2]) {
+//           var a = Math.acos(m[0]) * 180 / Math.PI;
+//           return 'rotate(' + pf(a) + ')';
+//         }
+//       } else {
+//         if (m[0] === 1 && m[1] === 0 && m[2] === 0 && m[3] === 1) {
+//           return 'translate(' + pf(m[4]) + ' ' + pf(m[5]) + ')';
+//         }
+//       }
+//       return 'matrix(' + pf(m[0]) + ' ' + pf(m[1]) + ' ' + pf(m[2]) + ' ' + pf(m[3]) + ' ' + pf(m[4]) + ' ' + pf(m[5]) + ')';
+//     }
+//     function SVGGraphics(commonObjs, objs, forceDataSchema) {
+//       this.current = new SVGExtraState();
+//       this.transformMatrix = _util.IDENTITY_MATRIX;
+//       this.transformStack = [];
+//       this.extraStack = [];
+//       this.commonObjs = commonObjs;
+//       this.objs = objs;
+//       this.pendingClip = null;
+//       this.pendingEOFill = false;
+//       this.embedFonts = false;
+//       this.embeddedFonts = Object.create(null);
+//       this.cssStyle = null;
+//       this.forceDataSchema = !!forceDataSchema;
+//     }
+//     var NS = 'http://www.w3.org/2000/svg';
+//     var XML_NS = 'http://www.w3.org/XML/1998/namespace';
+//     var XLINK_NS = 'http://www.w3.org/1999/xlink';
+//     var LINE_CAP_STYLES = ['butt', 'round', 'square'];
+//     var LINE_JOIN_STYLES = ['miter', 'round', 'bevel'];
+//     var clipCount = 0;
+//     var maskCount = 0;
+//     SVGGraphics.prototype = {
+//       save: function SVGGraphics_save() {
+//         this.transformStack.push(this.transformMatrix);
+//         var old = this.current;
+//         this.extraStack.push(old);
+//         this.current = old.clone();
+//       },
+//       restore: function SVGGraphics_restore() {
+//         this.transformMatrix = this.transformStack.pop();
+//         this.current = this.extraStack.pop();
+//         this.pendingClip = null;
+//         this.tgrp = null;
+//       },
+//       group: function SVGGraphics_group(items) {
+//         this.save();
+//         this.executeOpTree(items);
+//         this.restore();
+//       },
+//       loadDependencies: function SVGGraphics_loadDependencies(operatorList) {
+//         var _this = this;
 
-        var fnArray = operatorList.fnArray;
-        var fnArrayLen = fnArray.length;
-        var argsArray = operatorList.argsArray;
-        for (var i = 0; i < fnArrayLen; i++) {
-          if (_util.OPS.dependency === fnArray[i]) {
-            var deps = argsArray[i];
-            for (var n = 0, nn = deps.length; n < nn; n++) {
-              var obj = deps[n];
-              var common = obj.substring(0, 2) === 'g_';
-              var promise;
-              if (common) {
-                promise = new Promise(function (resolve) {
-                  _this.commonObjs.get(obj, resolve);
-                });
-              } else {
-                promise = new Promise(function (resolve) {
-                  _this.objs.get(obj, resolve);
-                });
-              }
-              this.current.dependencies.push(promise);
-            }
-          }
-        }
-        return Promise.all(this.current.dependencies);
-      },
-      transform: function SVGGraphics_transform(a, b, c, d, e, f) {
-        var transformMatrix = [a, b, c, d, e, f];
-        this.transformMatrix = _util.Util.transform(this.transformMatrix, transformMatrix);
-        this.tgrp = null;
-      },
-      getSVG: function SVGGraphics_getSVG(operatorList, viewport) {
-        var _this2 = this;
+//         var fnArray = operatorList.fnArray;
+//         var fnArrayLen = fnArray.length;
+//         var argsArray = operatorList.argsArray;
+//         for (var i = 0; i < fnArrayLen; i++) {
+//           if (_util.OPS.dependency === fnArray[i]) {
+//             var deps = argsArray[i];
+//             for (var n = 0, nn = deps.length; n < nn; n++) {
+//               var obj = deps[n];
+//               var common = obj.substring(0, 2) === 'g_';
+//               var promise;
+//               if (common) {
+//                 promise = new Promise(function (resolve) {
+//                   _this.commonObjs.get(obj, resolve);
+//                 });
+//               } else {
+//                 promise = new Promise(function (resolve) {
+//                   _this.objs.get(obj, resolve);
+//                 });
+//               }
+//               this.current.dependencies.push(promise);
+//             }
+//           }
+//         }
+//         return Promise.all(this.current.dependencies);
+//       },
+//       transform: function SVGGraphics_transform(a, b, c, d, e, f) {
+//         var transformMatrix = [a, b, c, d, e, f];
+//         this.transformMatrix = _util.Util.transform(this.transformMatrix, transformMatrix);
+//         this.tgrp = null;
+//       },
+//       getSVG: function SVGGraphics_getSVG(operatorList, viewport) {
+//         var _this2 = this;
 
-        this.viewport = viewport;
-        var svgElement = this._initialize(viewport);
-        return this.loadDependencies(operatorList).then(function () {
-          _this2.transformMatrix = _util.IDENTITY_MATRIX;
-          var opTree = _this2.convertOpList(operatorList);
-          _this2.executeOpTree(opTree);
-          return svgElement;
-        });
-      },
-      convertOpList: function SVGGraphics_convertOpList(operatorList) {
-        var argsArray = operatorList.argsArray;
-        var fnArray = operatorList.fnArray;
-        var fnArrayLen = fnArray.length;
-        var REVOPS = [];
-        var opList = [];
-        for (var op in _util.OPS) {
-          REVOPS[_util.OPS[op]] = op;
-        }
-        for (var x = 0; x < fnArrayLen; x++) {
-          var fnId = fnArray[x];
-          opList.push({
-            'fnId': fnId,
-            'fn': REVOPS[fnId],
-            'args': argsArray[x]
-          });
-        }
-        return opListToTree(opList);
-      },
-      executeOpTree: function SVGGraphics_executeOpTree(opTree) {
-        var opTreeLen = opTree.length;
-        for (var x = 0; x < opTreeLen; x++) {
-          var fn = opTree[x].fn;
-          var fnId = opTree[x].fnId;
-          var args = opTree[x].args;
-          switch (fnId | 0) {
-            case _util.OPS.beginText:
-              this.beginText();
-              break;
-            case _util.OPS.setLeading:
-              this.setLeading(args);
-              break;
-            case _util.OPS.setLeadingMoveText:
-              this.setLeadingMoveText(args[0], args[1]);
-              break;
-            case _util.OPS.setFont:
-              this.setFont(args);
-              break;
-            case _util.OPS.showText:
-              this.showText(args[0]);
-              break;
-            case _util.OPS.showSpacedText:
-              this.showText(args[0]);
-              break;
-            case _util.OPS.endText:
-              this.endText();
-              break;
-            case _util.OPS.moveText:
-              this.moveText(args[0], args[1]);
-              break;
-            case _util.OPS.setCharSpacing:
-              this.setCharSpacing(args[0]);
-              break;
-            case _util.OPS.setWordSpacing:
-              this.setWordSpacing(args[0]);
-              break;
-            case _util.OPS.setHScale:
-              this.setHScale(args[0]);
-              break;
-            case _util.OPS.setTextMatrix:
-              this.setTextMatrix(args[0], args[1], args[2], args[3], args[4], args[5]);
-              break;
-            case _util.OPS.setLineWidth:
-              this.setLineWidth(args[0]);
-              break;
-            case _util.OPS.setLineJoin:
-              this.setLineJoin(args[0]);
-              break;
-            case _util.OPS.setLineCap:
-              this.setLineCap(args[0]);
-              break;
-            case _util.OPS.setMiterLimit:
-              this.setMiterLimit(args[0]);
-              break;
-            case _util.OPS.setFillRGBColor:
-              this.setFillRGBColor(args[0], args[1], args[2]);
-              break;
-            case _util.OPS.setStrokeRGBColor:
-              this.setStrokeRGBColor(args[0], args[1], args[2]);
-              break;
-            case _util.OPS.setDash:
-              this.setDash(args[0], args[1]);
-              break;
-            case _util.OPS.setGState:
-              this.setGState(args[0]);
-              break;
-            case _util.OPS.fill:
-              this.fill();
-              break;
-            case _util.OPS.eoFill:
-              this.eoFill();
-              break;
-            case _util.OPS.stroke:
-              this.stroke();
-              break;
-            case _util.OPS.fillStroke:
-              this.fillStroke();
-              break;
-            case _util.OPS.eoFillStroke:
-              this.eoFillStroke();
-              break;
-            case _util.OPS.clip:
-              this.clip('nonzero');
-              break;
-            case _util.OPS.eoClip:
-              this.clip('evenodd');
-              break;
-            case _util.OPS.paintSolidColorImageMask:
-              this.paintSolidColorImageMask();
-              break;
-            case _util.OPS.paintJpegXObject:
-              this.paintJpegXObject(args[0], args[1], args[2]);
-              break;
-            case _util.OPS.paintImageXObject:
-              this.paintImageXObject(args[0]);
-              break;
-            case _util.OPS.paintInlineImageXObject:
-              this.paintInlineImageXObject(args[0]);
-              break;
-            case _util.OPS.paintImageMaskXObject:
-              this.paintImageMaskXObject(args[0]);
-              break;
-            case _util.OPS.paintFormXObjectBegin:
-              this.paintFormXObjectBegin(args[0], args[1]);
-              break;
-            case _util.OPS.paintFormXObjectEnd:
-              this.paintFormXObjectEnd();
-              break;
-            case _util.OPS.closePath:
-              this.closePath();
-              break;
-            case _util.OPS.closeStroke:
-              this.closeStroke();
-              break;
-            case _util.OPS.closeFillStroke:
-              this.closeFillStroke();
-              break;
-            case _util.OPS.nextLine:
-              this.nextLine();
-              break;
-            case _util.OPS.transform:
-              this.transform(args[0], args[1], args[2], args[3], args[4], args[5]);
-              break;
-            case _util.OPS.constructPath:
-              this.constructPath(args[0], args[1]);
-              break;
-            case _util.OPS.endPath:
-              this.endPath();
-              break;
-            case 92:
-              this.group(opTree[x].items);
-              break;
-            default:
-              (0, _util.warn)('Unimplemented operator ' + fn);
-              break;
-          }
-        }
-      },
-      setWordSpacing: function SVGGraphics_setWordSpacing(wordSpacing) {
-        this.current.wordSpacing = wordSpacing;
-      },
-      setCharSpacing: function SVGGraphics_setCharSpacing(charSpacing) {
-        this.current.charSpacing = charSpacing;
-      },
-      nextLine: function SVGGraphics_nextLine() {
-        this.moveText(0, this.current.leading);
-      },
-      setTextMatrix: function SVGGraphics_setTextMatrix(a, b, c, d, e, f) {
-        var current = this.current;
-        this.current.textMatrix = this.current.lineMatrix = [a, b, c, d, e, f];
-        this.current.x = this.current.lineX = 0;
-        this.current.y = this.current.lineY = 0;
-        current.xcoords = [];
-        current.tspan = document.createElementNS(NS, 'svg:tspan');
-        current.tspan.setAttributeNS(null, 'font-family', current.fontFamily);
-        current.tspan.setAttributeNS(null, 'font-size', pf(current.fontSize) + 'px');
-        current.tspan.setAttributeNS(null, 'y', pf(-current.y));
-        current.txtElement = document.createElementNS(NS, 'svg:text');
-        current.txtElement.appendChild(current.tspan);
-      },
-      beginText: function SVGGraphics_beginText() {
-        this.current.x = this.current.lineX = 0;
-        this.current.y = this.current.lineY = 0;
-        this.current.textMatrix = _util.IDENTITY_MATRIX;
-        this.current.lineMatrix = _util.IDENTITY_MATRIX;
-        this.current.tspan = document.createElementNS(NS, 'svg:tspan');
-        this.current.txtElement = document.createElementNS(NS, 'svg:text');
-        this.current.txtgrp = document.createElementNS(NS, 'svg:g');
-        this.current.xcoords = [];
-      },
-      moveText: function SVGGraphics_moveText(x, y) {
-        var current = this.current;
-        this.current.x = this.current.lineX += x;
-        this.current.y = this.current.lineY += y;
-        current.xcoords = [];
-        current.tspan = document.createElementNS(NS, 'svg:tspan');
-        current.tspan.setAttributeNS(null, 'font-family', current.fontFamily);
-        current.tspan.setAttributeNS(null, 'font-size', pf(current.fontSize) + 'px');
-        current.tspan.setAttributeNS(null, 'y', pf(-current.y));
-      },
-      showText: function SVGGraphics_showText(glyphs) {
-        var current = this.current;
-        var font = current.font;
-        var fontSize = current.fontSize;
-        if (fontSize === 0) {
-          return;
-        }
-        var charSpacing = current.charSpacing;
-        var wordSpacing = current.wordSpacing;
-        var fontDirection = current.fontDirection;
-        var textHScale = current.textHScale * fontDirection;
-        var glyphsLength = glyphs.length;
-        var vertical = font.vertical;
-        var widthAdvanceScale = fontSize * current.fontMatrix[0];
-        var x = 0,
-            i;
-        for (i = 0; i < glyphsLength; ++i) {
-          var glyph = glyphs[i];
-          if (glyph === null) {
-            x += fontDirection * wordSpacing;
-            continue;
-          } else if ((0, _util.isNum)(glyph)) {
-            x += -glyph * fontSize * 0.001;
-            continue;
-          }
-          current.xcoords.push(current.x + x * textHScale);
-          var width = glyph.width;
-          var character = glyph.fontChar;
-          var spacing = (glyph.isSpace ? wordSpacing : 0) + charSpacing;
-          var charWidth = width * widthAdvanceScale + spacing * fontDirection;
-          x += charWidth;
-          current.tspan.textContent += character;
-        }
-        if (vertical) {
-          current.y -= x * textHScale;
-        } else {
-          current.x += x * textHScale;
-        }
-        current.tspan.setAttributeNS(null, 'x', current.xcoords.map(pf).join(' '));
-        current.tspan.setAttributeNS(null, 'y', pf(-current.y));
-        current.tspan.setAttributeNS(null, 'font-family', current.fontFamily);
-        current.tspan.setAttributeNS(null, 'font-size', pf(current.fontSize) + 'px');
-        if (current.fontStyle !== SVG_DEFAULTS.fontStyle) {
-          current.tspan.setAttributeNS(null, 'font-style', current.fontStyle);
-        }
-        if (current.fontWeight !== SVG_DEFAULTS.fontWeight) {
-          current.tspan.setAttributeNS(null, 'font-weight', current.fontWeight);
-        }
-        if (current.fillColor !== SVG_DEFAULTS.fillColor) {
-          current.tspan.setAttributeNS(null, 'fill', current.fillColor);
-        }
-        current.txtElement.setAttributeNS(null, 'transform', pm(current.textMatrix) + ' scale(1, -1)');
-        current.txtElement.setAttributeNS(XML_NS, 'xml:space', 'preserve');
-        current.txtElement.appendChild(current.tspan);
-        current.txtgrp.appendChild(current.txtElement);
-        this._ensureTransformGroup().appendChild(current.txtElement);
-      },
-      setLeadingMoveText: function SVGGraphics_setLeadingMoveText(x, y) {
-        this.setLeading(-y);
-        this.moveText(x, y);
-      },
-      addFontStyle: function SVGGraphics_addFontStyle(fontObj) {
-        if (!this.cssStyle) {
-          this.cssStyle = document.createElementNS(NS, 'svg:style');
-          this.cssStyle.setAttributeNS(null, 'type', 'text/css');
-          this.defs.appendChild(this.cssStyle);
-        }
-        var url = (0, _util.createObjectURL)(fontObj.data, fontObj.mimetype, this.forceDataSchema);
-        this.cssStyle.textContent += '@font-face { font-family: "' + fontObj.loadedName + '";' + ' src: url(' + url + '); }\n';
-      },
-      setFont: function SVGGraphics_setFont(details) {
-        var current = this.current;
-        var fontObj = this.commonObjs.get(details[0]);
-        var size = details[1];
-        this.current.font = fontObj;
-        if (this.embedFonts && fontObj.data && !this.embeddedFonts[fontObj.loadedName]) {
-          this.addFontStyle(fontObj);
-          this.embeddedFonts[fontObj.loadedName] = fontObj;
-        }
-        current.fontMatrix = fontObj.fontMatrix ? fontObj.fontMatrix : _util.FONT_IDENTITY_MATRIX;
-        var bold = fontObj.black ? fontObj.bold ? 'bolder' : 'bold' : fontObj.bold ? 'bold' : 'normal';
-        var italic = fontObj.italic ? 'italic' : 'normal';
-        if (size < 0) {
-          size = -size;
-          current.fontDirection = -1;
-        } else {
-          current.fontDirection = 1;
-        }
-        current.fontSize = size;
-        current.fontFamily = fontObj.loadedName;
-        current.fontWeight = bold;
-        current.fontStyle = italic;
-        current.tspan = document.createElementNS(NS, 'svg:tspan');
-        current.tspan.setAttributeNS(null, 'y', pf(-current.y));
-        current.xcoords = [];
-      },
-      endText: function SVGGraphics_endText() {},
-      setLineWidth: function SVGGraphics_setLineWidth(width) {
-        this.current.lineWidth = width;
-      },
-      setLineCap: function SVGGraphics_setLineCap(style) {
-        this.current.lineCap = LINE_CAP_STYLES[style];
-      },
-      setLineJoin: function SVGGraphics_setLineJoin(style) {
-        this.current.lineJoin = LINE_JOIN_STYLES[style];
-      },
-      setMiterLimit: function SVGGraphics_setMiterLimit(limit) {
-        this.current.miterLimit = limit;
-      },
-      setStrokeAlpha: function SVGGraphics_setStrokeAlpha(strokeAlpha) {
-        this.current.strokeAlpha = strokeAlpha;
-      },
-      setStrokeRGBColor: function SVGGraphics_setStrokeRGBColor(r, g, b) {
-        var color = _util.Util.makeCssRgb(r, g, b);
-        this.current.strokeColor = color;
-      },
-      setFillAlpha: function SVGGraphics_setFillAlpha(fillAlpha) {
-        this.current.fillAlpha = fillAlpha;
-      },
-      setFillRGBColor: function SVGGraphics_setFillRGBColor(r, g, b) {
-        var color = _util.Util.makeCssRgb(r, g, b);
-        this.current.fillColor = color;
-        this.current.tspan = document.createElementNS(NS, 'svg:tspan');
-        this.current.xcoords = [];
-      },
-      setDash: function SVGGraphics_setDash(dashArray, dashPhase) {
-        this.current.dashArray = dashArray;
-        this.current.dashPhase = dashPhase;
-      },
-      constructPath: function SVGGraphics_constructPath(ops, args) {
-        var current = this.current;
-        var x = current.x,
-            y = current.y;
-        current.path = document.createElementNS(NS, 'svg:path');
-        var d = [];
-        var opLength = ops.length;
-        for (var i = 0, j = 0; i < opLength; i++) {
-          switch (ops[i] | 0) {
-            case _util.OPS.rectangle:
-              x = args[j++];
-              y = args[j++];
-              var width = args[j++];
-              var height = args[j++];
-              var xw = x + width;
-              var yh = y + height;
-              d.push('M', pf(x), pf(y), 'L', pf(xw), pf(y), 'L', pf(xw), pf(yh), 'L', pf(x), pf(yh), 'Z');
-              break;
-            case _util.OPS.moveTo:
-              x = args[j++];
-              y = args[j++];
-              d.push('M', pf(x), pf(y));
-              break;
-            case _util.OPS.lineTo:
-              x = args[j++];
-              y = args[j++];
-              d.push('L', pf(x), pf(y));
-              break;
-            case _util.OPS.curveTo:
-              x = args[j + 4];
-              y = args[j + 5];
-              d.push('C', pf(args[j]), pf(args[j + 1]), pf(args[j + 2]), pf(args[j + 3]), pf(x), pf(y));
-              j += 6;
-              break;
-            case _util.OPS.curveTo2:
-              x = args[j + 2];
-              y = args[j + 3];
-              d.push('C', pf(x), pf(y), pf(args[j]), pf(args[j + 1]), pf(args[j + 2]), pf(args[j + 3]));
-              j += 4;
-              break;
-            case _util.OPS.curveTo3:
-              x = args[j + 2];
-              y = args[j + 3];
-              d.push('C', pf(args[j]), pf(args[j + 1]), pf(x), pf(y), pf(x), pf(y));
-              j += 4;
-              break;
-            case _util.OPS.closePath:
-              d.push('Z');
-              break;
-          }
-        }
-        current.path.setAttributeNS(null, 'd', d.join(' '));
-        current.path.setAttributeNS(null, 'fill', 'none');
-        this._ensureTransformGroup().appendChild(current.path);
-        current.element = current.path;
-        current.setCurrentPoint(x, y);
-      },
-      endPath: function SVGGraphics_endPath() {
-        if (!this.pendingClip) {
-          return;
-        }
-        var current = this.current;
-        var clipId = 'clippath' + clipCount;
-        clipCount++;
-        var clipPath = document.createElementNS(NS, 'svg:clipPath');
-        clipPath.setAttributeNS(null, 'id', clipId);
-        clipPath.setAttributeNS(null, 'transform', pm(this.transformMatrix));
-        var clipElement = current.element.cloneNode();
-        if (this.pendingClip === 'evenodd') {
-          clipElement.setAttributeNS(null, 'clip-rule', 'evenodd');
-        } else {
-          clipElement.setAttributeNS(null, 'clip-rule', 'nonzero');
-        }
-        this.pendingClip = null;
-        clipPath.appendChild(clipElement);
-        this.defs.appendChild(clipPath);
-        if (current.activeClipUrl) {
-          current.clipGroup = null;
-          this.extraStack.forEach(function (prev) {
-            prev.clipGroup = null;
-          });
-        }
-        current.activeClipUrl = 'url(#' + clipId + ')';
-        this.tgrp = null;
-      },
-      clip: function SVGGraphics_clip(type) {
-        this.pendingClip = type;
-      },
-      closePath: function SVGGraphics_closePath() {
-        var current = this.current;
-        var d = current.path.getAttributeNS(null, 'd');
-        d += 'Z';
-        current.path.setAttributeNS(null, 'd', d);
-      },
-      setLeading: function SVGGraphics_setLeading(leading) {
-        this.current.leading = -leading;
-      },
-      setTextRise: function SVGGraphics_setTextRise(textRise) {
-        this.current.textRise = textRise;
-      },
-      setHScale: function SVGGraphics_setHScale(scale) {
-        this.current.textHScale = scale / 100;
-      },
-      setGState: function SVGGraphics_setGState(states) {
-        for (var i = 0, ii = states.length; i < ii; i++) {
-          var state = states[i];
-          var key = state[0];
-          var value = state[1];
-          switch (key) {
-            case 'LW':
-              this.setLineWidth(value);
-              break;
-            case 'LC':
-              this.setLineCap(value);
-              break;
-            case 'LJ':
-              this.setLineJoin(value);
-              break;
-            case 'ML':
-              this.setMiterLimit(value);
-              break;
-            case 'D':
-              this.setDash(value[0], value[1]);
-              break;
-            case 'Font':
-              this.setFont(value);
-              break;
-            case 'CA':
-              this.setStrokeAlpha(value);
-              break;
-            case 'ca':
-              this.setFillAlpha(value);
-              break;
-            default:
-              (0, _util.warn)('Unimplemented graphic state ' + key);
-              break;
-          }
-        }
-      },
-      fill: function SVGGraphics_fill() {
-        var current = this.current;
-        current.element.setAttributeNS(null, 'fill', current.fillColor);
-        current.element.setAttributeNS(null, 'fill-opacity', current.fillAlpha);
-      },
-      stroke: function SVGGraphics_stroke() {
-        var current = this.current;
-        current.element.setAttributeNS(null, 'stroke', current.strokeColor);
-        current.element.setAttributeNS(null, 'stroke-opacity', current.strokeAlpha);
-        current.element.setAttributeNS(null, 'stroke-miterlimit', pf(current.miterLimit));
-        current.element.setAttributeNS(null, 'stroke-linecap', current.lineCap);
-        current.element.setAttributeNS(null, 'stroke-linejoin', current.lineJoin);
-        current.element.setAttributeNS(null, 'stroke-width', pf(current.lineWidth) + 'px');
-        current.element.setAttributeNS(null, 'stroke-dasharray', current.dashArray.map(pf).join(' '));
-        current.element.setAttributeNS(null, 'stroke-dashoffset', pf(current.dashPhase) + 'px');
-        current.element.setAttributeNS(null, 'fill', 'none');
-      },
-      eoFill: function SVGGraphics_eoFill() {
-        this.current.element.setAttributeNS(null, 'fill-rule', 'evenodd');
-        this.fill();
-      },
-      fillStroke: function SVGGraphics_fillStroke() {
-        this.stroke();
-        this.fill();
-      },
-      eoFillStroke: function SVGGraphics_eoFillStroke() {
-        this.current.element.setAttributeNS(null, 'fill-rule', 'evenodd');
-        this.fillStroke();
-      },
-      closeStroke: function SVGGraphics_closeStroke() {
-        this.closePath();
-        this.stroke();
-      },
-      closeFillStroke: function SVGGraphics_closeFillStroke() {
-        this.closePath();
-        this.fillStroke();
-      },
-      paintSolidColorImageMask: function SVGGraphics_paintSolidColorImageMask() {
-        var current = this.current;
-        var rect = document.createElementNS(NS, 'svg:rect');
-        rect.setAttributeNS(null, 'x', '0');
-        rect.setAttributeNS(null, 'y', '0');
-        rect.setAttributeNS(null, 'width', '1px');
-        rect.setAttributeNS(null, 'height', '1px');
-        rect.setAttributeNS(null, 'fill', current.fillColor);
-        this._ensureTransformGroup().appendChild(rect);
-      },
-      paintJpegXObject: function SVGGraphics_paintJpegXObject(objId, w, h) {
-        var imgObj = this.objs.get(objId);
-        var imgEl = document.createElementNS(NS, 'svg:image');
-        imgEl.setAttributeNS(XLINK_NS, 'xlink:href', imgObj.src);
-        imgEl.setAttributeNS(null, 'width', pf(w));
-        imgEl.setAttributeNS(null, 'height', pf(h));
-        imgEl.setAttributeNS(null, 'x', '0');
-        imgEl.setAttributeNS(null, 'y', pf(-h));
-        imgEl.setAttributeNS(null, 'transform', 'scale(' + pf(1 / w) + ' ' + pf(-1 / h) + ')');
-        this._ensureTransformGroup().appendChild(imgEl);
-      },
-      paintImageXObject: function SVGGraphics_paintImageXObject(objId) {
-        var imgData = this.objs.get(objId);
-        if (!imgData) {
-          (0, _util.warn)('Dependent image isn\'t ready yet');
-          return;
-        }
-        this.paintInlineImageXObject(imgData);
-      },
-      paintInlineImageXObject: function SVGGraphics_paintInlineImageXObject(imgData, mask) {
-        var width = imgData.width;
-        var height = imgData.height;
-        var imgSrc = convertImgDataToPng(imgData, this.forceDataSchema);
-        var cliprect = document.createElementNS(NS, 'svg:rect');
-        cliprect.setAttributeNS(null, 'x', '0');
-        cliprect.setAttributeNS(null, 'y', '0');
-        cliprect.setAttributeNS(null, 'width', pf(width));
-        cliprect.setAttributeNS(null, 'height', pf(height));
-        this.current.element = cliprect;
-        this.clip('nonzero');
-        var imgEl = document.createElementNS(NS, 'svg:image');
-        imgEl.setAttributeNS(XLINK_NS, 'xlink:href', imgSrc);
-        imgEl.setAttributeNS(null, 'x', '0');
-        imgEl.setAttributeNS(null, 'y', pf(-height));
-        imgEl.setAttributeNS(null, 'width', pf(width) + 'px');
-        imgEl.setAttributeNS(null, 'height', pf(height) + 'px');
-        imgEl.setAttributeNS(null, 'transform', 'scale(' + pf(1 / width) + ' ' + pf(-1 / height) + ')');
-        if (mask) {
-          mask.appendChild(imgEl);
-        } else {
-          this._ensureTransformGroup().appendChild(imgEl);
-        }
-      },
-      paintImageMaskXObject: function SVGGraphics_paintImageMaskXObject(imgData) {
-        var current = this.current;
-        var width = imgData.width;
-        var height = imgData.height;
-        var fillColor = current.fillColor;
-        current.maskId = 'mask' + maskCount++;
-        var mask = document.createElementNS(NS, 'svg:mask');
-        mask.setAttributeNS(null, 'id', current.maskId);
-        var rect = document.createElementNS(NS, 'svg:rect');
-        rect.setAttributeNS(null, 'x', '0');
-        rect.setAttributeNS(null, 'y', '0');
-        rect.setAttributeNS(null, 'width', pf(width));
-        rect.setAttributeNS(null, 'height', pf(height));
-        rect.setAttributeNS(null, 'fill', fillColor);
-        rect.setAttributeNS(null, 'mask', 'url(#' + current.maskId + ')');
-        this.defs.appendChild(mask);
-        this._ensureTransformGroup().appendChild(rect);
-        this.paintInlineImageXObject(imgData, mask);
-      },
-      paintFormXObjectBegin: function SVGGraphics_paintFormXObjectBegin(matrix, bbox) {
-        if ((0, _util.isArray)(matrix) && matrix.length === 6) {
-          this.transform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]);
-        }
-        if ((0, _util.isArray)(bbox) && bbox.length === 4) {
-          var width = bbox[2] - bbox[0];
-          var height = bbox[3] - bbox[1];
-          var cliprect = document.createElementNS(NS, 'svg:rect');
-          cliprect.setAttributeNS(null, 'x', bbox[0]);
-          cliprect.setAttributeNS(null, 'y', bbox[1]);
-          cliprect.setAttributeNS(null, 'width', pf(width));
-          cliprect.setAttributeNS(null, 'height', pf(height));
-          this.current.element = cliprect;
-          this.clip('nonzero');
-          this.endPath();
-        }
-      },
-      paintFormXObjectEnd: function SVGGraphics_paintFormXObjectEnd() {},
-      _initialize: function SVGGraphics_initialize(viewport) {
-        var svg = document.createElementNS(NS, 'svg:svg');
-        svg.setAttributeNS(null, 'version', '1.1');
-        svg.setAttributeNS(null, 'width', viewport.width + 'px');
-        svg.setAttributeNS(null, 'height', viewport.height + 'px');
-        svg.setAttributeNS(null, 'preserveAspectRatio', 'none');
-        svg.setAttributeNS(null, 'viewBox', '0 0 ' + viewport.width + ' ' + viewport.height);
-        var definitions = document.createElementNS(NS, 'svg:defs');
-        svg.appendChild(definitions);
-        this.defs = definitions;
-        var rootGroup = document.createElementNS(NS, 'svg:g');
-        rootGroup.setAttributeNS(null, 'transform', pm(viewport.transform));
-        svg.appendChild(rootGroup);
-        this.svg = rootGroup;
-        return svg;
-      },
-      _ensureClipGroup: function SVGGraphics_ensureClipGroup() {
-        if (!this.current.clipGroup) {
-          var clipGroup = document.createElementNS(NS, 'svg:g');
-          clipGroup.setAttributeNS(null, 'clip-path', this.current.activeClipUrl);
-          this.svg.appendChild(clipGroup);
-          this.current.clipGroup = clipGroup;
-        }
-        return this.current.clipGroup;
-      },
-      _ensureTransformGroup: function SVGGraphics_ensureTransformGroup() {
-        if (!this.tgrp) {
-          this.tgrp = document.createElementNS(NS, 'svg:g');
-          this.tgrp.setAttributeNS(null, 'transform', pm(this.transformMatrix));
-          if (this.current.activeClipUrl) {
-            this._ensureClipGroup().appendChild(this.tgrp);
-          } else {
-            this.svg.appendChild(this.tgrp);
-          }
-        }
-        return this.tgrp;
-      }
-    };
-    return SVGGraphics;
-  }();
-}
-exports.SVGGraphics = SVGGraphics;
+//         this.viewport = viewport;
+//         var svgElement = this._initialize(viewport);
+//         return this.loadDependencies(operatorList).then(function () {
+//           _this2.transformMatrix = _util.IDENTITY_MATRIX;
+//           var opTree = _this2.convertOpList(operatorList);
+//           _this2.executeOpTree(opTree);
+//           return svgElement;
+//         });
+//       },
+//       convertOpList: function SVGGraphics_convertOpList(operatorList) {
+//         var argsArray = operatorList.argsArray;
+//         var fnArray = operatorList.fnArray;
+//         var fnArrayLen = fnArray.length;
+//         var REVOPS = [];
+//         var opList = [];
+//         for (var op in _util.OPS) {
+//           REVOPS[_util.OPS[op]] = op;
+//         }
+//         for (var x = 0; x < fnArrayLen; x++) {
+//           var fnId = fnArray[x];
+//           opList.push({
+//             'fnId': fnId,
+//             'fn': REVOPS[fnId],
+//             'args': argsArray[x]
+//           });
+//         }
+//         return opListToTree(opList);
+//       },
+//       executeOpTree: function SVGGraphics_executeOpTree(opTree) {
+//         var opTreeLen = opTree.length;
+//         for (var x = 0; x < opTreeLen; x++) {
+//           var fn = opTree[x].fn;
+//           var fnId = opTree[x].fnId;
+//           var args = opTree[x].args;
+//           switch (fnId | 0) {
+//             case _util.OPS.beginText:
+//               this.beginText();
+//               break;
+//             case _util.OPS.setLeading:
+//               this.setLeading(args);
+//               break;
+//             case _util.OPS.setLeadingMoveText:
+//               this.setLeadingMoveText(args[0], args[1]);
+//               break;
+//             case _util.OPS.setFont:
+//               this.setFont(args);
+//               break;
+//             case _util.OPS.showText:
+//               this.showText(args[0]);
+//               break;
+//             case _util.OPS.showSpacedText:
+//               this.showText(args[0]);
+//               break;
+//             case _util.OPS.endText:
+//               this.endText();
+//               break;
+//             case _util.OPS.moveText:
+//               this.moveText(args[0], args[1]);
+//               break;
+//             case _util.OPS.setCharSpacing:
+//               this.setCharSpacing(args[0]);
+//               break;
+//             case _util.OPS.setWordSpacing:
+//               this.setWordSpacing(args[0]);
+//               break;
+//             case _util.OPS.setHScale:
+//               this.setHScale(args[0]);
+//               break;
+//             case _util.OPS.setTextMatrix:
+//               this.setTextMatrix(args[0], args[1], args[2], args[3], args[4], args[5]);
+//               break;
+//             case _util.OPS.setLineWidth:
+//               this.setLineWidth(args[0]);
+//               break;
+//             case _util.OPS.setLineJoin:
+//               this.setLineJoin(args[0]);
+//               break;
+//             case _util.OPS.setLineCap:
+//               this.setLineCap(args[0]);
+//               break;
+//             case _util.OPS.setMiterLimit:
+//               this.setMiterLimit(args[0]);
+//               break;
+//             case _util.OPS.setFillRGBColor:
+//               this.setFillRGBColor(args[0], args[1], args[2]);
+//               break;
+//             case _util.OPS.setStrokeRGBColor:
+//               this.setStrokeRGBColor(args[0], args[1], args[2]);
+//               break;
+//             case _util.OPS.setDash:
+//               this.setDash(args[0], args[1]);
+//               break;
+//             case _util.OPS.setGState:
+//               this.setGState(args[0]);
+//               break;
+//             case _util.OPS.fill:
+//               this.fill();
+//               break;
+//             case _util.OPS.eoFill:
+//               this.eoFill();
+//               break;
+//             case _util.OPS.stroke:
+//               this.stroke();
+//               break;
+//             case _util.OPS.fillStroke:
+//               this.fillStroke();
+//               break;
+//             case _util.OPS.eoFillStroke:
+//               this.eoFillStroke();
+//               break;
+//             case _util.OPS.clip:
+//               this.clip('nonzero');
+//               break;
+//             case _util.OPS.eoClip:
+//               this.clip('evenodd');
+//               break;
+//             case _util.OPS.paintSolidColorImageMask:
+//               this.paintSolidColorImageMask();
+//               break;
+//             case _util.OPS.paintJpegXObject:
+//               this.paintJpegXObject(args[0], args[1], args[2]);
+//               break;
+//             case _util.OPS.paintImageXObject:
+//               this.paintImageXObject(args[0]);
+//               break;
+//             case _util.OPS.paintInlineImageXObject:
+//               this.paintInlineImageXObject(args[0]);
+//               break;
+//             case _util.OPS.paintImageMaskXObject:
+//               this.paintImageMaskXObject(args[0]);
+//               break;
+//             case _util.OPS.paintFormXObjectBegin:
+//               this.paintFormXObjectBegin(args[0], args[1]);
+//               break;
+//             case _util.OPS.paintFormXObjectEnd:
+//               this.paintFormXObjectEnd();
+//               break;
+//             case _util.OPS.closePath:
+//               this.closePath();
+//               break;
+//             case _util.OPS.closeStroke:
+//               this.closeStroke();
+//               break;
+//             case _util.OPS.closeFillStroke:
+//               this.closeFillStroke();
+//               break;
+//             case _util.OPS.nextLine:
+//               this.nextLine();
+//               break;
+//             case _util.OPS.transform:
+//               this.transform(args[0], args[1], args[2], args[3], args[4], args[5]);
+//               break;
+//             case _util.OPS.constructPath:
+//               this.constructPath(args[0], args[1]);
+//               break;
+//             case _util.OPS.endPath:
+//               this.endPath();
+//               break;
+//             case 92:
+//               this.group(opTree[x].items);
+//               break;
+//             default:
+//               (0, _util.warn)('Unimplemented operator ' + fn);
+//               break;
+//           }
+//         }
+//       },
+//       setWordSpacing: function SVGGraphics_setWordSpacing(wordSpacing) {
+//         this.current.wordSpacing = wordSpacing;
+//       },
+//       setCharSpacing: function SVGGraphics_setCharSpacing(charSpacing) {
+//         this.current.charSpacing = charSpacing;
+//       },
+//       nextLine: function SVGGraphics_nextLine() {
+//         this.moveText(0, this.current.leading);
+//       },
+//       setTextMatrix: function SVGGraphics_setTextMatrix(a, b, c, d, e, f) {
+//         var current = this.current;
+//         this.current.textMatrix = this.current.lineMatrix = [a, b, c, d, e, f];
+//         this.current.x = this.current.lineX = 0;
+//         this.current.y = this.current.lineY = 0;
+//         current.xcoords = [];
+//         current.tspan = document.createElementNS(NS, 'svg:tspan');
+//         current.tspan.setAttributeNS(null, 'font-family', current.fontFamily);
+//         current.tspan.setAttributeNS(null, 'font-size', pf(current.fontSize) + 'px');
+//         current.tspan.setAttributeNS(null, 'y', pf(-current.y));
+//         current.txtElement = document.createElementNS(NS, 'svg:text');
+//         current.txtElement.appendChild(current.tspan);
+//       },
+//       beginText: function SVGGraphics_beginText() {
+//         this.current.x = this.current.lineX = 0;
+//         this.current.y = this.current.lineY = 0;
+//         this.current.textMatrix = _util.IDENTITY_MATRIX;
+//         this.current.lineMatrix = _util.IDENTITY_MATRIX;
+//         this.current.tspan = document.createElementNS(NS, 'svg:tspan');
+//         this.current.txtElement = document.createElementNS(NS, 'svg:text');
+//         this.current.txtgrp = document.createElementNS(NS, 'svg:g');
+//         this.current.xcoords = [];
+//       },
+//       moveText: function SVGGraphics_moveText(x, y) {
+//         var current = this.current;
+//         this.current.x = this.current.lineX += x;
+//         this.current.y = this.current.lineY += y;
+//         current.xcoords = [];
+//         current.tspan = document.createElementNS(NS, 'svg:tspan');
+//         current.tspan.setAttributeNS(null, 'font-family', current.fontFamily);
+//         current.tspan.setAttributeNS(null, 'font-size', pf(current.fontSize) + 'px');
+//         current.tspan.setAttributeNS(null, 'y', pf(-current.y));
+//       },
+//       showText: function SVGGraphics_showText(glyphs) {
+//         var current = this.current;
+//         var font = current.font;
+//         var fontSize = current.fontSize;
+//         if (fontSize === 0) {
+//           return;
+//         }
+//         var charSpacing = current.charSpacing;
+//         var wordSpacing = current.wordSpacing;
+//         var fontDirection = current.fontDirection;
+//         var textHScale = current.textHScale * fontDirection;
+//         var glyphsLength = glyphs.length;
+//         var vertical = font.vertical;
+//         var widthAdvanceScale = fontSize * current.fontMatrix[0];
+//         var x = 0,
+//             i;
+//         for (i = 0; i < glyphsLength; ++i) {
+//           var glyph = glyphs[i];
+//           if (glyph === null) {
+//             x += fontDirection * wordSpacing;
+//             continue;
+//           } else if ((0, _util.isNum)(glyph)) {
+//             x += -glyph * fontSize * 0.001;
+//             continue;
+//           }
+//           current.xcoords.push(current.x + x * textHScale);
+//           var width = glyph.width;
+//           var character = glyph.fontChar;
+//           var spacing = (glyph.isSpace ? wordSpacing : 0) + charSpacing;
+//           var charWidth = width * widthAdvanceScale + spacing * fontDirection;
+//           x += charWidth;
+//           current.tspan.textContent += character;
+//         }
+//         if (vertical) {
+//           current.y -= x * textHScale;
+//         } else {
+//           current.x += x * textHScale;
+//         }
+//         current.tspan.setAttributeNS(null, 'x', current.xcoords.map(pf).join(' '));
+//         current.tspan.setAttributeNS(null, 'y', pf(-current.y));
+//         current.tspan.setAttributeNS(null, 'font-family', current.fontFamily);
+//         current.tspan.setAttributeNS(null, 'font-size', pf(current.fontSize) + 'px');
+//         if (current.fontStyle !== SVG_DEFAULTS.fontStyle) {
+//           current.tspan.setAttributeNS(null, 'font-style', current.fontStyle);
+//         }
+//         if (current.fontWeight !== SVG_DEFAULTS.fontWeight) {
+//           current.tspan.setAttributeNS(null, 'font-weight', current.fontWeight);
+//         }
+//         if (current.fillColor !== SVG_DEFAULTS.fillColor) {
+//           current.tspan.setAttributeNS(null, 'fill', current.fillColor);
+//         }
+//         current.txtElement.setAttributeNS(null, 'transform', pm(current.textMatrix) + ' scale(1, -1)');
+//         current.txtElement.setAttributeNS(XML_NS, 'xml:space', 'preserve');
+//         current.txtElement.appendChild(current.tspan);
+//         current.txtgrp.appendChild(current.txtElement);
+//         this._ensureTransformGroup().appendChild(current.txtElement);
+//       },
+//       setLeadingMoveText: function SVGGraphics_setLeadingMoveText(x, y) {
+//         this.setLeading(-y);
+//         this.moveText(x, y);
+//       },
+//       addFontStyle: function SVGGraphics_addFontStyle(fontObj) {
+//         if (!this.cssStyle) {
+//           this.cssStyle = document.createElementNS(NS, 'svg:style');
+//           this.cssStyle.setAttributeNS(null, 'type', 'text/css');
+//           this.defs.appendChild(this.cssStyle);
+//         }
+//         var url = (0, _util.createObjectURL)(fontObj.data, fontObj.mimetype, this.forceDataSchema);
+//         this.cssStyle.textContent += '@font-face { font-family: "' + fontObj.loadedName + '";' + ' src: url(' + url + '); }\n';
+//       },
+//       setFont: function SVGGraphics_setFont(details) {
+//         var current = this.current;
+//         var fontObj = this.commonObjs.get(details[0]);
+//         var size = details[1];
+//         this.current.font = fontObj;
+//         if (this.embedFonts && fontObj.data && !this.embeddedFonts[fontObj.loadedName]) {
+//           this.addFontStyle(fontObj);
+//           this.embeddedFonts[fontObj.loadedName] = fontObj;
+//         }
+//         current.fontMatrix = fontObj.fontMatrix ? fontObj.fontMatrix : _util.FONT_IDENTITY_MATRIX;
+//         var bold = fontObj.black ? fontObj.bold ? 'bolder' : 'bold' : fontObj.bold ? 'bold' : 'normal';
+//         var italic = fontObj.italic ? 'italic' : 'normal';
+//         if (size < 0) {
+//           size = -size;
+//           current.fontDirection = -1;
+//         } else {
+//           current.fontDirection = 1;
+//         }
+//         current.fontSize = size;
+//         current.fontFamily = fontObj.loadedName;
+//         current.fontWeight = bold;
+//         current.fontStyle = italic;
+//         current.tspan = document.createElementNS(NS, 'svg:tspan');
+//         current.tspan.setAttributeNS(null, 'y', pf(-current.y));
+//         current.xcoords = [];
+//       },
+//       endText: function SVGGraphics_endText() {},
+//       setLineWidth: function SVGGraphics_setLineWidth(width) {
+//         this.current.lineWidth = width;
+//       },
+//       setLineCap: function SVGGraphics_setLineCap(style) {
+//         this.current.lineCap = LINE_CAP_STYLES[style];
+//       },
+//       setLineJoin: function SVGGraphics_setLineJoin(style) {
+//         this.current.lineJoin = LINE_JOIN_STYLES[style];
+//       },
+//       setMiterLimit: function SVGGraphics_setMiterLimit(limit) {
+//         this.current.miterLimit = limit;
+//       },
+//       setStrokeAlpha: function SVGGraphics_setStrokeAlpha(strokeAlpha) {
+//         this.current.strokeAlpha = strokeAlpha;
+//       },
+//       setStrokeRGBColor: function SVGGraphics_setStrokeRGBColor(r, g, b) {
+//         var color = _util.Util.makeCssRgb(r, g, b);
+//         this.current.strokeColor = color;
+//       },
+//       setFillAlpha: function SVGGraphics_setFillAlpha(fillAlpha) {
+//         this.current.fillAlpha = fillAlpha;
+//       },
+//       setFillRGBColor: function SVGGraphics_setFillRGBColor(r, g, b) {
+//         var color = _util.Util.makeCssRgb(r, g, b);
+//         this.current.fillColor = color;
+//         this.current.tspan = document.createElementNS(NS, 'svg:tspan');
+//         this.current.xcoords = [];
+//       },
+//       setDash: function SVGGraphics_setDash(dashArray, dashPhase) {
+//         this.current.dashArray = dashArray;
+//         this.current.dashPhase = dashPhase;
+//       },
+//       constructPath: function SVGGraphics_constructPath(ops, args) {
+//         var current = this.current;
+//         var x = current.x,
+//             y = current.y;
+//         current.path = document.createElementNS(NS, 'svg:path');
+//         var d = [];
+//         var opLength = ops.length;
+//         for (var i = 0, j = 0; i < opLength; i++) {
+//           switch (ops[i] | 0) {
+//             case _util.OPS.rectangle:
+//               x = args[j++];
+//               y = args[j++];
+//               var width = args[j++];
+//               var height = args[j++];
+//               var xw = x + width;
+//               var yh = y + height;
+//               d.push('M', pf(x), pf(y), 'L', pf(xw), pf(y), 'L', pf(xw), pf(yh), 'L', pf(x), pf(yh), 'Z');
+//               break;
+//             case _util.OPS.moveTo:
+//               x = args[j++];
+//               y = args[j++];
+//               d.push('M', pf(x), pf(y));
+//               break;
+//             case _util.OPS.lineTo:
+//               x = args[j++];
+//               y = args[j++];
+//               d.push('L', pf(x), pf(y));
+//               break;
+//             case _util.OPS.curveTo:
+//               x = args[j + 4];
+//               y = args[j + 5];
+//               d.push('C', pf(args[j]), pf(args[j + 1]), pf(args[j + 2]), pf(args[j + 3]), pf(x), pf(y));
+//               j += 6;
+//               break;
+//             case _util.OPS.curveTo2:
+//               x = args[j + 2];
+//               y = args[j + 3];
+//               d.push('C', pf(x), pf(y), pf(args[j]), pf(args[j + 1]), pf(args[j + 2]), pf(args[j + 3]));
+//               j += 4;
+//               break;
+//             case _util.OPS.curveTo3:
+//               x = args[j + 2];
+//               y = args[j + 3];
+//               d.push('C', pf(args[j]), pf(args[j + 1]), pf(x), pf(y), pf(x), pf(y));
+//               j += 4;
+//               break;
+//             case _util.OPS.closePath:
+//               d.push('Z');
+//               break;
+//           }
+//         }
+//         current.path.setAttributeNS(null, 'd', d.join(' '));
+//         current.path.setAttributeNS(null, 'fill', 'none');
+//         this._ensureTransformGroup().appendChild(current.path);
+//         current.element = current.path;
+//         current.setCurrentPoint(x, y);
+//       },
+//       endPath: function SVGGraphics_endPath() {
+//         if (!this.pendingClip) {
+//           return;
+//         }
+//         var current = this.current;
+//         var clipId = 'clippath' + clipCount;
+//         clipCount++;
+//         var clipPath = document.createElementNS(NS, 'svg:clipPath');
+//         clipPath.setAttributeNS(null, 'id', clipId);
+//         clipPath.setAttributeNS(null, 'transform', pm(this.transformMatrix));
+//         var clipElement = current.element.cloneNode();
+//         if (this.pendingClip === 'evenodd') {
+//           clipElement.setAttributeNS(null, 'clip-rule', 'evenodd');
+//         } else {
+//           clipElement.setAttributeNS(null, 'clip-rule', 'nonzero');
+//         }
+//         this.pendingClip = null;
+//         clipPath.appendChild(clipElement);
+//         this.defs.appendChild(clipPath);
+//         if (current.activeClipUrl) {
+//           current.clipGroup = null;
+//           this.extraStack.forEach(function (prev) {
+//             prev.clipGroup = null;
+//           });
+//         }
+//         current.activeClipUrl = 'url(#' + clipId + ')';
+//         this.tgrp = null;
+//       },
+//       clip: function SVGGraphics_clip(type) {
+//         this.pendingClip = type;
+//       },
+//       closePath: function SVGGraphics_closePath() {
+//         var current = this.current;
+//         var d = current.path.getAttributeNS(null, 'd');
+//         d += 'Z';
+//         current.path.setAttributeNS(null, 'd', d);
+//       },
+//       setLeading: function SVGGraphics_setLeading(leading) {
+//         this.current.leading = -leading;
+//       },
+//       setTextRise: function SVGGraphics_setTextRise(textRise) {
+//         this.current.textRise = textRise;
+//       },
+//       setHScale: function SVGGraphics_setHScale(scale) {
+//         this.current.textHScale = scale / 100;
+//       },
+//       setGState: function SVGGraphics_setGState(states) {
+//         for (var i = 0, ii = states.length; i < ii; i++) {
+//           var state = states[i];
+//           var key = state[0];
+//           var value = state[1];
+//           switch (key) {
+//             case 'LW':
+//               this.setLineWidth(value);
+//               break;
+//             case 'LC':
+//               this.setLineCap(value);
+//               break;
+//             case 'LJ':
+//               this.setLineJoin(value);
+//               break;
+//             case 'ML':
+//               this.setMiterLimit(value);
+//               break;
+//             case 'D':
+//               this.setDash(value[0], value[1]);
+//               break;
+//             case 'Font':
+//               this.setFont(value);
+//               break;
+//             case 'CA':
+//               this.setStrokeAlpha(value);
+//               break;
+//             case 'ca':
+//               this.setFillAlpha(value);
+//               break;
+//             default:
+//               (0, _util.warn)('Unimplemented graphic state ' + key);
+//               break;
+//           }
+//         }
+//       },
+//       fill: function SVGGraphics_fill() {
+//         var current = this.current;
+//         current.element.setAttributeNS(null, 'fill', current.fillColor);
+//         current.element.setAttributeNS(null, 'fill-opacity', current.fillAlpha);
+//       },
+//       stroke: function SVGGraphics_stroke() {
+//         var current = this.current;
+//         current.element.setAttributeNS(null, 'stroke', current.strokeColor);
+//         current.element.setAttributeNS(null, 'stroke-opacity', current.strokeAlpha);
+//         current.element.setAttributeNS(null, 'stroke-miterlimit', pf(current.miterLimit));
+//         current.element.setAttributeNS(null, 'stroke-linecap', current.lineCap);
+//         current.element.setAttributeNS(null, 'stroke-linejoin', current.lineJoin);
+//         current.element.setAttributeNS(null, 'stroke-width', pf(current.lineWidth) + 'px');
+//         current.element.setAttributeNS(null, 'stroke-dasharray', current.dashArray.map(pf).join(' '));
+//         current.element.setAttributeNS(null, 'stroke-dashoffset', pf(current.dashPhase) + 'px');
+//         current.element.setAttributeNS(null, 'fill', 'none');
+//       },
+//       eoFill: function SVGGraphics_eoFill() {
+//         this.current.element.setAttributeNS(null, 'fill-rule', 'evenodd');
+//         this.fill();
+//       },
+//       fillStroke: function SVGGraphics_fillStroke() {
+//         this.stroke();
+//         this.fill();
+//       },
+//       eoFillStroke: function SVGGraphics_eoFillStroke() {
+//         this.current.element.setAttributeNS(null, 'fill-rule', 'evenodd');
+//         this.fillStroke();
+//       },
+//       closeStroke: function SVGGraphics_closeStroke() {
+//         this.closePath();
+//         this.stroke();
+//       },
+//       closeFillStroke: function SVGGraphics_closeFillStroke() {
+//         this.closePath();
+//         this.fillStroke();
+//       },
+//       paintSolidColorImageMask: function SVGGraphics_paintSolidColorImageMask() {
+//         var current = this.current;
+//         var rect = document.createElementNS(NS, 'svg:rect');
+//         rect.setAttributeNS(null, 'x', '0');
+//         rect.setAttributeNS(null, 'y', '0');
+//         rect.setAttributeNS(null, 'width', '1px');
+//         rect.setAttributeNS(null, 'height', '1px');
+//         rect.setAttributeNS(null, 'fill', current.fillColor);
+//         this._ensureTransformGroup().appendChild(rect);
+//       },
+//       paintJpegXObject: function SVGGraphics_paintJpegXObject(objId, w, h) {
+//         var imgObj = this.objs.get(objId);
+//         var imgEl = document.createElementNS(NS, 'svg:image');
+//         imgEl.setAttributeNS(XLINK_NS, 'xlink:href', imgObj.src);
+//         imgEl.setAttributeNS(null, 'width', pf(w));
+//         imgEl.setAttributeNS(null, 'height', pf(h));
+//         imgEl.setAttributeNS(null, 'x', '0');
+//         imgEl.setAttributeNS(null, 'y', pf(-h));
+//         imgEl.setAttributeNS(null, 'transform', 'scale(' + pf(1 / w) + ' ' + pf(-1 / h) + ')');
+//         this._ensureTransformGroup().appendChild(imgEl);
+//       },
+//       paintImageXObject: function SVGGraphics_paintImageXObject(objId) {
+//         var imgData = this.objs.get(objId);
+//         if (!imgData) {
+//           (0, _util.warn)('Dependent image isn\'t ready yet');
+//           return;
+//         }
+//         this.paintInlineImageXObject(imgData);
+//       },
+//       paintInlineImageXObject: function SVGGraphics_paintInlineImageXObject(imgData, mask) {
+//         var width = imgData.width;
+//         var height = imgData.height;
+//         var imgSrc = convertImgDataToPng(imgData, this.forceDataSchema);
+//         var cliprect = document.createElementNS(NS, 'svg:rect');
+//         cliprect.setAttributeNS(null, 'x', '0');
+//         cliprect.setAttributeNS(null, 'y', '0');
+//         cliprect.setAttributeNS(null, 'width', pf(width));
+//         cliprect.setAttributeNS(null, 'height', pf(height));
+//         this.current.element = cliprect;
+//         this.clip('nonzero');
+//         var imgEl = document.createElementNS(NS, 'svg:image');
+//         imgEl.setAttributeNS(XLINK_NS, 'xlink:href', imgSrc);
+//         imgEl.setAttributeNS(null, 'x', '0');
+//         imgEl.setAttributeNS(null, 'y', pf(-height));
+//         imgEl.setAttributeNS(null, 'width', pf(width) + 'px');
+//         imgEl.setAttributeNS(null, 'height', pf(height) + 'px');
+//         imgEl.setAttributeNS(null, 'transform', 'scale(' + pf(1 / width) + ' ' + pf(-1 / height) + ')');
+//         if (mask) {
+//           mask.appendChild(imgEl);
+//         } else {
+//           this._ensureTransformGroup().appendChild(imgEl);
+//         }
+//       },
+//       paintImageMaskXObject: function SVGGraphics_paintImageMaskXObject(imgData) {
+//         var current = this.current;
+//         var width = imgData.width;
+//         var height = imgData.height;
+//         var fillColor = current.fillColor;
+//         current.maskId = 'mask' + maskCount++;
+//         var mask = document.createElementNS(NS, 'svg:mask');
+//         mask.setAttributeNS(null, 'id', current.maskId);
+//         var rect = document.createElementNS(NS, 'svg:rect');
+//         rect.setAttributeNS(null, 'x', '0');
+//         rect.setAttributeNS(null, 'y', '0');
+//         rect.setAttributeNS(null, 'width', pf(width));
+//         rect.setAttributeNS(null, 'height', pf(height));
+//         rect.setAttributeNS(null, 'fill', fillColor);
+//         rect.setAttributeNS(null, 'mask', 'url(#' + current.maskId + ')');
+//         this.defs.appendChild(mask);
+//         this._ensureTransformGroup().appendChild(rect);
+//         this.paintInlineImageXObject(imgData, mask);
+//       },
+//       paintFormXObjectBegin: function SVGGraphics_paintFormXObjectBegin(matrix, bbox) {
+//         if ((0, _util.isArray)(matrix) && matrix.length === 6) {
+//           this.transform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]);
+//         }
+//         if ((0, _util.isArray)(bbox) && bbox.length === 4) {
+//           var width = bbox[2] - bbox[0];
+//           var height = bbox[3] - bbox[1];
+//           var cliprect = document.createElementNS(NS, 'svg:rect');
+//           cliprect.setAttributeNS(null, 'x', bbox[0]);
+//           cliprect.setAttributeNS(null, 'y', bbox[1]);
+//           cliprect.setAttributeNS(null, 'width', pf(width));
+//           cliprect.setAttributeNS(null, 'height', pf(height));
+//           this.current.element = cliprect;
+//           this.clip('nonzero');
+//           this.endPath();
+//         }
+//       },
+//       paintFormXObjectEnd: function SVGGraphics_paintFormXObjectEnd() {},
+//       _initialize: function SVGGraphics_initialize(viewport) {
+//         var svg = document.createElementNS(NS, 'svg:svg');
+//         svg.setAttributeNS(null, 'version', '1.1');
+//         svg.setAttributeNS(null, 'width', viewport.width + 'px');
+//         svg.setAttributeNS(null, 'height', viewport.height + 'px');
+//         svg.setAttributeNS(null, 'preserveAspectRatio', 'none');
+//         svg.setAttributeNS(null, 'viewBox', '0 0 ' + viewport.width + ' ' + viewport.height);
+//         var definitions = document.createElementNS(NS, 'svg:defs');
+//         svg.appendChild(definitions);
+//         this.defs = definitions;
+//         var rootGroup = document.createElementNS(NS, 'svg:g');
+//         rootGroup.setAttributeNS(null, 'transform', pm(viewport.transform));
+//         svg.appendChild(rootGroup);
+//         this.svg = rootGroup;
+//         return svg;
+//       },
+//       _ensureClipGroup: function SVGGraphics_ensureClipGroup() {
+//         if (!this.current.clipGroup) {
+//           var clipGroup = document.createElementNS(NS, 'svg:g');
+//           clipGroup.setAttributeNS(null, 'clip-path', this.current.activeClipUrl);
+//           this.svg.appendChild(clipGroup);
+//           this.current.clipGroup = clipGroup;
+//         }
+//         return this.current.clipGroup;
+//       },
+//       _ensureTransformGroup: function SVGGraphics_ensureTransformGroup() {
+//         if (!this.tgrp) {
+//           this.tgrp = document.createElementNS(NS, 'svg:g');
+//           this.tgrp.setAttributeNS(null, 'transform', pm(this.transformMatrix));
+//           if (this.current.activeClipUrl) {
+//             this._ensureClipGroup().appendChild(this.tgrp);
+//           } else {
+//             this.svg.appendChild(this.tgrp);
+//           }
+//         }
+//         return this.tgrp;
+//       }
+//     };
+//     return SVGGraphics;
+//   }();
+// }
+// exports.SVGGraphics = SVGGraphics;
 
 /***/ }),
 /* 5 */
@@ -5037,7 +5073,7 @@ exports.renderTextLayer = undefined;
 var _util = __w_pdfjs_require__(0);
 
 var _dom_utils = __w_pdfjs_require__(1);
-
+// 渲染文本层
 var renderTextLayer = function renderTextLayerClosure() {
   var MAX_TEXT_DIVS_TO_RENDER = 100000;
   var NonWhitespaceRegexp = /\S/;
@@ -6154,7 +6190,7 @@ PDFJS.isExternalLinkTargetSet = _dom_utils.isExternalLinkTargetSet;
 PDFJS.AnnotationLayer = _annotation_layer.AnnotationLayer;
 PDFJS.renderTextLayer = _text_layer.renderTextLayer;
 PDFJS.Metadata = _metadata.Metadata;
-PDFJS.SVGGraphics = _svg.SVGGraphics;
+// PDFJS.SVGGraphics = _svg.SVGGraphics;
 PDFJS.UnsupportedManager = _api._UnsupportedManager;
 exports.globalScope = _util.globalScope;
 exports.isWorker = isWorker;
@@ -7541,6 +7577,7 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
       WritableStreamDefaultControllerError(controller, error);
     }
   }
+  // 可写流默认控制器进程关闭
   function WritableStreamDefaultControllerProcessClose(controller) {
     var stream = controller._controlledWritableStream;
     WritableStreamMarkCloseRequestInFlight(stream);
@@ -9709,6 +9746,7 @@ var IsLittleEndianCached = {
     return (0, _util.shadow)(IsLittleEndianCached, 'value', (0, _util.isLittleEndian)());
   }
 };
+// 添加上下文当前转换
 function addContextCurrentTransform(ctx) {
   if (!ctx.mozCurrentTransform) {
     ctx._originalSave = ctx.save;
@@ -9784,6 +9822,7 @@ function addContextCurrentTransform(ctx) {
     };
   }
 }
+// 缓存画布
 var CachedCanvases = function CachedCanvasesClosure() {
   function CachedCanvases(canvasFactory) {
     this.canvasFactory = canvasFactory;
@@ -9815,6 +9854,7 @@ var CachedCanvases = function CachedCanvasesClosure() {
   };
   return CachedCanvases;
 }();
+// 编译类型3字形
 function compileType3Glyph(imgData) {
   var POINT_TO_PROCESS_LIMIT = 1000;
   var width = imgData.width,
@@ -11214,6 +11254,7 @@ var CanvasGraphics = function CanvasGraphicsClosure() {
       maskCtx.restore();
       this.paintInlineImageXObject(maskCanvas.canvas);
     },
+    // 绘制图像遮罩X对象重复
     paintImageMaskXObjectRepeat: function CanvasGraphics_paintImageMaskXObjectRepeat(imgData, scaleX, scaleY, positions) {
       var width = imgData.width;
       var height = imgData.height;
@@ -11757,6 +11798,7 @@ ShadingIRs.RadialAxial = {
     };
   }
 };
+// 创建网格画布
 var createMeshCanvas = function createMeshCanvasClosure() {
   function drawTriangle(data, context, p1, p2, p3, c1, c2, c3) {
     var coords = context.coords,
@@ -12357,7 +12399,7 @@ exports.createPromiseCapability = pdfjsSharedUtil.createPromiseCapability;
 exports.PasswordResponses = pdfjsSharedUtil.PasswordResponses;
 exports.InvalidPDFException = pdfjsSharedUtil.InvalidPDFException;
 exports.MissingPDFException = pdfjsSharedUtil.MissingPDFException;
-exports.SVGGraphics = pdfjsDisplaySVG.SVGGraphics;
+// exports.SVGGraphics = pdfjsDisplaySVG.SVGGraphics;
 exports.NativeImageDecoding = pdfjsSharedUtil.NativeImageDecoding;
 exports.UnexpectedResponseException = pdfjsSharedUtil.UnexpectedResponseException;
 exports.OPS = pdfjsSharedUtil.OPS;
@@ -12919,6 +12961,7 @@ if (typeof PDFJS === 'undefined' || !PDFJS.compatibilityChecked) {
     }
   })();
   (function checkRequestAnimationFrame() {
+    // 安装假动画帧函数
     function installFakeAnimationFrameFunctions() {
       window.requestAnimationFrame = function (callback) {
         return window.setTimeout(callback, 20);

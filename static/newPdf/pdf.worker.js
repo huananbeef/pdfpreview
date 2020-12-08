@@ -27512,8 +27512,8 @@ AnnotationFactory.prototype = {
         var fieldType = _util.Util.getInheritableProperty(dict, 'FT');
         fieldType = (0, _primitives.isName)(fieldType) ? fieldType.name : null;
         switch (fieldType) {
-          case 'Tx':
-            return new TextWidgetAnnotation(parameters);
+          // case 'Tx':
+          //   return new TextWidgetAnnotation(parameters);
           case 'Btn':
             return new ButtonWidgetAnnotation(parameters);
           case 'Ch':
@@ -27533,8 +27533,8 @@ AnnotationFactory.prototype = {
         return new SquigglyAnnotation(parameters);
       case 'StrikeOut':
         return new StrikeOutAnnotation(parameters);
-      case 'FileAttachment':
-        return new FileAttachmentAnnotation(parameters);
+      // case 'FileAttachment':
+      //   return new FileAttachmentAnnotation(parameters);
       default:
         if (!subtype) {
           (0, _util.warn)('Annotation is missing the required /Subtype.');
@@ -27860,48 +27860,48 @@ var WidgetAnnotation = function WidgetAnnotationClosure() {
   });
   return WidgetAnnotation;
 }();
-var TextWidgetAnnotation = function TextWidgetAnnotationClosure() {
-  function TextWidgetAnnotation(params) {
-    WidgetAnnotation.call(this, params);
-    this.data.fieldValue = (0, _util.stringToPDFString)(this.data.fieldValue || '');
-    var alignment = _util.Util.getInheritableProperty(params.dict, 'Q');
-    if (!(0, _util.isInt)(alignment) || alignment < 0 || alignment > 2) {
-      alignment = null;
-    }
-    this.data.textAlignment = alignment;
-    var maximumLength = _util.Util.getInheritableProperty(params.dict, 'MaxLen');
-    if (!(0, _util.isInt)(maximumLength) || maximumLength < 0) {
-      maximumLength = null;
-    }
-    this.data.maxLen = maximumLength;
-    this.data.multiLine = this.hasFieldFlag(_util.AnnotationFieldFlag.MULTILINE);
-    this.data.comb = this.hasFieldFlag(_util.AnnotationFieldFlag.COMB) && !this.hasFieldFlag(_util.AnnotationFieldFlag.MULTILINE) && !this.hasFieldFlag(_util.AnnotationFieldFlag.PASSWORD) && !this.hasFieldFlag(_util.AnnotationFieldFlag.FILESELECT) && this.data.maxLen !== null;
-  }
-  _util.Util.inherit(TextWidgetAnnotation, WidgetAnnotation, {
-    getOperatorList: function TextWidgetAnnotation_getOperatorList(evaluator, task, renderForms) {
-      var operatorList = new _evaluator.OperatorList();
-      if (renderForms) {
-        return Promise.resolve(operatorList);
-      }
-      if (this.appearance) {
-        return Annotation.prototype.getOperatorList.call(this, evaluator, task, renderForms);
-      }
-      if (!this.data.defaultAppearance) {
-        return Promise.resolve(operatorList);
-      }
-      var stream = new _stream.Stream((0, _util.stringToBytes)(this.data.defaultAppearance));
-      return evaluator.getOperatorList({
-        stream: stream,
-        task: task,
-        resources: this.fieldResources,
-        operatorList: operatorList
-      }).then(function () {
-        return operatorList;
-      });
-    }
-  });
-  return TextWidgetAnnotation;
-}();
+// var TextWidgetAnnotation = function TextWidgetAnnotationClosure() {
+//   function TextWidgetAnnotation(params) {
+//     WidgetAnnotation.call(this, params);
+//     this.data.fieldValue = (0, _util.stringToPDFString)(this.data.fieldValue || '');
+//     var alignment = _util.Util.getInheritableProperty(params.dict, 'Q');
+//     if (!(0, _util.isInt)(alignment) || alignment < 0 || alignment > 2) {
+//       alignment = null;
+//     }
+//     this.data.textAlignment = alignment;
+//     var maximumLength = _util.Util.getInheritableProperty(params.dict, 'MaxLen');
+//     if (!(0, _util.isInt)(maximumLength) || maximumLength < 0) {
+//       maximumLength = null;
+//     }
+//     this.data.maxLen = maximumLength;
+//     this.data.multiLine = this.hasFieldFlag(_util.AnnotationFieldFlag.MULTILINE);
+//     this.data.comb = this.hasFieldFlag(_util.AnnotationFieldFlag.COMB) && !this.hasFieldFlag(_util.AnnotationFieldFlag.MULTILINE) && !this.hasFieldFlag(_util.AnnotationFieldFlag.PASSWORD) && !this.hasFieldFlag(_util.AnnotationFieldFlag.FILESELECT) && this.data.maxLen !== null;
+//   }
+//   _util.Util.inherit(TextWidgetAnnotation, WidgetAnnotation, {
+//     getOperatorList: function TextWidgetAnnotation_getOperatorList(evaluator, task, renderForms) {
+//       var operatorList = new _evaluator.OperatorList();
+//       if (renderForms) {
+//         return Promise.resolve(operatorList);
+//       }
+//       if (this.appearance) {
+//         return Annotation.prototype.getOperatorList.call(this, evaluator, task, renderForms);
+//       }
+//       if (!this.data.defaultAppearance) {
+//         return Promise.resolve(operatorList);
+//       }
+//       var stream = new _stream.Stream((0, _util.stringToBytes)(this.data.defaultAppearance));
+//       return evaluator.getOperatorList({
+//         stream: stream,
+//         task: task,
+//         resources: this.fieldResources,
+//         operatorList: operatorList
+//       }).then(function () {
+//         return operatorList;
+//       });
+//     }
+//   });
+//   return TextWidgetAnnotation;
+// }();
 var ButtonWidgetAnnotation = function ButtonWidgetAnnotationClosure() {
   function ButtonWidgetAnnotation(params) {
     WidgetAnnotation.call(this, params);
