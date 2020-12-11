@@ -27508,21 +27508,21 @@ AnnotationFactory.prototype = {
         return new LinkAnnotation(parameters);
       case 'Text':
         return new TextAnnotation(parameters);
-      case 'Widget':
-        var fieldType = _util.Util.getInheritableProperty(dict, 'FT');
-        fieldType = (0, _primitives.isName)(fieldType) ? fieldType.name : null;
-        switch (fieldType) {
-          // case 'Tx':
-          //   return new TextWidgetAnnotation(parameters);
-          case 'Btn':
-            return new ButtonWidgetAnnotation(parameters);
-          case 'Ch':
-            return new ChoiceWidgetAnnotation(parameters);
-        }
-        (0, _util.warn)('Unimplemented widget field type "' + fieldType + '", ' + 'falling back to base field type.');
-        return new WidgetAnnotation(parameters);
-      case 'Popup':
-        return new PopupAnnotation(parameters);
+      // case 'Widget':
+      //   var fieldType = _util.Util.getInheritableProperty(dict, 'FT');
+      //   fieldType = (0, _primitives.isName)(fieldType) ? fieldType.name : null;
+      //   switch (fieldType) {
+      //     // case 'Tx':
+      //     //   return new TextWidgetAnnotation(parameters);
+      //     case 'Btn':
+      //       return new ButtonWidgetAnnotation(parameters);
+      //     case 'Ch':
+      //       return new ChoiceWidgetAnnotation(parameters);
+      //   }
+      //   (0, _util.warn)('Unimplemented widget field type "' + fieldType + '", ' + 'falling back to base field type.');
+      //   return new WidgetAnnotation(parameters);
+      // case 'Popup':
+      //   return new PopupAnnotation(parameters);
       case 'Line':
         return new LineAnnotation(parameters);
       case 'Highlight':
@@ -27807,59 +27807,59 @@ var AnnotationBorderStyle = function AnnotationBorderStyleClosure() {
   };
   return AnnotationBorderStyle;
 }();
-var WidgetAnnotation = function WidgetAnnotationClosure() {
-  function WidgetAnnotation(params) {
-    Annotation.call(this, params);
-    var dict = params.dict;
-    var data = this.data;
-    data.annotationType = _util.AnnotationType.WIDGET;
-    data.fieldName = this._constructFieldName(dict);
-    data.fieldValue = _util.Util.getInheritableProperty(dict, 'V', true);
-    data.alternativeText = (0, _util.stringToPDFString)(dict.get('TU') || '');
-    data.defaultAppearance = _util.Util.getInheritableProperty(dict, 'DA') || '';
-    var fieldType = _util.Util.getInheritableProperty(dict, 'FT');
-    data.fieldType = (0, _primitives.isName)(fieldType) ? fieldType.name : null;
-    this.fieldResources = _util.Util.getInheritableProperty(dict, 'DR') || _primitives.Dict.empty;
-    data.fieldFlags = _util.Util.getInheritableProperty(dict, 'Ff');
-    if (!(0, _util.isInt)(data.fieldFlags) || data.fieldFlags < 0) {
-      data.fieldFlags = 0;
-    }
-    data.readOnly = this.hasFieldFlag(_util.AnnotationFieldFlag.READONLY);
-    if (data.fieldType === 'Sig') {
-    //  this.setFlags(_util.AnnotationFlag.HIDDEN);
-    }
-  }
-  _util.Util.inherit(WidgetAnnotation, Annotation, {
-    _constructFieldName: function WidgetAnnotation_constructFieldName(dict) {
-      if (!dict.has('T') && !dict.has('Parent')) {
-        (0, _util.warn)('Unknown field name, falling back to empty field name.');
-        return '';
-      }
-      if (!dict.has('Parent')) {
-        return (0, _util.stringToPDFString)(dict.get('T'));
-      }
-      var fieldName = [];
-      if (dict.has('T')) {
-        fieldName.unshift((0, _util.stringToPDFString)(dict.get('T')));
-      }
-      var loopDict = dict;
-      while (loopDict.has('Parent')) {
-        loopDict = loopDict.get('Parent');
-        if (!(0, _primitives.isDict)(loopDict)) {
-          break;
-        }
-        if (loopDict.has('T')) {
-          fieldName.unshift((0, _util.stringToPDFString)(loopDict.get('T')));
-        }
-      }
-      return fieldName.join('.');
-    },
-    hasFieldFlag: function WidgetAnnotation_hasFieldFlag(flag) {
-      return !!(this.data.fieldFlags & flag);
-    }
-  });
-  return WidgetAnnotation;
-}();
+// var WidgetAnnotation = function WidgetAnnotationClosure() {
+//   function WidgetAnnotation(params) {
+//     Annotation.call(this, params);
+//     var dict = params.dict;
+//     var data = this.data;
+//     data.annotationType = _util.AnnotationType.WIDGET;
+//     data.fieldName = this._constructFieldName(dict);
+//     data.fieldValue = _util.Util.getInheritableProperty(dict, 'V', true);
+//     data.alternativeText = (0, _util.stringToPDFString)(dict.get('TU') || '');
+//     data.defaultAppearance = _util.Util.getInheritableProperty(dict, 'DA') || '';
+//     var fieldType = _util.Util.getInheritableProperty(dict, 'FT');
+//     data.fieldType = (0, _primitives.isName)(fieldType) ? fieldType.name : null;
+//     this.fieldResources = _util.Util.getInheritableProperty(dict, 'DR') || _primitives.Dict.empty;
+//     data.fieldFlags = _util.Util.getInheritableProperty(dict, 'Ff');
+//     if (!(0, _util.isInt)(data.fieldFlags) || data.fieldFlags < 0) {
+//       data.fieldFlags = 0;
+//     }
+//     data.readOnly = this.hasFieldFlag(_util.AnnotationFieldFlag.READONLY);
+//     if (data.fieldType === 'Sig') {
+//     //  this.setFlags(_util.AnnotationFlag.HIDDEN);
+//     }
+//   }
+//   _util.Util.inherit(WidgetAnnotation, Annotation, {
+//     _constructFieldName: function WidgetAnnotation_constructFieldName(dict) {
+//       if (!dict.has('T') && !dict.has('Parent')) {
+//         (0, _util.warn)('Unknown field name, falling back to empty field name.');
+//         return '';
+//       }
+//       if (!dict.has('Parent')) {
+//         return (0, _util.stringToPDFString)(dict.get('T'));
+//       }
+//       var fieldName = [];
+//       if (dict.has('T')) {
+//         fieldName.unshift((0, _util.stringToPDFString)(dict.get('T')));
+//       }
+//       var loopDict = dict;
+//       while (loopDict.has('Parent')) {
+//         loopDict = loopDict.get('Parent');
+//         if (!(0, _primitives.isDict)(loopDict)) {
+//           break;
+//         }
+//         if (loopDict.has('T')) {
+//           fieldName.unshift((0, _util.stringToPDFString)(loopDict.get('T')));
+//         }
+//       }
+//       return fieldName.join('.');
+//     },
+//     hasFieldFlag: function WidgetAnnotation_hasFieldFlag(flag) {
+//       return !!(this.data.fieldFlags & flag);
+//     }
+//   });
+//   return WidgetAnnotation;
+// }();
 // var TextWidgetAnnotation = function TextWidgetAnnotationClosure() {
 //   function TextWidgetAnnotation(params) {
 //     WidgetAnnotation.call(this, params);
@@ -27902,90 +27902,90 @@ var WidgetAnnotation = function WidgetAnnotationClosure() {
 //   });
 //   return TextWidgetAnnotation;
 // }();
-var ButtonWidgetAnnotation = function ButtonWidgetAnnotationClosure() {
-  function ButtonWidgetAnnotation(params) {
-    WidgetAnnotation.call(this, params);
-    this.data.checkBox = !this.hasFieldFlag(_util.AnnotationFieldFlag.RADIO) && !this.hasFieldFlag(_util.AnnotationFieldFlag.PUSHBUTTON);
-    if (this.data.checkBox) {
-      if (!(0, _primitives.isName)(this.data.fieldValue)) {
-        return;
-      }
-      this.data.fieldValue = this.data.fieldValue.name;
-    }
-    this.data.radioButton = this.hasFieldFlag(_util.AnnotationFieldFlag.RADIO) && !this.hasFieldFlag(_util.AnnotationFieldFlag.PUSHBUTTON);
-    if (this.data.radioButton) {
-      this.data.fieldValue = this.data.buttonValue = null;
-      var fieldParent = params.dict.get('Parent');
-      if ((0, _primitives.isDict)(fieldParent) && fieldParent.has('V')) {
-        var fieldParentValue = fieldParent.get('V');
-        if ((0, _primitives.isName)(fieldParentValue)) {
-          this.data.fieldValue = fieldParentValue.name;
-        }
-      }
-      var appearanceStates = params.dict.get('AP');
-      if (!(0, _primitives.isDict)(appearanceStates)) {
-        return;
-      }
-      var normalAppearanceState = appearanceStates.get('N');
-      if (!(0, _primitives.isDict)(normalAppearanceState)) {
-        return;
-      }
-      var keys = normalAppearanceState.getKeys();
-      for (var i = 0, ii = keys.length; i < ii; i++) {
-        if (keys[i] !== 'Off') {
-          this.data.buttonValue = keys[i];
-          break;
-        }
-      }
-    }
-  }
-  _util.Util.inherit(ButtonWidgetAnnotation, WidgetAnnotation, {
-    getOperatorList: function ButtonWidgetAnnotation_getOperatorList(evaluator, task, renderForms) {
-      var operatorList = new _evaluator.OperatorList();
-      if (renderForms) {
-        return Promise.resolve(operatorList);
-      }
-      if (this.appearance) {
-        return Annotation.prototype.getOperatorList.call(this, evaluator, task, renderForms);
-      }
-      return Promise.resolve(operatorList);
-    }
-  });
-  return ButtonWidgetAnnotation;
-}();
-var ChoiceWidgetAnnotation = function ChoiceWidgetAnnotationClosure() {
-  function ChoiceWidgetAnnotation(params) {
-    WidgetAnnotation.call(this, params);
-    this.data.options = [];
-    var options = _util.Util.getInheritableProperty(params.dict, 'Opt');
-    if ((0, _util.isArray)(options)) {
-      var xref = params.xref;
-      for (var i = 0, ii = options.length; i < ii; i++) {
-        var option = xref.fetchIfRef(options[i]);
-        var isOptionArray = (0, _util.isArray)(option);
-        this.data.options[i] = {
-          exportValue: isOptionArray ? xref.fetchIfRef(option[0]) : option,
-          displayValue: isOptionArray ? xref.fetchIfRef(option[1]) : option
-        };
-      }
-    }
-    if (!(0, _util.isArray)(this.data.fieldValue)) {
-      this.data.fieldValue = [this.data.fieldValue];
-    }
-    this.data.combo = this.hasFieldFlag(_util.AnnotationFieldFlag.COMBO);
-    this.data.multiSelect = this.hasFieldFlag(_util.AnnotationFieldFlag.MULTISELECT);
-  }
-  _util.Util.inherit(ChoiceWidgetAnnotation, WidgetAnnotation, {
-    getOperatorList: function ChoiceWidgetAnnotation_getOperatorList(evaluator, task, renderForms) {
-      var operatorList = new _evaluator.OperatorList();
-      if (renderForms) {
-        return Promise.resolve(operatorList);
-      }
-      return Annotation.prototype.getOperatorList.call(this, evaluator, task, renderForms);
-    }
-  });
-  return ChoiceWidgetAnnotation;
-}();
+// var ButtonWidgetAnnotation = function ButtonWidgetAnnotationClosure() {
+//   function ButtonWidgetAnnotation(params) {
+//     WidgetAnnotation.call(this, params);
+//     this.data.checkBox = !this.hasFieldFlag(_util.AnnotationFieldFlag.RADIO) && !this.hasFieldFlag(_util.AnnotationFieldFlag.PUSHBUTTON);
+//     if (this.data.checkBox) {
+//       if (!(0, _primitives.isName)(this.data.fieldValue)) {
+//         return;
+//       }
+//       this.data.fieldValue = this.data.fieldValue.name;
+//     }
+//     this.data.radioButton = this.hasFieldFlag(_util.AnnotationFieldFlag.RADIO) && !this.hasFieldFlag(_util.AnnotationFieldFlag.PUSHBUTTON);
+//     if (this.data.radioButton) {
+//       this.data.fieldValue = this.data.buttonValue = null;
+//       var fieldParent = params.dict.get('Parent');
+//       if ((0, _primitives.isDict)(fieldParent) && fieldParent.has('V')) {
+//         var fieldParentValue = fieldParent.get('V');
+//         if ((0, _primitives.isName)(fieldParentValue)) {
+//           this.data.fieldValue = fieldParentValue.name;
+//         }
+//       }
+//       var appearanceStates = params.dict.get('AP');
+//       if (!(0, _primitives.isDict)(appearanceStates)) {
+//         return;
+//       }
+//       var normalAppearanceState = appearanceStates.get('N');
+//       if (!(0, _primitives.isDict)(normalAppearanceState)) {
+//         return;
+//       }
+//       var keys = normalAppearanceState.getKeys();
+//       for (var i = 0, ii = keys.length; i < ii; i++) {
+//         if (keys[i] !== 'Off') {
+//           this.data.buttonValue = keys[i];
+//           break;
+//         }
+//       }
+//     }
+//   }
+//   _util.Util.inherit(ButtonWidgetAnnotation, WidgetAnnotation, {
+//     getOperatorList: function ButtonWidgetAnnotation_getOperatorList(evaluator, task, renderForms) {
+//       var operatorList = new _evaluator.OperatorList();
+//       if (renderForms) {
+//         return Promise.resolve(operatorList);
+//       }
+//       if (this.appearance) {
+//         return Annotation.prototype.getOperatorList.call(this, evaluator, task, renderForms);
+//       }
+//       return Promise.resolve(operatorList);
+//     }
+//   });
+//   return ButtonWidgetAnnotation;
+// }();
+// var ChoiceWidgetAnnotation = function ChoiceWidgetAnnotationClosure() {
+//   function ChoiceWidgetAnnotation(params) {
+//     WidgetAnnotation.call(this, params);
+//     this.data.options = [];
+//     var options = _util.Util.getInheritableProperty(params.dict, 'Opt');
+//     if ((0, _util.isArray)(options)) {
+//       var xref = params.xref;
+//       for (var i = 0, ii = options.length; i < ii; i++) {
+//         var option = xref.fetchIfRef(options[i]);
+//         var isOptionArray = (0, _util.isArray)(option);
+//         this.data.options[i] = {
+//           exportValue: isOptionArray ? xref.fetchIfRef(option[0]) : option,
+//           displayValue: isOptionArray ? xref.fetchIfRef(option[1]) : option
+//         };
+//       }
+//     }
+//     if (!(0, _util.isArray)(this.data.fieldValue)) {
+//       this.data.fieldValue = [this.data.fieldValue];
+//     }
+//     this.data.combo = this.hasFieldFlag(_util.AnnotationFieldFlag.COMBO);
+//     this.data.multiSelect = this.hasFieldFlag(_util.AnnotationFieldFlag.MULTISELECT);
+//   }
+//   _util.Util.inherit(ChoiceWidgetAnnotation, WidgetAnnotation, {
+//     getOperatorList: function ChoiceWidgetAnnotation_getOperatorList(evaluator, task, renderForms) {
+//       var operatorList = new _evaluator.OperatorList();
+//       if (renderForms) {
+//         return Promise.resolve(operatorList);
+//       }
+//       return Annotation.prototype.getOperatorList.call(this, evaluator, task, renderForms);
+//     }
+//   });
+//   return ChoiceWidgetAnnotation;
+// }();
 var TextAnnotation = function TextAnnotationClosure() {
   var DEFAULT_ICON_SIZE = 22;
   function TextAnnotation(parameters) {
@@ -28017,37 +28017,37 @@ var LinkAnnotation = function LinkAnnotationClosure() {
   _util.Util.inherit(LinkAnnotation, Annotation, {});
   return LinkAnnotation;
 }();
-var PopupAnnotation = function PopupAnnotationClosure() {
-  function PopupAnnotation(parameters) {
-    Annotation.call(this, parameters);
-    this.data.annotationType = _util.AnnotationType.POPUP;
-    var dict = parameters.dict;
-    var parentItem = dict.get('Parent');
-    if (!parentItem) {
-      (0, _util.warn)('Popup annotation has a missing or invalid parent annotation.');
-      return;
-    }
-    var parentSubtype = parentItem.get('Subtype');
-    this.data.parentType = (0, _primitives.isName)(parentSubtype) ? parentSubtype.name : null;
-    this.data.parentId = dict.getRaw('Parent').toString();
-    this.data.title = (0, _util.stringToPDFString)(parentItem.get('T') || '');
-    this.data.contents = (0, _util.stringToPDFString)(parentItem.get('Contents') || '');
-    if (!parentItem.has('C')) {
-      this.data.color = null;
-    } else {
-      this.setColor(parentItem.getArray('C'));
-      this.data.color = this.color;
-    }
-    if (!this.viewable) {
-      var parentFlags = parentItem.get('F');
-      if (this._isViewable(parentFlags)) {
-        this.setFlags(parentFlags);
-      }
-    }
-  }
-  _util.Util.inherit(PopupAnnotation, Annotation, {});
-  return PopupAnnotation;
-}();
+// var PopupAnnotation = function PopupAnnotationClosure() {
+//   function PopupAnnotation(parameters) {
+//     Annotation.call(this, parameters);
+//     this.data.annotationType = _util.AnnotationType.POPUP;
+//     var dict = parameters.dict;
+//     var parentItem = dict.get('Parent');
+//     if (!parentItem) {
+//       (0, _util.warn)('Popup annotation has a missing or invalid parent annotation.');
+//       return;
+//     }
+//     var parentSubtype = parentItem.get('Subtype');
+//     this.data.parentType = (0, _primitives.isName)(parentSubtype) ? parentSubtype.name : null;
+//     this.data.parentId = dict.getRaw('Parent').toString();
+//     this.data.title = (0, _util.stringToPDFString)(parentItem.get('T') || '');
+//     this.data.contents = (0, _util.stringToPDFString)(parentItem.get('Contents') || '');
+//     if (!parentItem.has('C')) {
+//       this.data.color = null;
+//     } else {
+//       this.setColor(parentItem.getArray('C'));
+//       this.data.color = this.color;
+//     }
+//     if (!this.viewable) {
+//       var parentFlags = parentItem.get('F');
+//       if (this._isViewable(parentFlags)) {
+//         this.setFlags(parentFlags);
+//       }
+//     }
+//   }
+//   _util.Util.inherit(PopupAnnotation, Annotation, {});
+//   return PopupAnnotation;
+// }();
 var LineAnnotation = function LineAnnotationClosure() {
   function LineAnnotation(parameters) {
     Annotation.call(this, parameters);

@@ -108,6 +108,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 // 报错提示 - 初始化
+// unreachable-无法达到;
 exports.unreachable = exports.warn = exports.utf8StringToString = exports.stringToUTF8String = exports.stringToPDFString = exports.stringToBytes = exports.string32 = exports.shadow = exports.setVerbosityLevel = exports.ReadableStream = exports.removeNullCharacters = exports.readUint32 = exports.readUint16 = exports.readInt8 = exports.log2 = exports.loadJpegStream = exports.isEvalSupported = exports.isLittleEndian = exports.createValidAbsoluteUrl = exports.isSameOrigin = exports.isNodeJS = exports.isSpace = exports.isString = exports.isNum = exports.isInt = exports.isEmptyObj = exports.isBool = exports.isArrayBuffer = exports.isArray = exports.info = exports.globalScope = exports.getVerbosityLevel = exports.getLookupTableFactory = exports.deprecated = exports.createObjectURL = exports.createPromiseCapability = exports.createBlob = exports.bytesToString = exports.assert = exports.arraysToBytes = exports.arrayByteLength = exports.FormatError = exports.XRefParseException = exports.Util = exports.UnknownErrorException = exports.UnexpectedResponseException = exports.TextRenderingMode = exports.StreamType = exports.StatTimer = exports.PasswordResponses = exports.PasswordException = exports.PageViewport = exports.NotImplementedException = exports.NativeImageDecoding = exports.MissingPDFException = exports.MissingDataException = exports.MessageHandler = exports.InvalidPDFException = exports.AbortException = exports.CMapCompressionType = exports.ImageKind = exports.FontType = exports.AnnotationType = exports.AnnotationFlag = exports.AnnotationFieldFlag = exports.AnnotationBorderStyleType = exports.VERBOSITY_LEVELS = exports.OPS = exports.IDENTITY_MATRIX = exports.FONT_IDENTITY_MATRIX = undefined;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -168,39 +169,39 @@ var AnnotationType = {
   THREED: 25,
   REDACT: 26
 };
-var AnnotationFlag = {
-  INVISIBLE: 0x01,
-  HIDDEN: 0x02,
-  PRINT: 0x04,
-  NOZOOM: 0x08,
-  NOROTATE: 0x10,
-  NOVIEW: 0x20,
-  READONLY: 0x40,
-  LOCKED: 0x80,
-  TOGGLENOVIEW: 0x100,
-  LOCKEDCONTENTS: 0x200
-};
-var AnnotationFieldFlag = {
-  READONLY: 0x0000001,
-  REQUIRED: 0x0000002,
-  NOEXPORT: 0x0000004,
-  MULTILINE: 0x0001000,
-  PASSWORD: 0x0002000,
-  NOTOGGLETOOFF: 0x0004000,
-  RADIO: 0x0008000,
-  PUSHBUTTON: 0x0010000,
-  COMBO: 0x0020000,
-  EDIT: 0x0040000,
-  SORT: 0x0080000,
-  FILESELECT: 0x0100000,
-  MULTISELECT: 0x0200000,
-  DONOTSPELLCHECK: 0x0400000,
-  DONOTSCROLL: 0x0800000,
-  COMB: 0x1000000,
-  RICHTEXT: 0x2000000,
-  RADIOSINUNISON: 0x2000000,
-  COMMITONSELCHANGE: 0x4000000
-};
+// var AnnotationFlag = {
+//   INVISIBLE: 0x01,
+//   HIDDEN: 0x02,
+//   PRINT: 0x04,
+//   NOZOOM: 0x08,
+//   NOROTATE: 0x10,
+//   NOVIEW: 0x20,
+//   READONLY: 0x40,
+//   LOCKED: 0x80,
+//   TOGGLENOVIEW: 0x100,
+//   LOCKEDCONTENTS: 0x200
+// };
+// var AnnotationFieldFlag = {
+//   READONLY: 0x0000001,
+//   REQUIRED: 0x0000002,
+//   NOEXPORT: 0x0000004,
+//   MULTILINE: 0x0001000,
+//   PASSWORD: 0x0002000,
+//   NOTOGGLETOOFF: 0x0004000,
+//   RADIO: 0x0008000,
+//   PUSHBUTTON: 0x0010000,
+//   COMBO: 0x0020000,
+//   EDIT: 0x0040000,
+//   SORT: 0x0080000,
+//   FILESELECT: 0x0100000,
+//   MULTISELECT: 0x0200000,
+//   DONOTSPELLCHECK: 0x0400000,
+//   DONOTSCROLL: 0x0800000,
+//   COMB: 0x1000000,
+//   RICHTEXT: 0x2000000,
+//   RADIOSINUNISON: 0x2000000,
+//   COMMITONSELCHANGE: 0x4000000
+// };
 var AnnotationBorderStyleType = {
   SOLID: 1,
   DASHED: 2,
@@ -1453,8 +1454,8 @@ exports.OPS = OPS;
 exports.VERBOSITY_LEVELS = VERBOSITY_LEVELS;
 exports.UNSUPPORTED_FEATURES = UNSUPPORTED_FEATURES;
 exports.AnnotationBorderStyleType = AnnotationBorderStyleType;
-exports.AnnotationFieldFlag = AnnotationFieldFlag;
-exports.AnnotationFlag = AnnotationFlag;
+// exports.AnnotationFieldFlag = AnnotationFieldFlag;
+// exports.AnnotationFlag = AnnotationFlag;
 exports.AnnotationType = AnnotationType;
 exports.FontType = FontType;
 exports.ImageKind = ImageKind;
@@ -3528,15 +3529,15 @@ var AnnotationElement = function AnnotationElementClosure() {
         trigger.style.width = container.style.width;
         container.appendChild(trigger);
       }
-      var popupElement = new PopupElement({
-        container: container,
-        trigger: trigger,
-        color: data.color,
-        title: data.title,
-        contents: data.contents,
-        hideWrapper: true
-      });
-      var popup = popupElement.render();
+      // var popupElement = new PopupElement({
+      //   container: container,
+      //   trigger: trigger,
+      //   color: data.color,
+      //   title: data.title,
+      //   contents: data.contents,
+      //   hideWrapper: true
+      // });
+      // var popup = popupElement.render();
       popup.style.left = container.style.width;
       container.appendChild(popup);
     },
@@ -3619,17 +3620,17 @@ var LinkAnnotationElement = function LinkAnnotationElementClosure() {
 //   });
 //   return TextAnnotationElement;
 // }();
-var WidgetAnnotationElement = function WidgetAnnotationElementClosure() {
-  function WidgetAnnotationElement(parameters, isRenderable) {
-    AnnotationElement.call(this, parameters, isRenderable);
-  }
-  _util.Util.inherit(WidgetAnnotationElement, AnnotationElement, {
-    render: function WidgetAnnotationElement_render() {
-      return this.container;
-    }
-  });
-  return WidgetAnnotationElement;
-}();
+// var WidgetAnnotationElement = function WidgetAnnotationElementClosure() {
+//   function WidgetAnnotationElement(parameters, isRenderable) {
+//     AnnotationElement.call(this, parameters, isRenderable);
+//   }
+//   _util.Util.inherit(WidgetAnnotationElement, AnnotationElement, {
+//     render: function WidgetAnnotationElement_render() {
+//       return this.container;
+//     }
+//   });
+//   return WidgetAnnotationElement;
+// }();
 // 文本小部件注释元素
 // var TextWidgetAnnotationElement = function TextWidgetAnnotationElementClosure() {
 //   var TEXT_ALIGNMENT = ['left', 'center', 'right'];
@@ -3693,188 +3694,188 @@ var WidgetAnnotationElement = function WidgetAnnotationElementClosure() {
 //   });
 //   return TextWidgetAnnotationElement;
 // }();
-var CheckboxWidgetAnnotationElement = function CheckboxWidgetAnnotationElementClosure() {
-  function CheckboxWidgetAnnotationElement(parameters) {
-    WidgetAnnotationElement.call(this, parameters, parameters.renderInteractiveForms);
-  }
-  _util.Util.inherit(CheckboxWidgetAnnotationElement, WidgetAnnotationElement, {
-    render: function CheckboxWidgetAnnotationElement_render() {
-      this.container.className = 'buttonWidgetAnnotation checkBox';
-      var element = document.createElement('input');
-      element.disabled = this.data.readOnly;
-      element.type = 'checkbox';
-      if (this.data.fieldValue && this.data.fieldValue !== 'Off') {
-        element.setAttribute('checked', true);
-      }
-      this.container.appendChild(element);
-      return this.container;
-    }
-  });
-  return CheckboxWidgetAnnotationElement;
-}();
-var RadioButtonWidgetAnnotationElement = function RadioButtonWidgetAnnotationElementClosure() {
-  function RadioButtonWidgetAnnotationElement(parameters) {
-    WidgetAnnotationElement.call(this, parameters, parameters.renderInteractiveForms);
-  }
-  _util.Util.inherit(RadioButtonWidgetAnnotationElement, WidgetAnnotationElement, {
-    render: function RadioButtonWidgetAnnotationElement_render() {
-      this.container.className = 'buttonWidgetAnnotation radioButton';
-      var element = document.createElement('input');
-      element.disabled = this.data.readOnly;
-      element.type = 'radio';
-      element.name = this.data.fieldName;
-      if (this.data.fieldValue === this.data.buttonValue) {
-        element.setAttribute('checked', true);
-      }
-      this.container.appendChild(element);
-      return this.container;
-    }
-  });
-  return RadioButtonWidgetAnnotationElement;
-}();
-var ChoiceWidgetAnnotationElement = function ChoiceWidgetAnnotationElementClosure() {
-  function ChoiceWidgetAnnotationElement(parameters) {
-    WidgetAnnotationElement.call(this, parameters, parameters.renderInteractiveForms);
-  }
-  _util.Util.inherit(ChoiceWidgetAnnotationElement, WidgetAnnotationElement, {
-    render: function ChoiceWidgetAnnotationElement_render() {
-      this.container.className = 'choiceWidgetAnnotation';
-      var selectElement = document.createElement('select');
-      selectElement.disabled = this.data.readOnly;
-      if (!this.data.combo) {
-        selectElement.size = this.data.options.length;
-        if (this.data.multiSelect) {
-          selectElement.multiple = true;
-        }
-      }
-      for (var i = 0, ii = this.data.options.length; i < ii; i++) {
-        var option = this.data.options[i];
-        var optionElement = document.createElement('option');
-        optionElement.textContent = option.displayValue;
-        optionElement.value = option.exportValue;
-        if (this.data.fieldValue.indexOf(option.displayValue) >= 0) {
-          optionElement.setAttribute('selected', true);
-        }
-        selectElement.appendChild(optionElement);
-      }
-      this.container.appendChild(selectElement);
-      return this.container;
-    }
-  });
-  return ChoiceWidgetAnnotationElement;
-}();
-var PopupAnnotationElement = function PopupAnnotationElementClosure() {
-  var IGNORE_TYPES = ['Line'];
-  function PopupAnnotationElement(parameters) {
-    var isRenderable = !!(parameters.data.title || parameters.data.contents);
-    AnnotationElement.call(this, parameters, isRenderable);
-  }
-  _util.Util.inherit(PopupAnnotationElement, AnnotationElement, {
-    render: function PopupAnnotationElement_render() {
-      this.container.className = 'popupAnnotation';
-      if (IGNORE_TYPES.indexOf(this.data.parentType) >= 0) {
-        return this.container;
-      }
-      var selector = '[data-annotation-id="' + this.data.parentId + '"]';
-      var parentElement = this.layer.querySelector(selector);
-      if (!parentElement) {
-        return this.container;
-      }
-      var popup = new PopupElement({
-        container: this.container,
-        trigger: parentElement,
-        color: this.data.color,
-        title: this.data.title,
-        contents: this.data.contents
-      });
-      var parentLeft = parseFloat(parentElement.style.left);
-      var parentWidth = parseFloat(parentElement.style.width);
-      _dom_utils.CustomStyle.setProp('transformOrigin', this.container, -(parentLeft + parentWidth) + 'px -' + parentElement.style.top);
-      this.container.style.left = parentLeft + parentWidth + 'px';
-      this.container.appendChild(popup.render());
-      return this.container;
-    }
-  });
-  return PopupAnnotationElement;
-}();
-var PopupElement = function PopupElementClosure() {
-  var BACKGROUND_ENLIGHT = 0.7;
-  function PopupElement(parameters) {
-    this.container = parameters.container;
-    this.trigger = parameters.trigger;
-    this.color = parameters.color;
-    this.title = parameters.title;
-    this.contents = parameters.contents;
-    this.hideWrapper = parameters.hideWrapper || false;
-    this.pinned = false;
-  }
-  PopupElement.prototype = {
-    render: function PopupElement_render() {
-      var wrapper = document.createElement('div');
-      wrapper.className = 'popupWrapper';
-      this.hideElement = this.hideWrapper ? wrapper : this.container;
-      this.hideElement.setAttribute('hidden', true);
-      var popup = document.createElement('div');
-      popup.className = 'popup';
-      var color = this.color;
-      if (color) {
-        var r = BACKGROUND_ENLIGHT * (255 - color[0]) + color[0];
-        var g = BACKGROUND_ENLIGHT * (255 - color[1]) + color[1];
-        var b = BACKGROUND_ENLIGHT * (255 - color[2]) + color[2];
-        popup.style.backgroundColor = _util.Util.makeCssRgb(r | 0, g | 0, b | 0);
-      }
-      var contents = this._formatContents(this.contents);
-      var title = document.createElement('h1');
-      title.textContent = this.title;
-      this.trigger.addEventListener('click', this._toggle.bind(this));
-      this.trigger.addEventListener('mouseover', this._show.bind(this, false));
-      this.trigger.addEventListener('mouseout', this._hide.bind(this, false));
-      popup.addEventListener('click', this._hide.bind(this, true));
-      popup.appendChild(title);
-      popup.appendChild(contents);
-      wrapper.appendChild(popup);
-      return wrapper;
-    },
-    _formatContents: function PopupElement_formatContents(contents) {
-      var p = document.createElement('p');
-      var lines = contents.split(/(?:\r\n?|\n)/);
-      for (var i = 0, ii = lines.length; i < ii; ++i) {
-        var line = lines[i];
-        p.appendChild(document.createTextNode(line));
-        if (i < ii - 1) {
-          p.appendChild(document.createElement('br'));
-        }
-      }
-      return p;
-    },
-    _toggle: function PopupElement_toggle() {
-      if (this.pinned) {
-        this._hide(true);
-      } else {
-        this._show(true);
-      }
-    },
-    _show: function PopupElement_show(pin) {
-      if (pin) {
-        this.pinned = true;
-      }
-      if (this.hideElement.hasAttribute('hidden')) {
-        this.hideElement.removeAttribute('hidden');
-        this.container.style.zIndex += 1;
-      }
-    },
-    _hide: function PopupElement_hide(unpin) {
-      if (unpin) {
-        this.pinned = false;
-      }
-      if (!this.hideElement.hasAttribute('hidden') && !this.pinned) {
-        this.hideElement.setAttribute('hidden', true);
-        this.container.style.zIndex -= 1;
-      }
-    }
-  };
-  return PopupElement;
-}();
+// var CheckboxWidgetAnnotationElement = function CheckboxWidgetAnnotationElementClosure() {
+//   function CheckboxWidgetAnnotationElement(parameters) {
+//     WidgetAnnotationElement.call(this, parameters, parameters.renderInteractiveForms);
+//   }
+//   _util.Util.inherit(CheckboxWidgetAnnotationElement, WidgetAnnotationElement, {
+//     render: function CheckboxWidgetAnnotationElement_render() {
+//       this.container.className = 'buttonWidgetAnnotation checkBox';
+//       var element = document.createElement('input');
+//       // element.disabled = this.data.readOnly;
+//       element.type = 'checkbox';
+//       if (this.data.fieldValue && this.data.fieldValue !== 'Off') {
+//         element.setAttribute('checked', true);
+//       }
+//       this.container.appendChild(element);
+//       return this.container;
+//     }
+//   });
+//   return CheckboxWidgetAnnotationElement;
+// }();
+// var RadioButtonWidgetAnnotationElement = function RadioButtonWidgetAnnotationElementClosure() {
+//   function RadioButtonWidgetAnnotationElement(parameters) {
+//     WidgetAnnotationElement.call(this, parameters, parameters.renderInteractiveForms);
+//   }
+//   _util.Util.inherit(RadioButtonWidgetAnnotationElement, WidgetAnnotationElement, {
+//     render: function RadioButtonWidgetAnnotationElement_render() {
+//       this.container.className = 'buttonWidgetAnnotation radioButton';
+//       var element = document.createElement('input');
+//       // element.disabled = this.data.readOnly;
+//       element.type = 'radio';
+//       element.name = this.data.fieldName;
+//       if (this.data.fieldValue === this.data.buttonValue) {
+//         element.setAttribute('checked', true);
+//       }
+//       this.container.appendChild(element);
+//       return this.container;
+//     }
+//   });
+//   return RadioButtonWidgetAnnotationElement;
+// }();
+// var ChoiceWidgetAnnotationElement = function ChoiceWidgetAnnotationElementClosure() {
+//   function ChoiceWidgetAnnotationElement(parameters) {
+//     WidgetAnnotationElement.call(this, parameters, parameters.renderInteractiveForms);
+//   }
+//   _util.Util.inherit(ChoiceWidgetAnnotationElement, WidgetAnnotationElement, {
+//     render: function ChoiceWidgetAnnotationElement_render() {
+//       this.container.className = 'choiceWidgetAnnotation';
+//       var selectElement = document.createElement('select');
+//       // selectElement.disabled = this.data.readOnly;
+//       if (!this.data.combo) {
+//         selectElement.size = this.data.options.length;
+//         if (this.data.multiSelect) {
+//           selectElement.multiple = true;
+//         }
+//       }
+//       for (var i = 0, ii = this.data.options.length; i < ii; i++) {
+//         var option = this.data.options[i];
+//         var optionElement = document.createElement('option');
+//         optionElement.textContent = option.displayValue;
+//         optionElement.value = option.exportValue;
+//         if (this.data.fieldValue.indexOf(option.displayValue) >= 0) {
+//           optionElement.setAttribute('selected', true);
+//         }
+//         selectElement.appendChild(optionElement);
+//       }
+//       this.container.appendChild(selectElement);
+//       return this.container;
+//     }
+//   });
+//   return ChoiceWidgetAnnotationElement;
+// }();
+// var PopupAnnotationElement = function PopupAnnotationElementClosure() {
+//   var IGNORE_TYPES = ['Line'];
+//   function PopupAnnotationElement(parameters) {
+//     var isRenderable = !!(parameters.data.title || parameters.data.contents);
+//     AnnotationElement.call(this, parameters, isRenderable);
+//   }
+//   _util.Util.inherit(PopupAnnotationElement, AnnotationElement, {
+//     render: function PopupAnnotationElement_render() {
+//       this.container.className = 'popupAnnotation';
+//       if (IGNORE_TYPES.indexOf(this.data.parentType) >= 0) {
+//         return this.container;
+//       }
+//       var selector = '[data-annotation-id="' + this.data.parentId + '"]';
+//       var parentElement = this.layer.querySelector(selector);
+//       if (!parentElement) {
+//         return this.container;
+//       }
+//       var popup = new PopupElement({
+//         container: this.container,
+//         trigger: parentElement,
+//         color: this.data.color,
+//         title: this.data.title,
+//         contents: this.data.contents
+//       });
+//       var parentLeft = parseFloat(parentElement.style.left);
+//       var parentWidth = parseFloat(parentElement.style.width);
+//       _dom_utils.CustomStyle.setProp('transformOrigin', this.container, -(parentLeft + parentWidth) + 'px -' + parentElement.style.top);
+//       this.container.style.left = parentLeft + parentWidth + 'px';
+//       this.container.appendChild(popup.render());
+//       return this.container;
+//     }
+//   });
+//   return PopupAnnotationElement;
+// }();
+// var PopupElement = function PopupElementClosure() {
+//   var BACKGROUND_ENLIGHT = 0.7;
+//   function PopupElement(parameters) {
+//     this.container = parameters.container;
+//     this.trigger = parameters.trigger;
+//     this.color = parameters.color;
+//     this.title = parameters.title;
+//     this.contents = parameters.contents;
+//     this.hideWrapper = parameters.hideWrapper || false;
+//     this.pinned = false;
+//   }
+//   PopupElement.prototype = {
+//     render: function PopupElement_render() {
+//       var wrapper = document.createElement('div');
+//       wrapper.className = 'popupWrapper';
+//       this.hideElement = this.hideWrapper ? wrapper : this.container;
+//       this.hideElement.setAttribute('hidden', true);
+//       var popup = document.createElement('div');
+//       popup.className = 'popup';
+//       var color = this.color;
+//       if (color) {
+//         var r = BACKGROUND_ENLIGHT * (255 - color[0]) + color[0];
+//         var g = BACKGROUND_ENLIGHT * (255 - color[1]) + color[1];
+//         var b = BACKGROUND_ENLIGHT * (255 - color[2]) + color[2];
+//         popup.style.backgroundColor = _util.Util.makeCssRgb(r | 0, g | 0, b | 0);
+//       }
+//       var contents = this._formatContents(this.contents);
+//       var title = document.createElement('h1');
+//       title.textContent = this.title;
+//       this.trigger.addEventListener('click', this._toggle.bind(this));
+//       this.trigger.addEventListener('mouseover', this._show.bind(this, false));
+//       this.trigger.addEventListener('mouseout', this._hide.bind(this, false));
+//       popup.addEventListener('click', this._hide.bind(this, true));
+//       popup.appendChild(title);
+//       popup.appendChild(contents);
+//       wrapper.appendChild(popup);
+//       return wrapper;
+//     },
+//     _formatContents: function PopupElement_formatContents(contents) {
+//       var p = document.createElement('p');
+//       var lines = contents.split(/(?:\r\n?|\n)/);
+//       for (var i = 0, ii = lines.length; i < ii; ++i) {
+//         var line = lines[i];
+//         p.appendChild(document.createTextNode(line));
+//         if (i < ii - 1) {
+//           p.appendChild(document.createElement('br'));
+//         }
+//       }
+//       return p;
+//     },
+//     _toggle: function PopupElement_toggle() {
+//       if (this.pinned) {
+//         this._hide(true);
+//       } else {
+//         this._show(true);
+//       }
+//     },
+//     _show: function PopupElement_show(pin) {
+//       if (pin) {
+//         this.pinned = true;
+//       }
+//       if (this.hideElement.hasAttribute('hidden')) {
+//         this.hideElement.removeAttribute('hidden');
+//         this.container.style.zIndex += 1;
+//       }
+//     },
+//     _hide: function PopupElement_hide(unpin) {
+//       if (unpin) {
+//         this.pinned = false;
+//       }
+//       if (!this.hideElement.hasAttribute('hidden') && !this.pinned) {
+//         this.hideElement.setAttribute('hidden', true);
+//         this.container.style.zIndex -= 1;
+//       }
+//     }
+//   };
+//   return PopupElement;
+// }();
 // var LineAnnotationElement = function LineAnnotationElementClosure() {
 //   var SVG_NS = 'http://www.w3.org/2000/svg';
 //   function LineAnnotationElement(parameters) {

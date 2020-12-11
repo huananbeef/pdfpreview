@@ -28,7 +28,8 @@ export default {
             let url = '/static/newPdf/111.pdf'
             let pdfjsLib = pdf
             console.log('---pdf---', pdf.PDFJS)
-            pdfjsLib.PDFJS.workerSrc = '/static/newPdf/pdf.worker.js'
+            pdfjsLib.PDFJS.workerSrc = '/static/newPdf/pdf.worker.js';
+            // pdfjsLib.PDFJS.disableAutoFetch = true;
             // pdfjsLib.GlobalWorkerOptions.workerSrc = '/static/newPdf/pdf.worker.js'
             let loadingTask = pdfjsLib.getDocument(url)
             loadingTask.promise.then((pdf) =>{
