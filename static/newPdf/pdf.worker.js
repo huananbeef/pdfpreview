@@ -27504,10 +27504,10 @@ AnnotationFactory.prototype = {
       pdfManager: pdfManager
     };
     switch (subtype) {
-      case 'Link':
-        return new LinkAnnotation(parameters);
-      case 'Text':
-        return new TextAnnotation(parameters);
+      // case 'Link':
+      //   return new LinkAnnotation(parameters);
+      // case 'Text':
+      //   return new TextAnnotation(parameters);
       // case 'Widget':
       //   var fieldType = _util.Util.getInheritableProperty(dict, 'FT');
       //   fieldType = (0, _primitives.isName)(fieldType) ? fieldType.name : null;
@@ -27986,37 +27986,37 @@ var AnnotationBorderStyle = function AnnotationBorderStyleClosure() {
 //   });
 //   return ChoiceWidgetAnnotation;
 // }();
-var TextAnnotation = function TextAnnotationClosure() {
-  var DEFAULT_ICON_SIZE = 22;
-  function TextAnnotation(parameters) {
-    Annotation.call(this, parameters);
-    this.data.annotationType = _util.AnnotationType.TEXT;
-    if (this.data.hasAppearance) {
-      this.data.name = 'NoIcon';
-    } else {
-      this.data.rect[1] = this.data.rect[3] - DEFAULT_ICON_SIZE;
-      this.data.rect[2] = this.data.rect[0] + DEFAULT_ICON_SIZE;
-      this.data.name = parameters.dict.has('Name') ? parameters.dict.get('Name').name : 'Note';
-    }
-    this._preparePopup(parameters.dict);
-  }
-  _util.Util.inherit(TextAnnotation, Annotation, {});
-  return TextAnnotation;
-}();
-var LinkAnnotation = function LinkAnnotationClosure() {
-  function LinkAnnotation(params) {
-    Annotation.call(this, params);
-    var data = this.data;
-    data.annotationType = _util.AnnotationType.LINK;
-    _obj.Catalog.parseDestDictionary({
-      destDict: params.dict,
-      resultObj: data,
-      docBaseUrl: params.pdfManager.docBaseUrl
-    });
-  }
-  _util.Util.inherit(LinkAnnotation, Annotation, {});
-  return LinkAnnotation;
-}();
+// var TextAnnotation = function TextAnnotationClosure() {
+//   var DEFAULT_ICON_SIZE = 22;
+//   function TextAnnotation(parameters) {
+//     Annotation.call(this, parameters);
+//     this.data.annotationType = _util.AnnotationType.TEXT;
+//     if (this.data.hasAppearance) {
+//       this.data.name = 'NoIcon';
+//     } else {
+//       this.data.rect[1] = this.data.rect[3] - DEFAULT_ICON_SIZE;
+//       this.data.rect[2] = this.data.rect[0] + DEFAULT_ICON_SIZE;
+//       this.data.name = parameters.dict.has('Name') ? parameters.dict.get('Name').name : 'Note';
+//     }
+//     this._preparePopup(parameters.dict);
+//   }
+//   _util.Util.inherit(TextAnnotation, Annotation, {});
+//   return TextAnnotation;
+// }();
+// var LinkAnnotation = function LinkAnnotationClosure() {
+//   function LinkAnnotation(params) {
+//     Annotation.call(this, params);
+//     var data = this.data;
+//     data.annotationType = _util.AnnotationType.LINK;
+//     _obj.Catalog.parseDestDictionary({
+//       destDict: params.dict,
+//       resultObj: data,
+//       docBaseUrl: params.pdfManager.docBaseUrl
+//     });
+//   }
+//   _util.Util.inherit(LinkAnnotation, Annotation, {});
+//   return LinkAnnotation;
+// }();
 // var PopupAnnotation = function PopupAnnotationClosure() {
 //   function PopupAnnotation(parameters) {
 //     Annotation.call(this, parameters);

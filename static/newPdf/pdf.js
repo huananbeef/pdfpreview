@@ -3452,150 +3452,150 @@ var _util = __w_pdfjs_require__(0);
 //     }
 //   }
 // };
-var AnnotationElement = function AnnotationElementClosure() {
-  function AnnotationElement(parameters, isRenderable, ignoreBorder) {
-    this.isRenderable = isRenderable || false;
-    this.data = parameters.data;
-    this.layer = parameters.layer;
-    this.page = parameters.page;
-    this.viewport = parameters.viewport;
-    this.linkService = parameters.linkService;
-    this.downloadManager = parameters.downloadManager;
-    this.imageResourcesPath = parameters.imageResourcesPath;
-    this.renderInteractiveForms = parameters.renderInteractiveForms;
-    if (isRenderable) {
-      this.container = this._createContainer(ignoreBorder);
-    }
-  }
-  AnnotationElement.prototype = {
-    _createContainer: function AnnotationElement_createContainer(ignoreBorder) {
-      var data = this.data,
-          page = this.page,
-          viewport = this.viewport;
-      var container = document.createElement('section');
-      var width = data.rect[2] - data.rect[0];
-      var height = data.rect[3] - data.rect[1];
-      container.setAttribute('data-annotation-id', data.id);
-      var rect = _util.Util.normalizeRect([data.rect[0], page.view[3] - data.rect[1] + page.view[1], data.rect[2], page.view[3] - data.rect[3] + page.view[1]]);
-      _dom_utils.CustomStyle.setProp('transform', container, 'matrix(' + viewport.transform.join(',') + ')');
-      _dom_utils.CustomStyle.setProp('transformOrigin', container, -rect[0] + 'px ' + -rect[1] + 'px');
-      if (!ignoreBorder && data.borderStyle.width > 0) {
-        container.style.borderWidth = data.borderStyle.width + 'px';
-        if (data.borderStyle.style !== _util.AnnotationBorderStyleType.UNDERLINE) {
-          width = width - 2 * data.borderStyle.width;
-          height = height - 2 * data.borderStyle.width;
-        }
-        var horizontalRadius = data.borderStyle.horizontalCornerRadius;
-        var verticalRadius = data.borderStyle.verticalCornerRadius;
-        if (horizontalRadius > 0 || verticalRadius > 0) {
-          var radius = horizontalRadius + 'px / ' + verticalRadius + 'px';
-          _dom_utils.CustomStyle.setProp('borderRadius', container, radius);
-        }
-        switch (data.borderStyle.style) {
-          case _util.AnnotationBorderStyleType.SOLID:
-            container.style.borderStyle = 'solid';
-            break;
-          case _util.AnnotationBorderStyleType.DASHED:
-            container.style.borderStyle = 'dashed';
-            break;
-          case _util.AnnotationBorderStyleType.BEVELED:
-            (0, _util.warn)('Unimplemented border style: beveled');
-            break;
-          case _util.AnnotationBorderStyleType.INSET:
-            (0, _util.warn)('Unimplemented border style: inset');
-            break;
-          case _util.AnnotationBorderStyleType.UNDERLINE:
-            container.style.borderBottomStyle = 'solid';
-            break;
-          default:
-            break;
-        }
-        if (data.color) {
-          container.style.borderColor = _util.Util.makeCssRgb(data.color[0] | 0, data.color[1] | 0, data.color[2] | 0);
-        } else {
-          container.style.borderWidth = 0;
-        }
-      }
-      container.style.left = rect[0] + 'px';
-      container.style.top = rect[1] + 'px';
-      container.style.width = width + 'px';
-      container.style.height = height + 'px';
-      return container;
-    },
-    _createPopup: function AnnotationElement_createPopup(container, trigger, data) {
-      if (!trigger) {
-        trigger = document.createElement('div');
-        trigger.style.height = container.style.height;
-        trigger.style.width = container.style.width;
-        container.appendChild(trigger);
-      }
-      // var popupElement = new PopupElement({
-      //   container: container,
-      //   trigger: trigger,
-      //   color: data.color,
-      //   title: data.title,
-      //   contents: data.contents,
-      //   hideWrapper: true
-      // });
-      // var popup = popupElement.render();
-      popup.style.left = container.style.width;
-      container.appendChild(popup);
-    },
-    render: function AnnotationElement_render() {
-      throw new Error('Abstract method AnnotationElement.render called');
-    }
-  };
-  return AnnotationElement;
-}();
-var LinkAnnotationElement = function LinkAnnotationElementClosure() {
-  function LinkAnnotationElement(parameters) {
-    AnnotationElement.call(this, parameters, true);
-  }
-  _util.Util.inherit(LinkAnnotationElement, AnnotationElement, {
-    render: function LinkAnnotationElement_render() {
-      this.container.className = 'linkAnnotation';
-      var link = document.createElement('a');
-      (0, _dom_utils.addLinkAttributes)(link, {
-        url: this.data.url,
-        target: this.data.newWindow ? _dom_utils.LinkTarget.BLANK : undefined
-      });
-      if (!this.data.url) {
-        if (this.data.action) {
-          this._bindNamedAction(link, this.data.action);
-        } else {
-          this._bindLink(link, this.data.dest);
-        }
-      }
-      this.container.appendChild(link);
-      return this.container;
-    },
-    _bindLink: function _bindLink(link, destination) {
-      var _this = this;
+// var AnnotationElement = function AnnotationElementClosure() {
+//   function AnnotationElement(parameters, isRenderable, ignoreBorder) {
+//     this.isRenderable = isRenderable || false;
+//     this.data = parameters.data;
+//     this.layer = parameters.layer;
+//     this.page = parameters.page;
+//     this.viewport = parameters.viewport;
+//     this.linkService = parameters.linkService;
+//     this.downloadManager = parameters.downloadManager;
+//     this.imageResourcesPath = parameters.imageResourcesPath;
+//     this.renderInteractiveForms = parameters.renderInteractiveForms;
+//     if (isRenderable) {
+//       this.container = this._createContainer(ignoreBorder);
+//     }
+//   }
+//   AnnotationElement.prototype = {
+//     _createContainer: function AnnotationElement_createContainer(ignoreBorder) {
+//       var data = this.data,
+//           page = this.page,
+//           viewport = this.viewport;
+//       var container = document.createElement('section');
+//       var width = data.rect[2] - data.rect[0];
+//       var height = data.rect[3] - data.rect[1];
+//       container.setAttribute('data-annotation-id', data.id);
+//       var rect = _util.Util.normalizeRect([data.rect[0], page.view[3] - data.rect[1] + page.view[1], data.rect[2], page.view[3] - data.rect[3] + page.view[1]]);
+//       _dom_utils.CustomStyle.setProp('transform', container, 'matrix(' + viewport.transform.join(',') + ')');
+//       _dom_utils.CustomStyle.setProp('transformOrigin', container, -rect[0] + 'px ' + -rect[1] + 'px');
+//       if (!ignoreBorder && data.borderStyle.width > 0) {
+//         container.style.borderWidth = data.borderStyle.width + 'px';
+//         if (data.borderStyle.style !== _util.AnnotationBorderStyleType.UNDERLINE) {
+//           width = width - 2 * data.borderStyle.width;
+//           height = height - 2 * data.borderStyle.width;
+//         }
+//         var horizontalRadius = data.borderStyle.horizontalCornerRadius;
+//         var verticalRadius = data.borderStyle.verticalCornerRadius;
+//         if (horizontalRadius > 0 || verticalRadius > 0) {
+//           var radius = horizontalRadius + 'px / ' + verticalRadius + 'px';
+//           _dom_utils.CustomStyle.setProp('borderRadius', container, radius);
+//         }
+//         switch (data.borderStyle.style) {
+//           case _util.AnnotationBorderStyleType.SOLID:
+//             container.style.borderStyle = 'solid';
+//             break;
+//           case _util.AnnotationBorderStyleType.DASHED:
+//             container.style.borderStyle = 'dashed';
+//             break;
+//           case _util.AnnotationBorderStyleType.BEVELED:
+//             (0, _util.warn)('Unimplemented border style: beveled');
+//             break;
+//           case _util.AnnotationBorderStyleType.INSET:
+//             (0, _util.warn)('Unimplemented border style: inset');
+//             break;
+//           case _util.AnnotationBorderStyleType.UNDERLINE:
+//             container.style.borderBottomStyle = 'solid';
+//             break;
+//           default:
+//             break;
+//         }
+//         if (data.color) {
+//           container.style.borderColor = _util.Util.makeCssRgb(data.color[0] | 0, data.color[1] | 0, data.color[2] | 0);
+//         } else {
+//           container.style.borderWidth = 0;
+//         }
+//       }
+//       container.style.left = rect[0] + 'px';
+//       container.style.top = rect[1] + 'px';
+//       container.style.width = width + 'px';
+//       container.style.height = height + 'px';
+//       return container;
+//     },
+//     _createPopup: function AnnotationElement_createPopup(container, trigger, data) {
+//       if (!trigger) {
+//         trigger = document.createElement('div');
+//         trigger.style.height = container.style.height;
+//         trigger.style.width = container.style.width;
+//         container.appendChild(trigger);
+//       }
+//       // var popupElement = new PopupElement({
+//       //   container: container,
+//       //   trigger: trigger,
+//       //   color: data.color,
+//       //   title: data.title,
+//       //   contents: data.contents,
+//       //   hideWrapper: true
+//       // });
+//       // var popup = popupElement.render();
+//       popup.style.left = container.style.width;
+//       container.appendChild(popup);
+//     },
+//     render: function AnnotationElement_render() {
+//       throw new Error('Abstract method AnnotationElement.render called');
+//     }
+//   };
+//   return AnnotationElement;
+// }();
+// var LinkAnnotationElement = function LinkAnnotationElementClosure() {
+//   function LinkAnnotationElement(parameters) {
+//     AnnotationElement.call(this, parameters, true);
+//   }
+//   _util.Util.inherit(LinkAnnotationElement, AnnotationElement, {
+//     render: function LinkAnnotationElement_render() {
+//       this.container.className = 'linkAnnotation';
+//       var link = document.createElement('a');
+//       (0, _dom_utils.addLinkAttributes)(link, {
+//         url: this.data.url,
+//         target: this.data.newWindow ? _dom_utils.LinkTarget.BLANK : undefined
+//       });
+//       if (!this.data.url) {
+//         if (this.data.action) {
+//           this._bindNamedAction(link, this.data.action);
+//         } else {
+//           this._bindLink(link, this.data.dest);
+//         }
+//       }
+//       this.container.appendChild(link);
+//       return this.container;
+//     },
+//     _bindLink: function _bindLink(link, destination) {
+//       var _this = this;
 
-      link.href = this.linkService.getDestinationHash(destination);
-      link.onclick = function () {
-        if (destination) {
-          _this.linkService.navigateTo(destination);
-        }
-        return false;
-      };
-      if (destination) {
-        link.className = 'internalLink';
-      }
-    },
-    _bindNamedAction: function _bindNamedAction(link, action) {
-      var _this2 = this;
+//       link.href = this.linkService.getDestinationHash(destination);
+//       link.onclick = function () {
+//         if (destination) {
+//           _this.linkService.navigateTo(destination);
+//         }
+//         return false;
+//       };
+//       if (destination) {
+//         link.className = 'internalLink';
+//       }
+//     },
+//     _bindNamedAction: function _bindNamedAction(link, action) {
+//       var _this2 = this;
 
-      link.href = this.linkService.getAnchorUrl('');
-      link.onclick = function () {
-        _this2.linkService.executeNamedAction(action);
-        return false;
-      };
-      link.className = 'internalLink';
-    }
-  });
-  return LinkAnnotationElement;
-}();
+//       link.href = this.linkService.getAnchorUrl('');
+//       link.onclick = function () {
+//         _this2.linkService.executeNamedAction(action);
+//         return false;
+//       };
+//       link.className = 'internalLink';
+//     }
+//   });
+//   return LinkAnnotationElement;
+// }();
 // var TextAnnotationElement = function TextAnnotationElementClosure() {
 //   function TextAnnotationElement(parameters) {
 //     var isRenderable = !!(parameters.data.hasPopup || parameters.data.title || parameters.data.contents);
