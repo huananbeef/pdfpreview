@@ -1748,8 +1748,8 @@ function getDefaultSetting(id) {
       return globalSettings ? globalSettings.workerSrc : null;
     case 'disableWorker':
       return globalSettings ? globalSettings.disableWorker : false;
-    // case 'maxImageSize':
-    //   return globalSettings ? globalSettings.maxImageSize : -1;
+    case 'maxImageSize':
+      return globalSettings ? globalSettings.maxImageSize : -1;
     case 'imageResourcesPath':
       return globalSettings ? globalSettings.imageResourcesPath : '';
     case 'isEvalSupported':
@@ -2005,7 +2005,7 @@ function _fetchDocument(worker, source, pdfDataRangeTransport, docId) {
       rangeChunkSize: source.rangeChunkSize,
       length: source.length
     },
-    // maxImageSize: (0, _dom_utils.getDefaultSetting)('maxImageSize'),
+    maxImageSize: (0, _dom_utils.getDefaultSetting)('maxImageSize'),
     disableFontFace: (0, _dom_utils.getDefaultSetting)('disableFontFace'),
     disableCreateObjectURL: (0, _dom_utils.getDefaultSetting)('disableCreateObjectURL'),
     postMessageTransfers: (0, _dom_utils.getDefaultSetting)('postMessageTransfers') && !isPostMessageTransfersDisabled,
@@ -2126,15 +2126,15 @@ var PDFDocumentProxy = function PDFDocumentProxyClosure() {
     getPage: function PDFDocumentProxy_getPage(pageNumber) {
       return this.transport.getPage(pageNumber);
     },
-    // getPageIndex: function PDFDocumentProxy_getPageIndex(ref) {
-    //   return this.transport.getPageIndex(ref);
-    // },
-    // getDestinations: function PDFDocumentProxy_getDestinations() {
-    //   return this.transport.getDestinations();
-    // },
-    // getDestination: function PDFDocumentProxy_getDestination(id) {
-    //   return this.transport.getDestination(id);
-    // },
+    getPageIndex: function PDFDocumentProxy_getPageIndex(ref) {
+      return this.transport.getPageIndex(ref);
+    },
+    getDestinations: function PDFDocumentProxy_getDestinations() {
+      return this.transport.getDestinations();
+    },
+    getDestination: function PDFDocumentProxy_getDestination(id) {
+      return this.transport.getDestination(id);
+    },
     getPageLabels: function PDFDocumentProxy_getPageLabels() {
       return this.transport.getPageLabels();
     },
@@ -3107,23 +3107,23 @@ var WorkerTransport = function WorkerTransportClosure() {
       this.pagePromises[pageIndex] = promise;
       return promise;
     },
-    // getPageIndex: function WorkerTransport_getPageIndexByRef(ref) {
-    //   return this.messageHandler.sendWithPromise('GetPageIndex', { ref: ref }).catch(function (reason) {
-    //     return Promise.reject(new Error(reason));
-    //   });
-    // },
+    getPageIndex: function WorkerTransport_getPageIndexByRef(ref) {
+      return this.messageHandler.sendWithPromise('GetPageIndex', { ref: ref }).catch(function (reason) {
+        return Promise.reject(new Error(reason));
+      });
+    },
     getAnnotations: function WorkerTransport_getAnnotations(pageIndex, intent) {
       return this.messageHandler.sendWithPromise('GetAnnotations', {
         pageIndex: pageIndex,
         intent: intent
       });
     },
-    // getDestinations: function WorkerTransport_getDestinations() {
-    //   return this.messageHandler.sendWithPromise('GetDestinations', null);
-    // },
-    // getDestination: function WorkerTransport_getDestination(id) {
-    //   return this.messageHandler.sendWithPromise('GetDestination', { id: id });
-    // },
+    getDestinations: function WorkerTransport_getDestinations() {
+      return this.messageHandler.sendWithPromise('GetDestinations', null);
+    },
+    getDestination: function WorkerTransport_getDestination(id) {
+      return this.messageHandler.sendWithPromise('GetDestination', { id: id });
+    },
     getPageLabels: function WorkerTransport_getPageLabels() {
       return this.messageHandler.sendWithPromise('GetPageLabels', null);
     },
@@ -6134,7 +6134,7 @@ PDFJS.UnexpectedResponseException = _util.UnexpectedResponseException;
 PDFJS.Util = _util.Util;
 PDFJS.PageViewport = _util.PageViewport;
 PDFJS.createPromiseCapability = _util.createPromiseCapability;
-// PDFJS.maxImageSize = PDFJS.maxImageSize === undefined ? -1 : PDFJS.maxImageSize;
+PDFJS.maxImageSize = PDFJS.maxImageSize === undefined ? -1 : PDFJS.maxImageSize;
 PDFJS.cMapUrl = PDFJS.cMapUrl === undefined ? null : PDFJS.cMapUrl;
 PDFJS.cMapPacked = PDFJS.cMapPacked === undefined ? false : PDFJS.cMapPacked;
 PDFJS.disableFontFace = PDFJS.disableFontFace === undefined ? false : PDFJS.disableFontFace;

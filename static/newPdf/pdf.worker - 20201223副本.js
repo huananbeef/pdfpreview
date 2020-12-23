@@ -16713,7 +16713,7 @@ var _image = __w_pdfjs_require__(26);
 var PartialEvaluator = function PartialEvaluatorClosure() {
   var DefaultPartialEvaluatorOptions = {
     forceDataSchema: false,
-    // maxImageSize: -1,
+    maxImageSize: -1,
     disableFontFace: false,
     nativeImageDecoderSupport: _util.NativeImageDecoding.DECODE,
     ignoreErrors: false
@@ -16971,11 +16971,11 @@ var PartialEvaluator = function PartialEvaluatorClosure() {
         (0, _util.warn)('Image dimensions are missing, or not numbers.');
         return;
       }
-      // var maxImageSize = this.options.maxImageSize;
-      // if (maxImageSize !== -1 && w * h > maxImageSize) {
-      //   (0, _util.warn)('Image exceeded maximum allowed size and was removed.');
-      //   return;
-      // }
+      var maxImageSize = this.options.maxImageSize;
+      if (maxImageSize !== -1 && w * h > maxImageSize) {
+        (0, _util.warn)('Image exceeded maximum allowed size and was removed.');
+        return;
+      }
       var imageMask = dict.get('ImageMask', 'IM') || false;
       var imgData, args;
       if (imageMask) {
@@ -22188,77 +22188,77 @@ var Catalog = function CatalogClosure() {
       next();
       return capability.promise;
     },
-    // getPageIndex: function Catalog_getPageIndex(pageRef) {
-    //   var xref = this.xref;
-    //   function pagesBeforeRef(kidRef) {
-    //     var total = 0;
-    //     var parentRef;
-    //     return xref.fetchAsync(kidRef).then(function (node) {
-    //       if ((0, _primitives.isRefsEqual)(kidRef, pageRef) && !(0, _primitives.isDict)(node, 'Page') && !((0, _primitives.isDict)(node) && !node.has('Type') && node.has('Contents'))) {
-    //         throw new _util.FormatError('The reference does not point to a /Page Dict.');
-    //       }
-    //       if (!node) {
-    //         return null;
-    //       }
-    //       if (!(0, _primitives.isDict)(node)) {
-    //         throw new _util.FormatError('node must be a Dict.');
-    //       }
-    //       parentRef = node.getRaw('Parent');
-    //       return node.getAsync('Parent');
-    //     }).then(function (parent) {
-    //       if (!parent) {
-    //         return null;
-    //       }
-    //       if (!(0, _primitives.isDict)(parent)) {
-    //         throw new _util.FormatError('parent must be a Dict.');
-    //       }
-    //       return parent.getAsync('Kids');
-    //     }).then(function (kids) {
-    //       if (!kids) {
-    //         return null;
-    //       }
-    //       var kidPromises = [];
-    //       var found = false;
-    //       for (var i = 0; i < kids.length; i++) {
-    //         var kid = kids[i];
-    //         if (!(0, _primitives.isRef)(kid)) {
-    //           throw new _util.FormatError('kid must be a Ref.');
-    //         }
-    //         if (kid.num === kidRef.num) {
-    //           found = true;
-    //           break;
-    //         }
-    //         kidPromises.push(xref.fetchAsync(kid).then(function (kid) {
-    //           if (kid.has('Count')) {
-    //             var count = kid.get('Count');
-    //             total += count;
-    //           } else {
-    //             total++;
-    //           }
-    //         }));
-    //       }
-    //       if (!found) {
-    //         throw new _util.FormatError('kid ref not found in parents kids');
-    //       }
-    //       return Promise.all(kidPromises).then(function () {
-    //         return [total, parentRef];
-    //       });
-    //     });
-    //   }
-    //   var total = 0;
-    //   function next(ref) {
-    //     return pagesBeforeRef(ref).then(function (args) {
-    //       if (!args) {
-    //         return total;
-    //       }
-    //       var count = args[0];
-    //       var parentRef = args[1];
-    //       total += count;
-    //       return next(parentRef);
-    //     });
-    //   }
-    //   return next(pageRef);
-    // }
+    getPageIndex: function Catalog_getPageIndex(pageRef) {
+      var xref = this.xref;
+      function pagesBeforeRef(kidRef) {
+        var total = 0;
+        var parentRef;
+        return xref.fetchAsync(kidRef).then(function (node) {
+          if ((0, _primitives.isRefsEqual)(kidRef, pageRef) && !(0, _primitives.isDict)(node, 'Page') && !((0, _primitives.isDict)(node) && !node.has('Type') && node.has('Contents'))) {
+            throw new _util.FormatError('The reference does not point to a /Page Dict.');
+          }
+          if (!node) {
+            return null;
+          }
+          if (!(0, _primitives.isDict)(node)) {
+            throw new _util.FormatError('node must be a Dict.');
+          }
+          parentRef = node.getRaw('Parent');
+          return node.getAsync('Parent');
+        }).then(function (parent) {
+          if (!parent) {
+            return null;
+          }
+          if (!(0, _primitives.isDict)(parent)) {
+            throw new _util.FormatError('parent must be a Dict.');
+          }
+          return parent.getAsync('Kids');
+        }).then(function (kids) {
+          if (!kids) {
+            return null;
+          }
+          var kidPromises = [];
+          var found = false;
+          for (var i = 0; i < kids.length; i++) {
+            var kid = kids[i];
+            if (!(0, _primitives.isRef)(kid)) {
+              throw new _util.FormatError('kid must be a Ref.');
+            }
+            if (kid.num === kidRef.num) {
+              found = true;
+              break;
+            }
+            kidPromises.push(xref.fetchAsync(kid).then(function (kid) {
+              if (kid.has('Count')) {
+                var count = kid.get('Count');
+                total += count;
+              } else {
+                total++;
+              }
+            }));
+          }
+          if (!found) {
+            throw new _util.FormatError('kid ref not found in parents kids');
+          }
+          return Promise.all(kidPromises).then(function () {
+            return [total, parentRef];
+          });
+        });
+      }
+      var total = 0;
+      function next(ref) {
+        return pagesBeforeRef(ref).then(function (args) {
+          if (!args) {
+            return total;
+          }
+          var count = args[0];
+          var parentRef = args[1];
+          total += count;
+          return next(parentRef);
+        });
+      }
+      return next(pageRef);
+    }
   };
   Catalog.parseDestDictionary = function Catalog_parseDestDictionary(params) {
     function addDefaultProtocolToUrl(url) {
@@ -24246,7 +24246,7 @@ var WorkerMessageHandler = {
       ensureNotTerminated();
       var evaluatorOptions = {
         forceDataSchema: data.disableCreateObjectURL,
-        // maxImageSize: data.maxImageSize === undefined ? -1 : data.maxImageSize,
+        maxImageSize: data.maxImageSize === undefined ? -1 : data.maxImageSize,
         disableFontFace: data.disableFontFace,
         nativeImageDecoderSupport: data.nativeImageDecoderSupport,
         ignoreErrors: data.ignoreErrors
