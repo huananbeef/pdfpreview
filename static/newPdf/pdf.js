@@ -578,6 +578,7 @@ function stringToBytes(str) {
   }
   return bytes;
 }
+// 数组长度
 function arrayByteLength(arr) {
   if (arr.length !== undefined) {
     return arr.length;
@@ -585,6 +586,7 @@ function arrayByteLength(arr) {
   assert(arr.byteLength !== undefined);
   return arr.byteLength;
 }
+// 数组转字节
 function arraysToBytes(arr) {
   if (arr.length === 1 && arr[0] instanceof Uint8Array) {
     return arr[0];
@@ -1037,6 +1039,7 @@ var createObjectURL = function createObjectURLClosure() {
     return buffer;
   };
 }();
+// 解决函数
 function resolveCall(fn, args) {
   var thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
@@ -1047,6 +1050,7 @@ function resolveCall(fn, args) {
     resolve(fn.apply(thisArg, args));
   });
 }
+// 包装-提示错误原因
 function wrapReason(reason) {
   if ((typeof reason === 'undefined' ? 'undefined' : _typeof(reason)) !== 'object') {
     return reason;
@@ -1062,6 +1066,7 @@ function wrapReason(reason) {
       return new UnknownErrorException(reason.message, reason.details);
   }
 }
+// 解决或报错时执行
 function resolveOrReject(capability, success, reason) {
   if (success) {
     capability.resolve();
@@ -1436,7 +1441,7 @@ MessageHandler.prototype = {
     this.comObj.removeEventListener('message', this._onComObjOnMessage);
   }
 };
-// 载入图片流
+// 载入图片流--针对后端传输字节流中，含有的东西为图片url地址
 function loadJpegStream(id, imageUrl, objs) {
   var img = new Image();
   img.onload = function loadJpegStream_onloadClosure() {
@@ -1530,7 +1535,7 @@ exports.unreachable = unreachable;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.DOMCMapReaderFactory = exports.DOMCanvasFactory = exports.DEFAULT_LINK_REL = exports.getDefaultSetting = exports.LinkTarget = exports.getFilenameFromUrl = exports.isValidUrl = exports.isExternalLinkTargetSet = exports.addLinkAttributes = exports.RenderingCancelledException = exports.CustomStyle = undefined;
+exports.DOMCMapReaderFactory = exports.DOMCanvasFactory = exports.DEFAULT_LINK_REL = exports.getDefaultSetting = exports.LinkTarget = exports.getFilenameFromUrl = exports.isValidUrl = exports.addLinkAttributes = exports.RenderingCancelledException = exports.CustomStyle = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -1539,7 +1544,7 @@ var _util = __w_pdfjs_require__(0);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var DEFAULT_LINK_REL = 'noopener noreferrer nofollow';
-
+// canvas工厂模式
 var DOMCanvasFactory = function () {
   function DOMCanvasFactory() {
     _classCallCheck(this, DOMCanvasFactory);
@@ -1587,7 +1592,7 @@ var DOMCanvasFactory = function () {
 
   return DOMCanvasFactory;
 }();
-
+// 只读模式
 var DOMCMapReaderFactory = function () {
   function DOMCMapReaderFactory(_ref) {
     var _ref$baseUrl = _ref.baseUrl,
@@ -1646,7 +1651,7 @@ var DOMCMapReaderFactory = function () {
 
   return DOMCMapReaderFactory;
 }();
-
+// 适配-
 var CustomStyle = function CustomStyleClosure() {
   var prefixes = ['ms', 'Moz', 'Webkit', 'O'];
   var _cache = Object.create(null);
@@ -1713,6 +1718,7 @@ function addLinkAttributes(link, params) {
     link.rel = rel;
   }
 }
+// 解析P文件地址
 function getFilenameFromUrl(url) {
   var anchor = url.indexOf('#');
   var query = url.indexOf('?');
@@ -1779,18 +1785,19 @@ function getDefaultSetting(id) {
       throw new Error('Unknown default setting: ' + id);
   }
 }
-function isExternalLinkTargetSet() {
-  var externalLinkTarget = getDefaultSetting('externalLinkTarget');
-  switch (externalLinkTarget) {
-    case LinkTarget.NONE:
-      return false;
-    case LinkTarget.SELF:
-    case LinkTarget.BLANK:
-    case LinkTarget.PARENT:
-    case LinkTarget.TOP:
-      return true;
-  }
-}
+// 是否设置外部链接--()
+// function isExternalLinkTargetSet() {
+//   var externalLinkTarget = getDefaultSetting('externalLinkTarget');
+//   switch (externalLinkTarget) {
+//     case LinkTarget.NONE:
+//       return false;
+//     case LinkTarget.SELF:
+//     case LinkTarget.BLANK:
+//     case LinkTarget.PARENT:
+//     case LinkTarget.TOP:
+//       return true;
+//   }
+// }
 function isValidUrl(url, allowRelative) {
   (0, _util.deprecated)('isValidUrl(), please use createValidAbsoluteUrl() instead.');
   var baseUrl = allowRelative ? 'http://example.com' : null;
@@ -1799,7 +1806,7 @@ function isValidUrl(url, allowRelative) {
 exports.CustomStyle = CustomStyle;
 exports.RenderingCancelledException = RenderingCancelledException;
 exports.addLinkAttributes = addLinkAttributes;
-exports.isExternalLinkTargetSet = isExternalLinkTargetSet;
+// exports.isExternalLinkTargetSet = isExternalLinkTargetSet;
 exports.isValidUrl = isValidUrl;
 exports.getFilenameFromUrl = getFilenameFromUrl;
 exports.LinkTarget = LinkTarget;
@@ -6187,7 +6194,7 @@ PDFJS.CustomStyle = _dom_utils.CustomStyle;
 PDFJS.LinkTarget = _dom_utils.LinkTarget;
 PDFJS.addLinkAttributes = _dom_utils.addLinkAttributes;
 PDFJS.getFilenameFromUrl = _dom_utils.getFilenameFromUrl;
-PDFJS.isExternalLinkTargetSet = _dom_utils.isExternalLinkTargetSet;
+// PDFJS.isExternalLinkTargetSet = _dom_utils.isExternalLinkTargetSet;
 PDFJS.AnnotationLayer = _annotation_layer.AnnotationLayer;
 PDFJS.renderTextLayer = _text_layer.renderTextLayer;
 PDFJS.Metadata = _metadata.Metadata;
@@ -6798,6 +6805,7 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
     });
     return obj;
   };
+  // 有限非负数
   exports.IsFiniteNonNegativeNumber = function (v) {
     if (Number.isNaN(v)) {
       return false;
@@ -6940,66 +6948,66 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
       EnqueueValueWithSize = _require3.EnqueueValueWithSize,
       PeekQueueValue = _require3.PeekQueueValue,
       ResetQueue = _require3.ResetQueue;
-  var WritableStream = function () {
-    function WritableStream() {
-      var underlyingSink = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-          size = _ref.size,
-          _ref$highWaterMark = _ref.highWaterMark,
-          highWaterMark = _ref$highWaterMark === undefined ? 1 : _ref$highWaterMark;
-      _classCallCheck(this, WritableStream);
-      this._state = 'writable';
-      this._storedError = undefined;
-      this._writer = undefined;
-      this._writableStreamController = undefined;
-      this._writeRequests = [];
-      this._inFlightWriteRequest = undefined;
-      this._closeRequest = undefined;
-      this._inFlightCloseRequest = undefined;
-      this._pendingAbortRequest = undefined;
-      this._backpressure = false;
-      var type = underlyingSink.type;
-      if (type !== undefined) {
-        throw new RangeError('Invalid type is specified');
-      }
-      this._writableStreamController = new WritableStreamDefaultController(this, underlyingSink, size, highWaterMark);
-      this._writableStreamController.__startSteps();
-    }
-    _createClass(WritableStream, [{
-      key: 'abort',
-      value: function abort(reason) {
-        if (IsWritableStream(this) === false) {
-          return Promise.reject(streamBrandCheckException('abort'));
-        }
-        if (IsWritableStreamLocked(this) === true) {
-          return Promise.reject(new TypeError('Cannot abort a stream that already has a writer'));
-        }
-        return WritableStreamAbort(this, reason);
-      }
-    }, {
-      key: 'getWriter',
-      value: function getWriter() {
-        if (IsWritableStream(this) === false) {
-          throw streamBrandCheckException('getWriter');
-        }
-        return AcquireWritableStreamDefaultWriter(this);
-      }
-    }, {
-      key: 'locked',
-      get: function get() {
-        if (IsWritableStream(this) === false) {
-          throw streamBrandCheckException('locked');
-        }
-        return IsWritableStreamLocked(this);
-      }
-    }]);
-    return WritableStream;
-  }();
+  // var WritableStream = function () {
+  //   function WritableStream() {
+  //     var underlyingSink = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  //     var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+  //         size = _ref.size,
+  //         _ref$highWaterMark = _ref.highWaterMark,
+  //         highWaterMark = _ref$highWaterMark === undefined ? 1 : _ref$highWaterMark;
+  //     _classCallCheck(this, WritableStream);
+  //     this._state = 'writable';
+  //     this._storedError = undefined;
+  //     this._writer = undefined;
+  //     this._writableStreamController = undefined;
+  //     this._writeRequests = [];
+  //     this._inFlightWriteRequest = undefined;
+  //     this._closeRequest = undefined;
+  //     this._inFlightCloseRequest = undefined;
+  //     this._pendingAbortRequest = undefined;
+  //     this._backpressure = false;
+  //     var type = underlyingSink.type;
+  //     if (type !== undefined) {
+  //       throw new RangeError('Invalid type is specified');
+  //     }
+  //     this._writableStreamController = new WritableStreamDefaultController(this, underlyingSink, size, highWaterMark);
+  //     this._writableStreamController.__startSteps();
+  //   }
+  //   _createClass(WritableStream, [{
+  //     key: 'abort',
+  //     value: function abort(reason) {
+  //       if (IsWritableStream(this) === false) {
+  //         return Promise.reject(streamBrandCheckException('abort'));
+  //       }
+  //       if (IsWritableStreamLocked(this) === true) {
+  //         return Promise.reject(new TypeError('Cannot abort a stream that already has a writer'));
+  //       }
+  //       return WritableStreamAbort(this, reason);
+  //     }
+  //   }, {
+  //     key: 'getWriter',
+  //     value: function getWriter() {
+  //       if (IsWritableStream(this) === false) {
+  //         throw streamBrandCheckException('getWriter');
+  //       }
+  //       return AcquireWritableStreamDefaultWriter(this);
+  //     }
+  //   }, {
+  //     key: 'locked',
+  //     get: function get() {
+  //       if (IsWritableStream(this) === false) {
+  //         throw streamBrandCheckException('locked');
+  //       }
+  //       return IsWritableStreamLocked(this);
+  //     }
+  //   }]);
+  //   return WritableStream;
+  // }();
   module.exports = {
-    AcquireWritableStreamDefaultWriter: AcquireWritableStreamDefaultWriter,
+    // AcquireWritableStreamDefaultWriter: AcquireWritableStreamDefaultWriter,
     IsWritableStream: IsWritableStream,
     IsWritableStreamLocked: IsWritableStreamLocked,
-    WritableStream: WritableStream,
+    // WritableStream: WritableStream,
     WritableStreamAbort: WritableStreamAbort,
     WritableStreamDefaultControllerError: WritableStreamDefaultControllerError,
     WritableStreamDefaultWriterCloseWithErrorPropagation: WritableStreamDefaultWriterCloseWithErrorPropagation,
@@ -7007,9 +7015,10 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
     WritableStreamDefaultWriterWrite: WritableStreamDefaultWriterWrite,
     WritableStreamCloseQueuedOrInFlight: WritableStreamCloseQueuedOrInFlight
   };
-  function AcquireWritableStreamDefaultWriter(stream) {
-    return new WritableStreamDefaultWriter(stream);
-  }
+  //获取可写流默认写入程序
+  // function AcquireWritableStreamDefaultWriter(stream) {
+  //   return new WritableStreamDefaultWriter(stream);
+  // }
   function IsWritableStream(x) {
     if (!typeIsObject(x)) {
       return false;
@@ -7218,121 +7227,121 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
     }
     stream._backpressure = backpressure;
   }
-  var WritableStreamDefaultWriter = function () {
-    function WritableStreamDefaultWriter(stream) {
-      _classCallCheck(this, WritableStreamDefaultWriter);
-      if (IsWritableStream(stream) === false) {
-        throw new TypeError('WritableStreamDefaultWriter can only be constructed with a WritableStream instance');
-      }
-      if (IsWritableStreamLocked(stream) === true) {
-        throw new TypeError('This stream has already been locked for exclusive writing by another writer');
-      }
-      this._ownerWritableStream = stream;
-      stream._writer = this;
-      var state = stream._state;
-      if (state === 'writable') {
-        if (WritableStreamCloseQueuedOrInFlight(stream) === false && stream._backpressure === true) {
-          defaultWriterReadyPromiseInitialize(this);
-        } else {
-          defaultWriterReadyPromiseInitializeAsResolved(this);
-        }
-        defaultWriterClosedPromiseInitialize(this);
-      } else if (state === 'erroring') {
-        defaultWriterReadyPromiseInitializeAsRejected(this, stream._storedError);
-        this._readyPromise.catch(function () {});
-        defaultWriterClosedPromiseInitialize(this);
-      } else if (state === 'closed') {
-        defaultWriterReadyPromiseInitializeAsResolved(this);
-        defaultWriterClosedPromiseInitializeAsResolved(this);
-      } else {
-        assert(state === 'errored', 'state must be errored');
-        var storedError = stream._storedError;
-        defaultWriterReadyPromiseInitializeAsRejected(this, storedError);
-        this._readyPromise.catch(function () {});
-        defaultWriterClosedPromiseInitializeAsRejected(this, storedError);
-        this._closedPromise.catch(function () {});
-      }
-    }
-    _createClass(WritableStreamDefaultWriter, [{
-      key: 'abort',
-      value: function abort(reason) {
-        if (IsWritableStreamDefaultWriter(this) === false) {
-          return Promise.reject(defaultWriterBrandCheckException('abort'));
-        }
-        if (this._ownerWritableStream === undefined) {
-          return Promise.reject(defaultWriterLockException('abort'));
-        }
-        return WritableStreamDefaultWriterAbort(this, reason);
-      }
-    }, {
-      key: 'close',
-      value: function close() {
-        if (IsWritableStreamDefaultWriter(this) === false) {
-          return Promise.reject(defaultWriterBrandCheckException('close'));
-        }
-        var stream = this._ownerWritableStream;
-        if (stream === undefined) {
-          return Promise.reject(defaultWriterLockException('close'));
-        }
-        if (WritableStreamCloseQueuedOrInFlight(stream) === true) {
-          return Promise.reject(new TypeError('cannot close an already-closing stream'));
-        }
-        return WritableStreamDefaultWriterClose(this);
-      }
-    }, {
-      key: 'releaseLock',
-      value: function releaseLock() {
-        if (IsWritableStreamDefaultWriter(this) === false) {
-          throw defaultWriterBrandCheckException('releaseLock');
-        }
-        var stream = this._ownerWritableStream;
-        if (stream === undefined) {
-          return;
-        }
-        assert(stream._writer !== undefined);
-        WritableStreamDefaultWriterRelease(this);
-      }
-    }, {
-      key: 'write',
-      value: function write(chunk) {
-        if (IsWritableStreamDefaultWriter(this) === false) {
-          return Promise.reject(defaultWriterBrandCheckException('write'));
-        }
-        if (this._ownerWritableStream === undefined) {
-          return Promise.reject(defaultWriterLockException('write to'));
-        }
-        return WritableStreamDefaultWriterWrite(this, chunk);
-      }
-    }, {
-      key: 'closed',
-      get: function get() {
-        if (IsWritableStreamDefaultWriter(this) === false) {
-          return Promise.reject(defaultWriterBrandCheckException('closed'));
-        }
-        return this._closedPromise;
-      }
-    }, {
-      key: 'desiredSize',
-      get: function get() {
-        if (IsWritableStreamDefaultWriter(this) === false) {
-          throw defaultWriterBrandCheckException('desiredSize');
-        }
-        if (this._ownerWritableStream === undefined) {
-          throw defaultWriterLockException('desiredSize');
-        }
-        return WritableStreamDefaultWriterGetDesiredSize(this);
-      }
-    }, {
-      key: 'ready',
-      get: function get() {
-        if (IsWritableStreamDefaultWriter(this) === false) {
-          return Promise.reject(defaultWriterBrandCheckException('ready'));
-        }
-        return this._readyPromise;
-      }
-    }]);
-    return WritableStreamDefaultWriter;
-  }();
+  // var WritableStreamDefaultWriter = function () {
+  //   function WritableStreamDefaultWriter(stream) {
+  //     _classCallCheck(this, WritableStreamDefaultWriter);
+  //     if (IsWritableStream(stream) === false) {
+  //       throw new TypeError('WritableStreamDefaultWriter can only be constructed with a WritableStream instance');
+  //     }
+  //     if (IsWritableStreamLocked(stream) === true) {
+  //       throw new TypeError('This stream has already been locked for exclusive writing by another writer');
+  //     }
+  //     this._ownerWritableStream = stream;
+  //     stream._writer = this;
+  //     var state = stream._state;
+  //     if (state === 'writable') {
+  //       if (WritableStreamCloseQueuedOrInFlight(stream) === false && stream._backpressure === true) {
+  //         defaultWriterReadyPromiseInitialize(this);
+  //       } else {
+  //         defaultWriterReadyPromiseInitializeAsResolved(this);
+  //       }
+  //       defaultWriterClosedPromiseInitialize(this);
+  //     } else if (state === 'erroring') {
+  //       defaultWriterReadyPromiseInitializeAsRejected(this, stream._storedError);
+  //       this._readyPromise.catch(function () {});
+  //       defaultWriterClosedPromiseInitialize(this);
+  //     } else if (state === 'closed') {
+  //       defaultWriterReadyPromiseInitializeAsResolved(this);
+  //       defaultWriterClosedPromiseInitializeAsResolved(this);
+  //     } else {
+  //       assert(state === 'errored', 'state must be errored');
+  //       var storedError = stream._storedError;
+  //       defaultWriterReadyPromiseInitializeAsRejected(this, storedError);
+  //       this._readyPromise.catch(function () {});
+  //       defaultWriterClosedPromiseInitializeAsRejected(this, storedError);
+  //       this._closedPromise.catch(function () {});
+  //     }
+  //   }
+  //   _createClass(WritableStreamDefaultWriter, [{
+  //     key: 'abort',
+  //     value: function abort(reason) {
+  //       if (IsWritableStreamDefaultWriter(this) === false) {
+  //         return Promise.reject(defaultWriterBrandCheckException('abort'));
+  //       }
+  //       if (this._ownerWritableStream === undefined) {
+  //         return Promise.reject(defaultWriterLockException('abort'));
+  //       }
+  //       return WritableStreamDefaultWriterAbort(this, reason);
+  //     }
+  //   }, {
+  //     key: 'close',
+  //     value: function close() {
+  //       if (IsWritableStreamDefaultWriter(this) === false) {
+  //         return Promise.reject(defaultWriterBrandCheckException('close'));
+  //       }
+  //       var stream = this._ownerWritableStream;
+  //       if (stream === undefined) {
+  //         return Promise.reject(defaultWriterLockException('close'));
+  //       }
+  //       if (WritableStreamCloseQueuedOrInFlight(stream) === true) {
+  //         return Promise.reject(new TypeError('cannot close an already-closing stream'));
+  //       }
+  //       return WritableStreamDefaultWriterClose(this);
+  //     }
+  //   }, {
+  //     key: 'releaseLock',
+  //     value: function releaseLock() {
+  //       if (IsWritableStreamDefaultWriter(this) === false) {
+  //         throw defaultWriterBrandCheckException('releaseLock');
+  //       }
+  //       var stream = this._ownerWritableStream;
+  //       if (stream === undefined) {
+  //         return;
+  //       }
+  //       assert(stream._writer !== undefined);
+  //       WritableStreamDefaultWriterRelease(this);
+  //     }
+  //   }, {
+  //     key: 'write',
+  //     value: function write(chunk) {
+  //       if (IsWritableStreamDefaultWriter(this) === false) {
+  //         return Promise.reject(defaultWriterBrandCheckException('write'));
+  //       }
+  //       if (this._ownerWritableStream === undefined) {
+  //         return Promise.reject(defaultWriterLockException('write to'));
+  //       }
+  //       return WritableStreamDefaultWriterWrite(this, chunk);
+  //     }
+  //   }, {
+  //     key: 'closed',
+  //     get: function get() {
+  //       if (IsWritableStreamDefaultWriter(this) === false) {
+  //         return Promise.reject(defaultWriterBrandCheckException('closed'));
+  //       }
+  //       return this._closedPromise;
+  //     }
+  //   }, {
+  //     key: 'desiredSize',
+  //     get: function get() {
+  //       if (IsWritableStreamDefaultWriter(this) === false) {
+  //         throw defaultWriterBrandCheckException('desiredSize');
+  //       }
+  //       if (this._ownerWritableStream === undefined) {
+  //         throw defaultWriterLockException('desiredSize');
+  //       }
+  //       return WritableStreamDefaultWriterGetDesiredSize(this);
+  //     }
+  //   }, {
+  //     key: 'ready',
+  //     get: function get() {
+  //       if (IsWritableStreamDefaultWriter(this) === false) {
+  //         return Promise.reject(defaultWriterBrandCheckException('ready'));
+  //       }
+  //       return this._readyPromise;
+  //     }
+  //   }]);
+  //   return WritableStreamDefaultWriter;
+  // }();
   function IsWritableStreamDefaultWriter(x) {
     if (!typeIsObject(x)) {
       return false;
@@ -7442,68 +7451,68 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
     WritableStreamDefaultControllerWrite(controller, chunk, chunkSize);
     return promise;
   }
-  var WritableStreamDefaultController = function () {
-    function WritableStreamDefaultController(stream, underlyingSink, size, highWaterMark) {
-      _classCallCheck(this, WritableStreamDefaultController);
-      if (IsWritableStream(stream) === false) {
-        throw new TypeError('WritableStreamDefaultController can only be constructed with a WritableStream instance');
-      }
-      if (stream._writableStreamController !== undefined) {
-        throw new TypeError('WritableStreamDefaultController instances can only be created by the WritableStream constructor');
-      }
-      this._controlledWritableStream = stream;
-      this._underlyingSink = underlyingSink;
-      this._queue = undefined;
-      this._queueTotalSize = undefined;
-      ResetQueue(this);
-      this._started = false;
-      var normalizedStrategy = ValidateAndNormalizeQueuingStrategy(size, highWaterMark);
-      this._strategySize = normalizedStrategy.size;
-      this._strategyHWM = normalizedStrategy.highWaterMark;
-      var backpressure = WritableStreamDefaultControllerGetBackpressure(this);
-      WritableStreamUpdateBackpressure(stream, backpressure);
-    }
-    _createClass(WritableStreamDefaultController, [{
-      key: 'error',
-      value: function error(e) {
-        if (IsWritableStreamDefaultController(this) === false) {
-          throw new TypeError('WritableStreamDefaultController.prototype.error can only be used on a WritableStreamDefaultController');
-        }
-        var state = this._controlledWritableStream._state;
-        if (state !== 'writable') {
-          return;
-        }
-        WritableStreamDefaultControllerError(this, e);
-      }
-    }, {
-      key: '__abortSteps',
-      value: function __abortSteps(reason) {
-        return PromiseInvokeOrNoop(this._underlyingSink, 'abort', [reason]);
-      }
-    }, {
-      key: '__errorSteps',
-      value: function __errorSteps() {
-        ResetQueue(this);
-      }
-    }, {
-      key: '__startSteps',
-      value: function __startSteps() {
-        var _this = this;
-        var startResult = InvokeOrNoop(this._underlyingSink, 'start', [this]);
-        var stream = this._controlledWritableStream;
-        Promise.resolve(startResult).then(function () {
-          assert(stream._state === 'writable' || stream._state === 'erroring');
-          _this._started = true;
-          WritableStreamDefaultControllerAdvanceQueueIfNeeded(_this);
-        }, function (r) {
-          assert(stream._state === 'writable' || stream._state === 'erroring');
-          _this._started = true;
-          WritableStreamDealWithRejection(stream, r);
-        }).catch(rethrowAssertionErrorRejection);
-      }
-    }]);
-    return WritableStreamDefaultController;
-  }();
+  // var WritableStreamDefaultController = function () {
+  //   function WritableStreamDefaultController(stream, underlyingSink, size, highWaterMark) {
+  //     _classCallCheck(this, WritableStreamDefaultController);
+  //     if (IsWritableStream(stream) === false) {
+  //       throw new TypeError('WritableStreamDefaultController can only be constructed with a WritableStream instance');
+  //     }
+  //     if (stream._writableStreamController !== undefined) {
+  //       throw new TypeError('WritableStreamDefaultController instances can only be created by the WritableStream constructor');
+  //     }
+  //     this._controlledWritableStream = stream;
+  //     this._underlyingSink = underlyingSink;
+  //     this._queue = undefined;
+  //     this._queueTotalSize = undefined;
+  //     ResetQueue(this);
+  //     this._started = false;
+  //     var normalizedStrategy = ValidateAndNormalizeQueuingStrategy(size, highWaterMark);
+  //     this._strategySize = normalizedStrategy.size;
+  //     this._strategyHWM = normalizedStrategy.highWaterMark;
+  //     var backpressure = WritableStreamDefaultControllerGetBackpressure(this);
+  //     WritableStreamUpdateBackpressure(stream, backpressure);
+  //   }
+  //   _createClass(WritableStreamDefaultController, [{
+  //     key: 'error',
+  //     value: function error(e) {
+  //       if (IsWritableStreamDefaultController(this) === false) {
+  //         throw new TypeError('WritableStreamDefaultController.prototype.error can only be used on a WritableStreamDefaultController');
+  //       }
+  //       var state = this._controlledWritableStream._state;
+  //       if (state !== 'writable') {
+  //         return;
+  //       }
+  //       WritableStreamDefaultControllerError(this, e);
+  //     }
+  //   }, {
+  //     key: '__abortSteps',
+  //     value: function __abortSteps(reason) {
+  //       return PromiseInvokeOrNoop(this._underlyingSink, 'abort', [reason]);
+  //     }
+  //   }, {
+  //     key: '__errorSteps',
+  //     value: function __errorSteps() {
+  //       ResetQueue(this);
+  //     }
+  //   }, {
+  //     key: '__startSteps',
+  //     value: function __startSteps() {
+  //       var _this = this;
+  //       var startResult = InvokeOrNoop(this._underlyingSink, 'start', [this]);
+  //       var stream = this._controlledWritableStream;
+  //       Promise.resolve(startResult).then(function () {
+  //         assert(stream._state === 'writable' || stream._state === 'erroring');
+  //         _this._started = true;
+  //         WritableStreamDefaultControllerAdvanceQueueIfNeeded(_this);
+  //       }, function (r) {
+  //         assert(stream._state === 'writable' || stream._state === 'erroring');
+  //         _this._started = true;
+  //         WritableStreamDealWithRejection(stream, r);
+  //       }).catch(rethrowAssertionErrorRejection);
+  //     }
+  //   }]);
+  //   return WritableStreamDefaultController;
+  // }();
   function WritableStreamDefaultControllerClose(controller) {
     EnqueueValueWithSize(controller, 'close', 0);
     WritableStreamDefaultControllerAdvanceQueueIfNeeded(controller);
@@ -7618,9 +7627,9 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
     assert(stream._state === 'writable');
     WritableStreamStartErroring(stream, error);
   }
-  function streamBrandCheckException(name) {
-    return new TypeError('WritableStream.prototype.' + name + ' can only be used on a WritableStream');
-  }
+  // function streamBrandCheckException(name) {
+  //   return new TypeError('WritableStream.prototype.' + name + ' can only be used on a WritableStream');
+  // }
   function defaultWriterBrandCheckException(name) {
     return new TypeError('WritableStreamDefaultWriter.prototype.' + name + ' can only be used on a WritableStreamDefaultWriter');
   }
@@ -9329,7 +9338,7 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 
   var transformStream = __w_pdfjs_require__(6);
   var readableStream = __w_pdfjs_require__(4);
-  var writableStream = __w_pdfjs_require__(2);
+  // var writableStream = __w_pdfjs_require__(2);
   exports.TransformStream = transformStream.TransformStream;
   exports.ReadableStream = readableStream.ReadableStream;
   exports.IsReadableStreamDisturbed = readableStream.IsReadableStreamDisturbed;
@@ -9337,10 +9346,10 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
   exports.ReadableStreamDefaultControllerEnqueue = readableStream.ReadableStreamDefaultControllerEnqueue;
   exports.ReadableStreamDefaultControllerError = readableStream.ReadableStreamDefaultControllerError;
   exports.ReadableStreamDefaultControllerGetDesiredSize = readableStream.ReadableStreamDefaultControllerGetDesiredSize;
-  exports.AcquireWritableStreamDefaultWriter = writableStream.AcquireWritableStreamDefaultWriter;
-  exports.IsWritableStream = writableStream.IsWritableStream;
+  // exports.AcquireWritableStreamDefaultWriter = writableStream.AcquireWritableStreamDefaultWriter;
+  // exports.IsWritableStream = writableStream.IsWritableStream;
   exports.IsWritableStreamLocked = writableStream.IsWritableStreamLocked;
-  exports.WritableStream = writableStream.WritableStream;
+  // exports.WritableStream = writableStream.WritableStream;
   exports.WritableStreamAbort = writableStream.WritableStreamAbort;
   exports.WritableStreamDefaultControllerError = writableStream.WritableStreamDefaultControllerError;
   exports.WritableStreamDefaultWriterCloseWithErrorPropagation = writableStream.WritableStreamDefaultWriterCloseWithErrorPropagation;
@@ -9384,7 +9393,7 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
       ReadableStreamDefaultControllerError = _require3.ReadableStreamDefaultControllerError,
       ReadableStreamDefaultControllerGetDesiredSize = _require3.ReadableStreamDefaultControllerGetDesiredSize;
   var _require4 = __w_pdfjs_require__(2),
-      WritableStream = _require4.WritableStream,
+      // WritableStream = _require4.WritableStream,
       WritableStreamDefaultControllerError = _require4.WritableStreamDefaultControllerError;
   function TransformStreamCloseReadable(transformStream) {
     if (transformStream._errored === true) {
